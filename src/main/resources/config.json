@@ -1,0 +1,42 @@
+{
+  "database": {
+    "driverClass": "org.postgresql.Driver",
+    "user": "postgres",
+    "password": "test123",
+    "url": "jdbc:postgresql://127.0.0.1:5432/dcae_inv",
+    "properties": {
+      "charSet": "UTF-8"
+    },
+    "maxWaitForConnection": "1s",
+    "validationQuery": "/* MyService Health Check */ SELECT 1",
+    "minSize": 2,
+    "maxSize": 8,
+    "initialSize": 2,
+    "checkConnectionWhileIdle": false,
+    "evictionInterval": "10s",
+    "minIdleTime": "1 minute"
+  },
+  "dcaeControllerConnection": {
+    "host": "dcae-controller-hostname",
+    "port": 9998,
+    "basePath": "resources",
+    "user": null,
+    "password": null,
+    "required": false
+  },
+  "databusControllerConnection": {
+    "host": "databus-controller-hostname",
+    "port": 8443,
+    "mechId": null,
+    "password": null,
+    "required": false
+  },
+  "httpClient": {
+    "minThreads": 1,
+    "maxThreads": 128,
+    "gzipEnabled": false,
+    "gzipEnabledForRequests": false,
+    "timeout": "5000milliseconds",
+    "connectionTimeout": "5000milliseconds"
+  }
+}
