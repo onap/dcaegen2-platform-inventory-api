@@ -26,7 +26,7 @@
         <!-- Black Duck plugin dependencies -->
         <pluginRepository>
             <id>JCenter</id>
-            <name>JCenter Repository</name>
+            <name>dcaegen2-platform-inventory-api</name>
             <url>http://jcenter.bintray.com</url>
         </pluginRepository>
 
