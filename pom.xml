@@ -1,8 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.openecomp.dcae</groupId>
-    <artifactId>dcae-inventory</artifactId>
+    <parent>
+        <groupId>org.onap.oparent</groupId>
+        <artifactId>oparent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.onap.dcaegen2.platform</groupId>
+    <artifactId>inventory-api</artifactId>
     <version>1.2.0</version>
     <!--internal <version>2.4.0</version>-->
 
@@ -15,7 +21,6 @@
         <ecomp.organizationName>AT&amp;T Intellectual Property. All rights reserved.</ecomp.organizationName>
 
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
-        <docker.registry>nexus3.onap.org:10003</docker.registry>
         <nexusproxy>https://nexus.onap.org</nexusproxy>
         <snapshots.path>content/repositories/snapshots/</snapshots.path>
         <releases.path>content/repositories/releases/</releases.path>
@@ -296,8 +301,7 @@
                         </goals>
                         <configuration>
                             <image>${project.artifactId}</image>
-                            <newName>${docker.registry}/openecomp/${project.artifactId}:${project.version}-${maven.build.timestamp}</newName>
-                            <!--serverId>${docker.registry}</serverId-->
+                            <newName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}:${project.version}-${maven.build.timestamp}</newName>
                             <pushImage>false</pushImage>
                         </configuration>
                     </execution>
@@ -309,8 +313,7 @@
                         </goals>
                         <configuration>
                             <image>${project.artifactId}</image>
-                            <newName>${docker.registry}/openecomp/${project.artifactId}:LATEST</newName>
-                            <!--serverId>${docker.registry}</serverId-->
+                            <newName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}:LATEST</newName>
                             <pushImage>false</pushImage>
                         </configuration>
                     </execution>
