@@ -302,7 +302,7 @@
                         <configuration>
                             <image>${project.artifactId}</image>
                             <newName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}:${project.version}-${maven.build.timestamp}</newName>
-                            <pushImage>false</pushImage>
+                            <pushImage>true</pushImage>
                         </configuration>
                     </execution>
                     <execution>
@@ -314,7 +314,7 @@
                         <configuration>
                             <image>${project.artifactId}</image>
                             <newName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}:LATEST</newName>
-                            <pushImage>false</pushImage>
+                            <pushImage>true</pushImage>
                         </configuration>
                     </execution>
                 </executions>
@@ -374,21 +374,4 @@
             </plugin>
         </plugins>
     </reporting>
-
-    <distributionManagement>
-        <repository>
-            <id>ecomp-releases</id>
-            <name>Open eCOMP Release Repository</name>
-            <url>${nexusproxy}/${releases.path}</url>
-        </repository>
-        <snapshotRepository>
-            <id>ecomp-snapshots</id>
-            <name>Open eCOMP Snapshot Repository</name>
-            <url>${nexusproxy}/${snapshots.path}</url>
-        </snapshotRepository>
-        <site>
-            <id>ecomp-site</id>
-            <url>dav:${nexusproxy}/${site.path}</url>
-        </site>
-    </distributionManagement>
 </project>
