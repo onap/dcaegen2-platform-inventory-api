@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.UUID;
 
 
 /**
@@ -204,10 +205,12 @@ public class DcaeServiceTypesApiServiceImplTests {
         minimalFixture.setOwner("tester");
         minimalFixture.setBlueprintTemplate("{ blueprint template goes here }");
 
-        String expectedTypeId = String.format("%s:%s", minimalFixture.getTypeName(), minimalFixture.getTypeVersion());
+        UUID expectedTypeIdUUID = UUID.randomUUID();
 
-        when(mockTypesDAO.getByTypeId(expectedTypeId)).thenReturn(new DCAEServiceTypeObject());
-        when(mockServicesDAO.countByType(DCAEServiceObject.DCAEServiceStatus.RUNNING, expectedTypeId)).thenReturn(10);
+        DCAEServiceTypeObject fakeExistingType = new DCAEServiceTypeObject();
+        fakeExistingType.setTypeId(expectedTypeIdUUID.toString());
+        when(mockTypesDAO.getByRequestFromNotASDC(minimalFixture)).thenReturn(fakeExistingType);
+        when(mockServicesDAO.countByType(DCAEServiceObject.DCAEServiceStatus.RUNNING, fakeExistingType.getTypeId())).thenReturn(10);
 
         try {
             Response response = api.dcaeServiceTypesTypeIdPost(minimalFixture, uriInfo, null);
