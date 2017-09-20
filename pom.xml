@@ -10,6 +10,7 @@
     <groupId>org.onap.dcaegen2.platform</groupId>
     <artifactId>inventory-api</artifactId>
     <version>1.2.0</version>
+    <name>dcaegen2-platform-inventory-api</name>
     <!--internal <version>2.4.0</version>-->
 
     <properties>
