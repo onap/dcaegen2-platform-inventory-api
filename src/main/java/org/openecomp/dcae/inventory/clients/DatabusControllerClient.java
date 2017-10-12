@@ -43,12 +43,13 @@ public class DatabusControllerClient {
     private final InventoryConfiguration.DatabusControllerConnectionConfiguration connectionConfiguration;
 
     public URI constructResourceURI(String resourcePath) {
+        String newResourcePath = resourcePath;
         // Make sure that the resource path has a "/" because the UriBuilder sucks and doesn't do it for us.
-        if (resourcePath.charAt(0) != '/') {
-            resourcePath = (new StringBuilder("/")).append(resourcePath).toString();
+        if (newResourcePath.charAt(0) != '/') {
+            newResourcePath = (new StringBuilder("/")).append(newResourcePath).toString();
         }
 
-        return UriBuilder.fromPath(resourcePath.toString()).scheme("https").host(this.connectionConfiguration.getHost())
+        return UriBuilder.fromPath(resourcePath).scheme("https").host(this.connectionConfiguration.getHost())
                 .port(this.connectionConfiguration.getPort()).build();
     }
 

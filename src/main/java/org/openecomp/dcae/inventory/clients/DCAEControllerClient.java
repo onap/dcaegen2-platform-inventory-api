@@ -141,15 +141,16 @@ public class DCAEControllerClient {
 
     public URI constructResourceURI(String resourcePath) {
         // TODO: Better way to construct this?
+        String newResourcePath = resourcePath;
 
         // Make sure that the resource path has a "/" because the UriBuilder sucks and doesn't do it for us.
-        if (resourcePath.charAt(0) != '/') {
-            resourcePath = (new StringBuilder("/")).append(resourcePath).toString();
+        if (newResourcePath.charAt(0) != '/') {
+            newResourcePath = (new StringBuilder("/")).append(newResourcePath).toString();
         }
 
         StringBuilder actualPath = new StringBuilder("/");
         actualPath.append(this.connectionConfiguration.getBasePath());
-        actualPath.append(resourcePath);
+        actualPath.append(newResourcePath);
 
         return UriBuilder.fromPath(actualPath.toString()).scheme("http").host(this.connectionConfiguration.getHost())
                 .port(this.connectionConfiguration.getPort()).build();
