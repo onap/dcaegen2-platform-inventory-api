@@ -72,7 +72,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         service.setVnfLocation(serviceObject.getVnfLocation());
         service.setDeploymentRef(serviceObject.getDeploymentRef());
 
-        List<DCAEServiceComponent> serviceComponents = new ArrayList<DCAEServiceComponent>();
+        List<DCAEServiceComponent> serviceComponents = new ArrayList<>();
 
         for (DCAEServiceComponentObject sco : componentObjects) {
             DCAEServiceComponent component = new DCAEServiceComponent();
@@ -131,8 +131,8 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
     public Response dcaeServicesGet(String typeId, String vnfId, String vnfType, String vnfLocation,
                                     String componentType, Boolean shareable, DateTime created, Integer offset,
                                     UriInfo uriInfo, SecurityContext securityContext) {
-        List<DCAEServiceObject> serviceObjects = new ArrayList<>();
-        DateTime createdCutoff = (created == null ? DateTime.now(DateTimeZone.UTC) : created);
+        List<DCAEServiceObject> serviceObjects;
+        DateTime createdCutoff = created == null ? DateTime.now(DateTimeZone.UTC) : created;
 
         LOG.info(String.format("Create time upper bound cutoff: %s", createdCutoff.toString()));
 
@@ -146,7 +146,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
             sb.append(" join dcae_services_components_maps m on ds.service_id = m.service_id ");
             sb.append(" join dcae_service_components dsc on m.component_id = dsc.component_id");
 
-            List<String> whereClauses = new ArrayList<String>();
+            List<String> whereClauses = new ArrayList<>();
 
             if (typeId != null) {
                 whereClauses.add("ds.type_id = :typeId");
@@ -207,7 +207,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
             if (shareable != null) {
                 // NOTE: That the shareable field in the database is actually an integer.
-                query.bind("shareable", (shareable ? 1 : 0));
+                query.bind("shareable", shareable ? 1 : 0);
             }
 
             query.bind("createdCutoff", createdCutoff);
@@ -225,7 +225,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         List<DCAEServiceObject> serviceObjectsSliced = serviceObjects.subList(offset, endpoint);
 
         DCAEServiceComponentsDAO componentsDAO = InventoryDAOManager.getInstance().getDCAEServiceComponentsDAO();
-        List<DCAEService> services = new ArrayList<DCAEService>();
+        List<DCAEService> services = new ArrayList<>();
 
         for (DCAEServiceObject so : serviceObjectsSliced) {
             List<DCAEServiceComponentObject> components = componentsDAO.getByServiceId(so.getServiceId());
@@ -298,7 +298,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         // Watch! We have to query for services regardless of status because we need to account for "removed" instances
         // that get resurrected.
         final DCAEServiceObject serviceObjectFromStore = servicesDAO.getByServiceId(serviceId);
-        final Map<String, DCAEServiceComponentObject> componentObjectsFromStore = new HashMap<String, DCAEServiceComponentObject>();
+        final Map<String, DCAEServiceComponentObject> componentObjectsFromStore = new HashMap<>();
 
         for (DCAEServiceComponentObject componentObject : componentsDAO.getByServiceId(serviceId)) {
             componentObjectsFromStore.put(componentObject.getComponentId(), componentObject);
@@ -311,7 +311,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
         // 1) Insert/update for DCAEServiceObject
 
-        DCAEServiceObject serviceObjectToSendBack = serviceObjectFromStore;
+        DCAEServiceObject serviceObjectToSendBack;
 
         if (serviceObjectFromStore == null) {
             serviceObjectToSendBack = new DCAEServiceObject(serviceId, request);
@@ -329,14 +329,14 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
         // 2) Insert/update DCAEServiceComponentObjects. Components exist independent of the associated DCAE service.
 
-        Map<String, DCAEServiceComponentObject> componentObjectsToSendBack = new HashMap<String, DCAEServiceComponentObject>();
+        Map<String, DCAEServiceComponentObject> componentObjectsToSendBack = new HashMap<>();
 
         for (DCAEServiceComponentRequest requestComponent : request.getComponents()) {
             // Have to query the database rather than checking the result of getting by service id because of the
             // independence of components and services. A component may already exist even though from a service
             // perspective it is seen as "new".
             final DCAEServiceComponentObject coExisting = componentsDAO.getByComponentId(requestComponent.getComponentId());
-            DCAEServiceComponentObject coToSendBack = null;
+            DCAEServiceComponentObject coToSendBack;
 
             if (coExisting == null) {
                 // Add new component
@@ -380,6 +380,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         return Response.ok().entity(service).build();
     }
 
+    @Override
     public Response dcaeServicesServiceIdDelete(String serviceId, SecurityContext securityContext) throws NotFoundException {
         DCAEServicesDAO servicesDAO = InventoryDAOManager.getInstance().getDCAEServicesDAO();
 

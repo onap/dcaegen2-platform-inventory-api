@@ -43,7 +43,6 @@ public class Bootstrap extends HttpServlet {
         .name("")
         .url(""));
 
-    ServletContext context = config.getServletContext();
     Swagger swagger = new Swagger().info(info);
 
     new SwaggerContextService().withServletConfig(config).updateSwagger(swagger);
