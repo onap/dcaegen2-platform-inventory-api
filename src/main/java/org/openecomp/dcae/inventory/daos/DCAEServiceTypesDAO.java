@@ -39,6 +39,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
  */
 public interface DCAEServiceTypesDAO extends InventoryDAO {
 
+    @Override
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_service_types\')")
     Boolean checkIfTableExists();
 
@@ -46,6 +47,7 @@ public interface DCAEServiceTypesDAO extends InventoryDAO {
      * Note that service_ids and service_locations are nullable fields. This might not be the right decision but because
      * the resource model allows for nulls, thought it should consistent.
      */
+    @Override
     @SqlUpdate("create table dcae_service_types (type_id varchar not null, type_version integer not null, " +
             "type_name varchar not null, owner varchar not null, blueprint_template text not null, " +
             "vnf_types varchar[] not null, service_ids varchar[], service_locations varchar[], " +

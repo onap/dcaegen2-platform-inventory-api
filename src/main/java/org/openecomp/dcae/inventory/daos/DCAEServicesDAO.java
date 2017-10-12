@@ -36,9 +36,11 @@ import org.skife.jdbi.v2.util.IntegerMapper;
  */
 public interface DCAEServicesDAO extends InventoryDAO {
 
+    @Override
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_services\')")
     Boolean checkIfTableExists();
 
+    @Override
     @SqlUpdate("create table dcae_services (service_id varchar not null primary key, type_id varchar not null, " +
             "vnf_id varchar not null, vnf_type varchar not null, vnf_location varchar not null, deployment_ref varchar, " +
             "created timestamp not null, modified timestamp not null, status varchar not null)")

@@ -35,9 +35,11 @@ import java.util.List;
  */
 public interface DCAEServiceComponentsDAO extends InventoryDAO {
 
+    @Override
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_service_components\')")
     Boolean checkIfTableExists();
 
+    @Override
     @SqlUpdate("create table dcae_service_components (component_id varchar not null primary key, component_type varchar not null, " +
             "component_source varchar not null, shareable integer default 0, created timestamp not null, modified timestamp not null)")
     void createTable();

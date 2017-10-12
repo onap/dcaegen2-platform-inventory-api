@@ -33,9 +33,11 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
  */
 public interface DCAEServicesComponentsMapsDAO extends InventoryDAO {
 
+    @Override
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_services_components_maps\')")
     Boolean checkIfTableExists();
 
+    @Override
     @SqlUpdate("create table dcae_services_components_maps (service_id varchar not null references dcae_services (service_id), " +
             "component_id varchar not null references dcae_service_components (component_id), " +
             "created timestamp not null, primary key (service_id, component_id))")
