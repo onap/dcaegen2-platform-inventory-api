@@ -98,6 +98,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                                 .rel("component").title(component.getComponentId()).build();
                         component.setComponentLink(componentLink);
                     } catch (DCAEControllerClientException e) {
+						LOG.info("" , e);
                         LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()));
                     }
                 }
@@ -112,6 +113,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                             LOG.warn(String.format("Feed/topic does not exist: %s", sco.getComponentId()));
                         }
                     } catch (DatabusControllerClientException e) {
+						LOG.info("" , e);
                         LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()));
                     }
                 }
