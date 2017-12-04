@@ -60,6 +60,7 @@ public class DBIExceptionMapper<T extends DBIException> implements ExceptionMapp
             InventoryDAOManager.getInstance().initialize();
             clientMessage.append(" Connection has been successfully reset. Please try again.");
         } catch(Exception e) {
+			LOG.info("" , e);
             LOG.error(String.format("Failed to re-initialize database connection: %s", e.getMessage()));
             clientMessage.append(" Connection reset attempt has failed. Please try again soon.");
         }
