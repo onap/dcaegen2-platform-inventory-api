@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_2bac18ed",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServicesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2017-12-04T21:47:51Z",
+      "side": 1,
+      "message": "Logging exception under info level to be avoided",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 22
+      },
+      "revId": "dc46b1c1b3dcf554706b4605cf5f8cea933d0dde",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_cbb8142d",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServicesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2017-12-04T21:47:51Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 116,
+        "startChar": 6,
+        "endLine": 116,
+        "endChar": 23
+      },
+      "revId": "dc46b1c1b3dcf554706b4605cf5f8cea933d0dde",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
