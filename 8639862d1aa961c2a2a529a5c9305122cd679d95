@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_cb61f4d4",
+        "filename": "src/main/java/org/openecomp/dcae/inventory/exceptions/mappers/DBIExceptionMapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2017-12-04T21:44:24Z",
+      "side": 1,
+      "message": "Logging exception INFO level should be avoided. The exception can be instead displayed part of error log already in place",
+      "range": {
+        "startLine": 63,
+        "startChar": 1,
+        "endLine": 63,
+        "endChar": 20
+      },
+      "revId": "8639862d1aa961c2a2a529a5c9305122cd679d95",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
