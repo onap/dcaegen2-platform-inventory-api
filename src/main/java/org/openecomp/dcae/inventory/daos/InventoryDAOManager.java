@@ -131,7 +131,7 @@ public final class InventoryDAOManager {
                 LOG.info(String.format("Sql view created: %s", viewName));
             }
         } catch (Exception e) {
-            throw new RuntimeException("", e);
+            throw new InventoryDAOManagerSetupException("view not exist exception message");
         }
 
         // Do this assignment at the end after performing table checks to ensure that connection is good
