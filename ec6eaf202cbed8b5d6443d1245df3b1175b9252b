@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_eb8f10cb",
+        "filename": "src/main/java/org/openecomp/dcae/inventory/daos/InventoryDAOManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-12-05T13:04:34Z",
+      "side": 1,
+      "message": "This loses information. A better error message might be:\n\n\"view does not exist, \" + e.getMessage()\n\nor (if this works):\n\n\"view does not exist, \" + e",
+      "revId": "ec6eaf202cbed8b5d6443d1245df3b1175b9252b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
