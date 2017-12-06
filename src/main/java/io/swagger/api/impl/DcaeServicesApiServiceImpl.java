@@ -99,6 +99,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                         component.setComponentLink(componentLink);
                     } catch (DCAEControllerClientException e) {
                         LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()));
+						throw new RuntimeException(e);
                     }
                 }
             } else if (COMPONENT_SOURCE_DATA_BUS_CONTROLLER.equals(sco.getComponentSource().toUpperCase(Locale.ENGLISH))) {
