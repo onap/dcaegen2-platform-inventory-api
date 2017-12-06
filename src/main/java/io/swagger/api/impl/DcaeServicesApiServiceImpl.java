@@ -114,6 +114,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                         }
                     } catch (DatabusControllerClientException e) {
                         LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()));
+						throw new RuntimeException(e);
                     }
                 }
             } else {
