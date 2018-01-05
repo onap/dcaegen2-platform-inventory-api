@@ -26,11 +26,15 @@ import io.swagger.api.DcaeServicesApiService;
 import io.swagger.api.impl.DcaeServicesApiServiceImpl;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
-public class DcaeServicesApiServiceFactory {
+public final class DcaeServicesApiServiceFactory {
 
     // Yes I agree this code is not great and I blame for Swagger for putting me in this spot.
     private static DCAEControllerClient dcaeControllerClient;
     private static DatabusControllerClient databusControllerClient;
+
+    //Utility classes, which are a collection of static members, are not meant to be instantiated.
+    private DcaeServicesApiServiceFactory(){
+    }
 
     public static void setDcaeControllerClient(DCAEControllerClient dcaeControllerClient) {
         DcaeServicesApiServiceFactory.dcaeControllerClient = dcaeControllerClient;

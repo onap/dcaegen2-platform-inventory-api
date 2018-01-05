@@ -49,13 +49,18 @@ import java.util.*;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
 public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImpl.class);
-    private static int PAGINATION_PAGE_SIZE = 25;
-    private static String COMPONENT_SOURCE_DCAE_CONTROLLER = "DCAECONTROLLER";
-    private static String COMPONENT_SOURCE_DATA_BUS_CONTROLLER = "DMAAPCONTROLLER";
+    private static final Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImpl.class);
+    private static final int PAGINATION_PAGE_SIZE = 25;
+    private static final String COMPONENT_SOURCE_DCAE_CONTROLLER = "DCAECONTROLLER";
+    private static final String COMPONENT_SOURCE_DATA_BUS_CONTROLLER = "DMAAPCONTROLLER";
 
     private final DCAEControllerClient dcaeControllerClient;
     private final DatabusControllerClient databusControllerClient;
+
+    public DcaeServicesApiServiceImpl(DCAEControllerClient dcaeControllerClient, DatabusControllerClient databusControllerClient) {
+        this.dcaeControllerClient = dcaeControllerClient;
+        this.databusControllerClient = databusControllerClient;
+    }
 
     private DCAEService createDCAEService(DCAEServiceObject serviceObject, Collection<DCAEServiceComponentObject> componentObjects,
                                           UriInfo uriInfo) {
@@ -67,7 +72,6 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         service.setCreated(serviceObject.getCreated().toDate());
         service.setModified(serviceObject.getModified().toDate());
         service.setVnfId(serviceObject.getVnfId());
-        //service.setVnfLink(vnfLink);
         service.setVnfType(serviceObject.getVnfType());
         service.setVnfLocation(serviceObject.getVnfLocation());
         service.setDeploymentRef(serviceObject.getDeploymentRef());
@@ -380,6 +384,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         return Response.ok().entity(service).build();
     }
 
+    @Override
     public Response dcaeServicesServiceIdDelete(String serviceId, SecurityContext securityContext) throws NotFoundException {
         DCAEServicesDAO servicesDAO = InventoryDAOManager.getInstance().getDCAEServicesDAO();
 
@@ -391,11 +396,6 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                 serviceId);
 
         return Response.ok().build();
-    }
-
-    public DcaeServicesApiServiceImpl(DCAEControllerClient dcaeControllerClient, DatabusControllerClient databusControllerClient) {
-        this.dcaeControllerClient = dcaeControllerClient;
-        this.databusControllerClient = databusControllerClient;
     }
 
 }

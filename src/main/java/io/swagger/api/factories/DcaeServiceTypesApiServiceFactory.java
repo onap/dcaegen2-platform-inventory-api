@@ -24,9 +24,13 @@ import io.swagger.api.DcaeServiceTypesApiService;
 import io.swagger.api.impl.DcaeServiceTypesApiServiceImpl;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
-public class DcaeServiceTypesApiServiceFactory {
+public final class DcaeServiceTypesApiServiceFactory {
 
-   private final static DcaeServiceTypesApiService service = new DcaeServiceTypesApiServiceImpl();
+   private static final DcaeServiceTypesApiService service = new DcaeServiceTypesApiServiceImpl();
+
+   //Utility classes, which are a collection of static members, are not meant to be instantiated.
+   private DcaeServiceTypesApiServiceFactory(){
+   }
 
    public static DcaeServiceTypesApiService getDcaeServiceTypesApi()
    {

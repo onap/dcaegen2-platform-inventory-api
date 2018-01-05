@@ -48,7 +48,7 @@ import java.util.UUID;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
 public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DcaeServiceTypesApiServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DcaeServiceTypesApiServiceImpl.class);
     private static int PAGINATION_PAGE_SIZE = 25;
 
     private DCAEServiceType createDCAEServiceType(DCAEServiceTypeObject serviceTypeObject, UriInfo uriInfo) {
