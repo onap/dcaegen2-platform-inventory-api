@@ -258,7 +258,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <!-- add Main-Class to manifest file -->
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.openecomp.dcae.inventory.InventoryApplication</mainClass>
+                                    <mainClass>org.onap.dcae.inventory.InventoryApplication</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

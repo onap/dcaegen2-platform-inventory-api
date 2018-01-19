@@ -20,12 +20,12 @@
 
 package io.swagger.api.impl;
 
-import org.openecomp.dcae.inventory.daos.DCAEServiceTypesDAO;
-import org.openecomp.dcae.inventory.daos.DCAEServicesDAO;
-import org.openecomp.dcae.inventory.daos.InventoryDAOManager;
-import org.openecomp.dcae.inventory.dbthings.mappers.DCAEServiceTypeObjectMapper;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceObject;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
+import org.onap.dcae.inventory.daos.DCAEServiceTypesDAO;
+import org.onap.dcae.inventory.daos.DCAEServicesDAO;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
+import org.onap.dcae.inventory.dbthings.mappers.DCAEServiceTypeObjectMapper;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
 import io.swagger.api.*;
 import io.swagger.model.*;
 

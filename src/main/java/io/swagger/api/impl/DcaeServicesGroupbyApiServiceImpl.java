@@ -20,8 +20,8 @@
 
 package io.swagger.api.impl;
 
-import org.openecomp.dcae.inventory.daos.InventoryDAOManager;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceObject;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import io.swagger.api.*;
 import io.swagger.model.DCAEServiceGroupByResults;
 import io.swagger.model.DCAEServiceGroupByResultsPropertyValues;

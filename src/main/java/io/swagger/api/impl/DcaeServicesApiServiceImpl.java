@@ -20,17 +20,17 @@
 
 package io.swagger.api.impl;
 
-import org.openecomp.dcae.inventory.clients.DCAEControllerClient;
-import org.openecomp.dcae.inventory.clients.DatabusControllerClient;
-import org.openecomp.dcae.inventory.daos.DCAEServiceComponentsDAO;
-import org.openecomp.dcae.inventory.daos.DCAEServiceTransactionDAO;
-import org.openecomp.dcae.inventory.daos.DCAEServicesDAO;
-import org.openecomp.dcae.inventory.daos.InventoryDAOManager;
-import org.openecomp.dcae.inventory.dbthings.mappers.DCAEServiceObjectMapper;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceComponentObject;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceObject;
-import org.openecomp.dcae.inventory.exceptions.DCAEControllerClientException;
-import org.openecomp.dcae.inventory.exceptions.DatabusControllerClientException;
+import org.onap.dcae.inventory.clients.DCAEControllerClient;
+import org.onap.dcae.inventory.clients.DatabusControllerClient;
+import org.onap.dcae.inventory.daos.DCAEServiceComponentsDAO;
+import org.onap.dcae.inventory.daos.DCAEServiceTransactionDAO;
+import org.onap.dcae.inventory.daos.DCAEServicesDAO;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
+import org.onap.dcae.inventory.dbthings.mappers.DCAEServiceObjectMapper;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceComponentObject;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
+import org.onap.dcae.inventory.exceptions.DCAEControllerClientException;
+import org.onap.dcae.inventory.exceptions.DatabusControllerClientException;
 import io.swagger.api.*;
 import io.swagger.model.*;
 

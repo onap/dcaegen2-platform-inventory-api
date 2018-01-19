@@ -38,7 +38,7 @@ public class Bootstrap extends HttpServlet {
       .description("DCAE Inventory is a web service that provides the following:\n\n1. Real-time data on all DCAE services and their components\n2. Comprehensive details on available DCAE service types\n")
       .termsOfService("")
       .contact(new Contact()
-        .email("dcae@lists.openecomp.org"))
+        .email("dcae@lists.onap.org"))
       .license(new License()
         .name("")
         .url(""));

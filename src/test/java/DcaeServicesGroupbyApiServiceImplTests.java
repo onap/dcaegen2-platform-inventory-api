@@ -22,14 +22,10 @@ import io.swagger.api.impl.DcaeServicesGroupbyApiServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.stubbing.OngoingStubbing;
-import org.openecomp.dcae.inventory.daos.InventoryDAOManager;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceObject;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Query;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;

@@ -20,8 +20,8 @@
 
 package io.swagger.api.factories;
 
-import org.openecomp.dcae.inventory.clients.DCAEControllerClient;
-import org.openecomp.dcae.inventory.clients.DatabusControllerClient;
+import org.onap.dcae.inventory.clients.DCAEControllerClient;
+import org.onap.dcae.inventory.clients.DatabusControllerClient;
 import io.swagger.api.DcaeServicesApiService;
 import io.swagger.api.impl.DcaeServicesApiServiceImpl;
 

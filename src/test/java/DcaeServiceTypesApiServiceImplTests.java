@@ -18,11 +18,11 @@
  * ============LICENSE_END=========================================================
  */
 
-import org.openecomp.dcae.inventory.daos.DCAEServiceTypesDAO;
-import org.openecomp.dcae.inventory.daos.DCAEServicesDAO;
-import org.openecomp.dcae.inventory.daos.InventoryDAOManager;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceObject;
-import org.openecomp.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
+import org.onap.dcae.inventory.daos.DCAEServiceTypesDAO;
+import org.onap.dcae.inventory.daos.DCAEServicesDAO;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
 import io.swagger.api.impl.DcaeServiceTypesApiServiceImpl;
 import io.swagger.model.DCAEServiceType;
 import io.swagger.model.DCAEServiceTypeRequest;
