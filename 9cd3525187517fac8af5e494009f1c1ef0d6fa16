@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_32b448d0",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServicesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2018-01-22T20:57:10Z",
+      "side": 1,
+      "message": "strike this comment; this isn\u0027t within an exception",
+      "parentUuid": "5a93c517_29e85fb3",
+      "revId": "9cd3525187517fac8af5e494009f1c1ef0d6fa16",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_49eb6bb0",
         "filename": "src/main/java/io/swagger/api/impl/DcaeServicesApiServiceImpl.java",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2018-01-19T14:41:36Z",
       "side": 1,
       "message": "repeat the change here",
+      "revId": "9cd3525187517fac8af5e494009f1c1ef0d6fa16",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f2c5803d",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServicesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2018-01-22T20:57:10Z",
+      "side": 1,
+      "message": "strike this comment; this isn\u0027t within an exception",
+      "parentUuid": "5a93c517_e9d117fc",
       "revId": "9cd3525187517fac8af5e494009f1c1ef0d6fa16",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
