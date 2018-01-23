@@ -116,7 +116,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                             LOG.warn(String.format("Feed/topic does not exist: %s", sco.getComponentId()));
                         }
                     } catch (DatabusControllerClientException e) {
-                        LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()));
+                        LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()), e);
                     }
                 }
             } else {
