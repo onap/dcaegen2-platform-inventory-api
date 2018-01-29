@@ -93,7 +93,7 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
                 sb.append("dcae_service_types");
             }
 
-            List<String> whereClauses = new ArrayList<String>();
+            List<String> whereClauses = new ArrayList<>();
 
             if (typeName != null) {
                 whereClauses.add(":typeName = type_name");
