@@ -140,7 +140,7 @@ public final class InventoryDAOManager {
 
     private InventoryDAO getDAO(Class<? extends InventoryDAO> klass) {
         if (jdbi == null) {
-            throw new RuntimeException("InventoryDAOManager has not been initialized!");
+            throw new InventoryDAOManagerSetupException("InventoryDAOManager has not been initialized!");
         }
 
         // Using this approach to constructing the DAO, the client is not responsible for closing the handle.
