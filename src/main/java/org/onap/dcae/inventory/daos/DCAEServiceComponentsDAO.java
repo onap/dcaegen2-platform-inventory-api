@@ -35,6 +35,7 @@ import java.util.List;
  */
 public interface DCAEServiceComponentsDAO extends InventoryDAO {
 
+    @Override
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_service_components\')")
     Boolean checkIfTableExists();
 
