@@ -76,7 +76,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         service.setVnfLocation(serviceObject.getVnfLocation());
         service.setDeploymentRef(serviceObject.getDeploymentRef());
 
-        List<DCAEServiceComponent> serviceComponents = new ArrayList<DCAEServiceComponent>();
+        List<DCAEServiceComponent> serviceComponents = new ArrayList<>();
 
         for (DCAEServiceComponentObject sco : componentObjects) {
             DCAEServiceComponent component = new DCAEServiceComponent();
