@@ -29,7 +29,7 @@ import org.joda.time.DateTimeZone;
  */
 public class DCAEServiceObject {
 
-    public static enum DCAEServiceStatus {
+    public enum DCAEServiceStatus {
         RUNNING,
         REMOVED
     }
