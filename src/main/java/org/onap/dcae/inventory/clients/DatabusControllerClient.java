@@ -48,7 +48,7 @@ public class DatabusControllerClient {
             resourcePath = (new StringBuilder("/")).append(resourcePath).toString();
         }
 
-        return UriBuilder.fromPath(resourcePath.toString()).scheme("https").host(this.connectionConfiguration.getHost())
+        return UriBuilder.fromPath(resourcePath).scheme("https").host(this.connectionConfiguration.getHost())
                 .port(this.connectionConfiguration.getPort()).build();
     }
 
