@@ -211,7 +211,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
             if (shareable != null) {
                 // NOTE: That the shareable field in the database is actually an integer.
-                query.bind("shareable", (shareable ? 1 : 0));
+                query.bind("shareable", shareable ? 1 : 0);
             }
 
             query.bind("createdCutoff", createdCutoff);
