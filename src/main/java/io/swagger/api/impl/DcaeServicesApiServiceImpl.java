@@ -136,7 +136,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                                     String componentType, Boolean shareable, DateTime created, Integer offset,
                                     UriInfo uriInfo, SecurityContext securityContext) {
         List<DCAEServiceObject> serviceObjects = new ArrayList<>();
-        DateTime createdCutoff = (created == null ? DateTime.now(DateTimeZone.UTC) : created);
+        DateTime createdCutoff = created == null ? DateTime.now(DateTimeZone.UTC) : created;
 
         LOG.info(String.format("Create time upper bound cutoff: %s", createdCutoff.toString()));
 
