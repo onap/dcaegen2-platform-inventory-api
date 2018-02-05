@@ -40,6 +40,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 public interface DCAEServiceTypesDAO extends InventoryDAO {
 
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_service_types\')")
+    @Override
     Boolean checkIfTableExists();
 
     /**
