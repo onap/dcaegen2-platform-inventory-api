@@ -39,7 +39,7 @@ public class DcaeServicesGroupbyApiServiceImpl extends DcaeServicesGroupbyApiSer
 
     @Override
     public Response dcaeServicesGroupbyPropertyNameGet(String propertyName, UriInfo uriInfo, SecurityContext securityContext) {
-        String columnName = "";
+        String columnName;
 
         switch (propertyName) {
             case "type":
