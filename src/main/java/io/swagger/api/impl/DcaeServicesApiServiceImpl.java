@@ -150,7 +150,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
             sb.append(" join dcae_services_components_maps m on ds.service_id = m.service_id ");
             sb.append(" join dcae_service_components dsc on m.component_id = dsc.component_id");
 
-            List<String> whereClauses = new ArrayList<String>();
+            List<String> whereClauses = new ArrayList<>();
 
             if (typeId != null) {
                 whereClauses.add("ds.type_id = :typeId");
