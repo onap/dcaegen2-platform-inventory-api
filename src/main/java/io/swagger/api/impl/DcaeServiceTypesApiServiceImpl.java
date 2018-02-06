@@ -163,7 +163,7 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
                 query.bind("asdcServiceId", asdcServiceId);
             }
 
-            if (asdcResourceId != null && !"NONE".equals(asdcResourceId.toUpperCase(Locale.ENGLISH))) {
+            if (asdcResourceId != null && !"NONE".equalsIgnoreCase(asdcResourceId)) {
                 query.bind("asdcResourceId", asdcResourceId);
             }
 
