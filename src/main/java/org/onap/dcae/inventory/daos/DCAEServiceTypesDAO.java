@@ -52,6 +52,7 @@ public interface DCAEServiceTypesDAO extends InventoryDAO {
             "vnf_types varchar[] not null, service_ids varchar[], service_locations varchar[], " +
             "asdc_service_id varchar, asdc_resource_id varchar, " +
             "created timestamp not null, deactivated timestamp, constraint pk_type_created primary key (type_id))")
+    @Override
     void createTable();
 
     // REVIEW: asdcServiceId and asdcResourceId is implicitly part of the unique key and thus shouldn't be updated.
