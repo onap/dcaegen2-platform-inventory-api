@@ -90,7 +90,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
             // TODO: When putting together the components fail. Should this be a 500 case?
             // For now, this is just logged as a warning.
 
-            if (COMPONENT_SOURCE_DCAE_CONTROLLER.equals(sco.getComponentSource().toUpperCase(Locale.ENGLISH))) {
+            if (COMPONENT_SOURCE_DCAE_CONTROLLER.equalsIgnoreCase(sco.getComponentSource())) {
                 if (this.dcaeControllerClient != null) {
                     try {
                         DCAEControllerClient.ServiceInstance serviceInstance
