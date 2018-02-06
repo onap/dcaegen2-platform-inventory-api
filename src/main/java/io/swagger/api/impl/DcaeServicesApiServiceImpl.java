@@ -105,7 +105,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                         LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()), e);
                     }
                 }
-            } else if (COMPONENT_SOURCE_DATA_BUS_CONTROLLER.equals(sco.getComponentSource().toUpperCase(Locale.ENGLISH))) {
+            } else if (COMPONENT_SOURCE_DATA_BUS_CONTROLLER.equalsIgnoreCase(sco.getComponentSource())) {
                 if (this.databusControllerClient != null) {
                     try {
                         if (this.databusControllerClient.isExists(sco.getComponentId())) {
