@@ -112,7 +112,7 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
             }
 
             if (asdcServiceId != null) {
-                if ("NONE".equals(asdcServiceId.toUpperCase(Locale.ENGLISH))) {
+                if (asdcServiceId.equalsIgnoreCase("NONE")) {
                     whereClauses.add("asdc_service_id is null");
                 } else {
                     whereClauses.add(":asdcServiceId = asdc_service_id");
