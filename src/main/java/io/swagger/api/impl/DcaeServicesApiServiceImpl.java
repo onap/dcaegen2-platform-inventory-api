@@ -50,7 +50,7 @@ import java.util.*;
 public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImpl.class);
-    private static final int PAGINATION_PAGE_SIZE = 25;
+    private static final int PaginationPageSize = 25;
     private static final String COMPONENT_SOURCE_DCAE_CONTROLLER = "DCAECONTROLLER";
     private static final String COMPONENT_SOURCE_DATA_BUS_CONTROLLER = "DMAAPCONTROLLER";
 
@@ -225,7 +225,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         // because of the need for the global total number of result items. SQL approach would require two queries.
         // Going forward, I think the better approach is using SQL because the resultsets may become very large.
         // For now I think this approach is OK and actually we do less SQL querying.
-        Integer endpoint = Math.min(offset + PAGINATION_PAGE_SIZE, serviceObjects.size());
+        Integer endpoint = Math.min(offset + PaginationPageSize, serviceObjects.size());
         List<DCAEServiceObject> serviceObjectsSliced = serviceObjects.subList(offset, endpoint);
 
         DCAEServiceComponentsDAO componentsDAO = InventoryDAOManager.getInstance().getDCAEServiceComponentsDAO();
@@ -242,14 +242,14 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         // TODO: Show the total count of items in this response i.e. local count?
 
         InlineResponse200Links navigationLinks = new InlineResponse200Links();
-        Integer offsetPrev = offset - PAGINATION_PAGE_SIZE;
+        Integer offsetPrev = offset - PaginationPageSize;
 
         if (offsetPrev >= 0) {
             navigationLinks.setPreviousLink(DcaeServicesApi.buildLinkForGet(uriInfo, "prev", typeId, vnfId, vnfType,
                     vnfLocation, componentType, shareable, created, offsetPrev));
         }
 
-        Integer offsetNext = offset + PAGINATION_PAGE_SIZE;
+        Integer offsetNext = offset + PaginationPageSize;
 
         if (offsetNext < serviceObjects.size()) {
             navigationLinks.setNextLink(DcaeServicesApi.buildLinkForGet(uriInfo, "next", typeId, vnfId, vnfType,
