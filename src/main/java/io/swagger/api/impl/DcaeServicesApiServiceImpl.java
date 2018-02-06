@@ -229,7 +229,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         List<DCAEServiceObject> serviceObjectsSliced = serviceObjects.subList(offset, endpoint);
 
         DCAEServiceComponentsDAO componentsDAO = InventoryDAOManager.getInstance().getDCAEServiceComponentsDAO();
-        List<DCAEService> services = new ArrayList<DCAEService>();
+        List<DCAEService> services = new ArrayList<>();
 
         for (DCAEServiceObject so : serviceObjectsSliced) {
             List<DCAEServiceComponentObject> components = componentsDAO.getByServiceId(so.getServiceId());
