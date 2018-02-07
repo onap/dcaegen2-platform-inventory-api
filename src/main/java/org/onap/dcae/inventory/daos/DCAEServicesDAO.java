@@ -42,7 +42,8 @@ public interface DCAEServicesDAO extends InventoryDAO {
 
     @SqlUpdate("create table dcae_services (service_id varchar not null primary key, type_id varchar not null, " +
             "vnf_id varchar not null, vnf_type varchar not null, vnf_location varchar not null, deployment_ref varchar, " +
-            "created timestamp not null, modified timestamp not null, status varchar not null)")
+    		"created timestamp not null, modified timestamp not null, status varchar not null)")
+    @Override
     void createTable();
 
     @SqlUpdate("insert into dcae_services(service_id, type_id, vnf_id, vnf_type, vnf_location, deployment_ref, " +
