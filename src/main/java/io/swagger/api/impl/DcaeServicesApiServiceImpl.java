@@ -333,7 +333,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
         // 2) Insert/update DCAEServiceComponentObjects. Components exist independent of the associated DCAE service.
 
-        Map<String, DCAEServiceComponentObject> componentObjectsToSendBack = new HashMap<String, DCAEServiceComponentObject>();
+        Map<String, DCAEServiceComponentObject> componentObjectsToSendBack = new HashMap<>();
 
         for (DCAEServiceComponentRequest requestComponent : request.getComponents()) {
             // Have to query the database rather than checking the result of getting by service id because of the
