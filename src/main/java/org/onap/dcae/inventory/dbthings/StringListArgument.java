@@ -44,14 +44,12 @@ public class StringListArgument implements ArgumentFactory<List<String>> {
     }
 
     @Override
-    public Argument build(Class<?> expectedType, List<String> value, StatementContext statementContext) {
-        return new Argument() {
-            @Override
-            public void apply(int position, PreparedStatement statement, StatementContext ctx) throws SQLException {
-                Array values = statement.getConnection().createArrayOf("varchar", value.toArray());
-                statement.setArray(position, values);
-            }
-        };
-    }
+	public Argument build(Class<?> expectedType, List<String> value, StatementContext statementContext) {
+		Argument argument = (int position, PreparedStatement statement, StatementContext ctx) -> {
+			Array values = statement.getConnection().createArrayOf("varchar", value.toArray());
+			statement.setArray(position, values);
+		};
+		return argument;
+	}
 
 }
