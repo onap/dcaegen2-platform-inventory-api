@@ -34,6 +34,7 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 public interface DCAEServicesComponentsMapsDAO extends InventoryDAO {
 
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_services_components_maps\')")
+    @Override
     Boolean checkIfTableExists();
 
     @Override
