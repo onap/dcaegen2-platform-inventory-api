@@ -302,7 +302,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         // Watch! We have to query for services regardless of status because we need to account for "removed" instances
         // that get resurrected.
         final DCAEServiceObject serviceObjectFromStore = servicesDAO.getByServiceId(serviceId);
-        final Map<String, DCAEServiceComponentObject> componentObjectsFromStore = new HashMap<String, DCAEServiceComponentObject>();
+        final Map<String, DCAEServiceComponentObject> componentObjectsFromStore = new HashMap<>();
 
         for (DCAEServiceComponentObject componentObject : componentsDAO.getByServiceId(serviceId)) {
             componentObjectsFromStore.put(componentObject.getComponentId(), componentObject);
