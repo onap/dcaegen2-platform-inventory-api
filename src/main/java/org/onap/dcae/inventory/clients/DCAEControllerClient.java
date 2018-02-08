@@ -134,7 +134,7 @@ public class DCAEControllerClient {
 
     }
 
-    private final static Logger LOG = LoggerFactory.getLogger(DCAEControllerClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DCAEControllerClient.class);
 
     private final Client client;
     private final InventoryConfiguration.DCAEControllerConnectionConfiguration connectionConfiguration;
