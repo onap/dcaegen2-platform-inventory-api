@@ -1,4 +1,5 @@
 /*-
+
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
@@ -123,7 +124,7 @@ public abstract class DCAEServiceTransactionDAO {
     public abstract DCAEServicesDAO getServicesDAO();
 
     @CreateSqlObject
-    abstract public DCAEServicesComponentsMapsDAO getServicesComponentsMappingDAO();
+    public abstract DCAEServicesComponentsMapsDAO getServicesComponentsMappingDAO();
 
     @CreateSqlObject
     abstract public DCAEServiceComponentsDAO getComponentsDAO();
