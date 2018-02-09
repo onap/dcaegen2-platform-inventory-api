@@ -127,7 +127,7 @@ public abstract class DCAEServiceTransactionDAO {
     public abstract DCAEServicesComponentsMapsDAO getServicesComponentsMappingDAO();
 
     @CreateSqlObject
-    abstract public DCAEServiceComponentsDAO getComponentsDAO();
+    public abstract DCAEServiceComponentsDAO getComponentsDAO();
 
     @Transaction
     public void insert(DCAEServiceTransactionContext context) {
