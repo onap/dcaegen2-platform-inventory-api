@@ -139,6 +139,11 @@ public class DCAEControllerClient {
     private final Client client;
     private final InventoryConfiguration.DCAEControllerConnectionConfiguration connectionConfiguration;
 
+	public DCAEControllerClient(Client client,
+			InventoryConfiguration.DCAEControllerConnectionConfiguration connectionConfiguration) {
+		this.client = client;
+		this.connectionConfiguration = connectionConfiguration;
+	}
     public URI constructResourceURI(String resourcePath) {
         // TODO: Better way to construct this?
 
@@ -213,10 +218,6 @@ public class DCAEControllerClient {
         }
     }
 
-    public DCAEControllerClient(Client client,
-                                InventoryConfiguration.DCAEControllerConnectionConfiguration connectionConfiguration) {
-        this.client = client;
-        this.connectionConfiguration = connectionConfiguration;
-    }
+    
 
 }
