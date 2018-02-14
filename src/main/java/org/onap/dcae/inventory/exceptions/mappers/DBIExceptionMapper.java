@@ -70,7 +70,7 @@ public class DBIExceptionMapper<T extends DBIException> implements ExceptionMapp
 
     // Here are the handlers for specific derived DBIException
 
-    public final static class UnableToObtainConnectionExceptionMapper extends DBIExceptionMapper<UnableToObtainConnectionException> {
+    public static final class UnableToObtainConnectionExceptionMapper extends DBIExceptionMapper<UnableToObtainConnectionException> {
     }
 
     public final static class UnableToCreateStatementExceptionMapper extends DBIExceptionMapper<UnableToCreateStatementException> {
