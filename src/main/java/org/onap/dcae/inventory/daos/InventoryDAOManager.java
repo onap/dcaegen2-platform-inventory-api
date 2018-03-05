@@ -98,11 +98,11 @@ public final class InventoryDAOManager {
      */
     public void initialize() {
         final DBIFactory factory = new DBIFactory();
-        final DBI jdbi = factory.build(this.environment, this.configuration.getDataSourceFactory(), "dcae-database");
-        jdbi.registerArgumentFactory(new StringListArgument());
+        final DBI jdbi_local = factory.build(this.environment, this.configuration.getDataSourceFactory(), "dcae-database");
+        jdbi_local.registerArgumentFactory(new StringListArgument());
 
         for (Class<? extends InventoryDAO> daoClass : DAO_CLASSES) {
-            final InventoryDAO dao = jdbi.onDemand(daoClass);
+            final InventoryDAO dao = jdbi_local.onDemand(daoClass);
 
             if (dao.checkIfTableExists()) {
                 LOG.info(String.format("Sql table exists: %s", daoClass.getSimpleName()));
@@ -114,7 +114,7 @@ public final class InventoryDAOManager {
 
         // CREATE VIEWS
         // TODO: This doesn't belong here and is not consistent with the above approach. Make it better.
-        try (Handle jdbiHandle = jdbi.open()) {
+        try (Handle jdbiHandle = jdbi_local.open()) {
             String viewName = "dcae_service_types_latest";
             String checkQuery = String.format("select exists (select * from information_schema.tables where table_name = '%s')",
                     viewName);
@@ -135,7 +135,7 @@ public final class InventoryDAOManager {
         }
 
         // Do this assignment at the end after performing table checks to ensure that connection is good
-        this.jdbi = jdbi;
+        this.jdbi = jdbi_local;
     }
 
     private InventoryDAO getDAO(Class<? extends InventoryDAO> klass) {
