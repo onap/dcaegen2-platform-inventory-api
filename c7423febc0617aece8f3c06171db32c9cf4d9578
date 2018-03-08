@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_30b83b29",
+        "filename": "src/main/java/org/onap/dcae/inventory/daos/InventoryDAOManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-03-08T23:50:59Z",
+      "side": 1,
+      "message": "Java programming uses camel case and not snake case.",
+      "revId": "c7423febc0617aece8f3c06171db32c9cf4d9578",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
