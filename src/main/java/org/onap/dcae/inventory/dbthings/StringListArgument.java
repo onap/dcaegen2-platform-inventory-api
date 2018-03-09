@@ -26,7 +26,6 @@ import org.skife.jdbi.v2.tweak.ArgumentFactory;
 
 import java.sql.Array;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
