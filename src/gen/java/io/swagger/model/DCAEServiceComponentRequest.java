@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ public class DCAEServiceComponentRequest   {
 
 
   @ApiModelProperty(value = "Specifies the name of the underying source service that is responsible for this components", required = true,
-          allowableValues = "DCAEController, DMaaPController")
+          allowableValues = "DMaaPController")
   @JsonProperty("componentSource")
   public String getComponentSource() {
     return componentSource;

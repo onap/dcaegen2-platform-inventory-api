@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,8 @@ import io.dropwizard.configuration.ConfigurationFactory;
 import io.dropwizard.configuration.ConfigurationFactoryFactory;
 import io.dropwizard.configuration.JsonConfigurationFactory;
 import io.dropwizard.configuration.UrlConfigurationSourceProvider;
-import org.onap.dcae.inventory.clients.DCAEControllerClient;
 import org.onap.dcae.inventory.clients.DatabusControllerClient;
 import org.onap.dcae.inventory.exceptions.mappers.DBIExceptionMapper;
-import org.onap.dcae.inventory.exceptions.mappers.DCAEControllerConnectionExceptionMapper;
-import org.onap.dcae.inventory.exceptions.mappers.DCAEControllerTimeoutExceptionMapper;
 import org.onap.dcae.inventory.providers.NotFoundExceptionMapper;
 import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -144,21 +141,6 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
         simpleModule.addSerializer(Link.class, new LinkSerializer());
         environment.getObjectMapper().registerModule(simpleModule);
 
-        // Setup DCAE controller client
-        // Used by the dcae-services API
-        if (configuration.getDcaeControllerConnection().getRequired()) {
-            final Client clientDCAEController = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration())
-                    .build("DCAEControllerClient");
-            HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().build();
-            clientDCAEController.register(feature);
-            final DCAEControllerClient dcaeControllerClient = new DCAEControllerClient(clientDCAEController, configuration.getDcaeControllerConnection());
-            DcaeServicesApiServiceFactory.setDcaeControllerClient(dcaeControllerClient);
-
-            LOG.info("Use of DCAE controller client is required. Turned on.");
-        } else {
-            LOG.warn("Use of DCAE controller client is *not* required. Turned off.");
-        }
-
         // Setup Databus controller client
         // Used by the dcae-services API
         if (configuration.getDatabusControllerConnection().getRequired()) {
@@ -177,8 +159,6 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
         }
 
         environment.jersey().register(NotFoundExceptionMapper.class);
-        environment.jersey().register(DCAEControllerConnectionExceptionMapper.class);
-        environment.jersey().register(DCAEControllerTimeoutExceptionMapper.class);
         environment.jersey().register(DBIExceptionMapper.UnableToObtainConnectionExceptionMapper.class);
         environment.jersey().register(DBIExceptionMapper.UnableToExecuteStatementExceptionMapper.class);
         environment.jersey().register(DBIExceptionMapper.UnableToCreateStatementExceptionMapper.class);

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,9 +99,8 @@ public class DcaeServicesApi {
     @Produces({"application/json", "application/vnd.dcae.inventory.v1+json"})
     @io.swagger.annotations.ApiOperation(value = "", notes = "Get a list of `DCAEService` objects.", response = InlineResponse2001.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "List of `DCAEService` objects", response = InlineResponse2001.class),
-            @io.swagger.annotations.ApiResponse(code = 502, message = "Bad response from DCAE controller", response = ApiResponseMessage.class),
-            @io.swagger.annotations.ApiResponse(code = 504, message = "Failed to connect with DCAE controller", response = ApiResponseMessage.class)})
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of `DCAEService` objects", response = InlineResponse2001.class)
+            })
     public Response dcaeServicesGet(
             @ApiParam(value = "DCAE service type name") @QueryParam("typeId") String typeId,
             @ApiParam(value = "") @QueryParam("vnfId") String vnfId,
@@ -135,9 +134,8 @@ public class DcaeServicesApi {
     @io.swagger.annotations.ApiOperation(value = "", notes = "Get a `DCAEService` object.", response = DCAEService.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
             @io.swagger.annotations.ApiResponse(code = 200, message = "Single `DCAEService` object", response = DCAEService.class),
-            @io.swagger.annotations.ApiResponse(code = 404, message = "DCAE service not found", response = ApiResponseMessage.class),
-            @io.swagger.annotations.ApiResponse(code = 502, message = "Bad response from DCAE controller", response = ApiResponseMessage.class),
-            @io.swagger.annotations.ApiResponse(code = 504, message = "Failed to connect with DCAE controller", response = ApiResponseMessage.class)})
+            @io.swagger.annotations.ApiResponse(code = 404, message = "DCAE service not found", response = ApiResponseMessage.class)
+            })
     public Response dcaeServicesServiceIdGet(
             @ApiParam(value = "", required = true) @PathParam("serviceId") String serviceId,
             @Context SecurityContext securityContext)

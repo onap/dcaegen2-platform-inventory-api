@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 package io.swagger.api.factories;
 
-import org.onap.dcae.inventory.clients.DCAEControllerClient;
 import org.onap.dcae.inventory.clients.DatabusControllerClient;
 import io.swagger.api.DcaeServicesApiService;
 import io.swagger.api.impl.DcaeServicesApiServiceImpl;
@@ -29,15 +28,10 @@ import io.swagger.api.impl.DcaeServicesApiServiceImpl;
 public final class DcaeServicesApiServiceFactory {
 
     // Yes I agree this code is not great and I blame for Swagger for putting me in this spot.
-    private static DCAEControllerClient dcaeControllerClient;
     private static DatabusControllerClient databusControllerClient;
 
     //Utility classes, which are a collection of static members, are not meant to be instantiated.
     private DcaeServicesApiServiceFactory(){
-    }
-
-    public static void setDcaeControllerClient(DCAEControllerClient dcaeControllerClient) {
-        DcaeServicesApiServiceFactory.dcaeControllerClient = dcaeControllerClient;
     }
 
     public static void setDatabusControllerClient(DatabusControllerClient databusControllerClient) {
@@ -45,7 +39,7 @@ public final class DcaeServicesApiServiceFactory {
     }
 
     public static DcaeServicesApiService getDcaeServicesApi() {
-        return new DcaeServicesApiServiceImpl(dcaeControllerClient, databusControllerClient);
+        return new DcaeServicesApiServiceImpl(databusControllerClient);
     }
 
 }

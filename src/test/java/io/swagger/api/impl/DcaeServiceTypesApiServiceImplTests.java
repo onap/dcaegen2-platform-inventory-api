@@ -1,8 +1,8 @@
-/*-
+package io.swagger.api.impl;/*-
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.onap.dcae.inventory.daos.DCAEServicesDAO;
 import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
-import io.swagger.api.impl.DcaeServiceTypesApiServiceImpl;
 import io.swagger.model.DCAEServiceType;
 import io.swagger.model.DCAEServiceTypeRequest;
 import org.joda.time.DateTime;

@@ -43,8 +43,8 @@ database:
 databusControllerConnection:
   host: databus-controller-hostname
   port: 8443
-  mechId:
-  password:
+  mechId: some-mech-id
+  password: some-password
 
 httpClient:
   # The minimum number of threads to use for asynchronous calls.

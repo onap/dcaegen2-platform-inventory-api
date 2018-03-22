@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 package io.swagger.api.impl;
 
-import org.onap.dcae.inventory.clients.DCAEControllerClient;
 import org.onap.dcae.inventory.clients.DatabusControllerClient;
 import org.onap.dcae.inventory.daos.DCAEServiceComponentsDAO;
 import org.onap.dcae.inventory.daos.DCAEServiceTransactionDAO;
@@ -29,7 +28,6 @@ import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.onap.dcae.inventory.dbthings.mappers.DCAEServiceObjectMapper;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceComponentObject;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
-import org.onap.dcae.inventory.exceptions.DCAEControllerClientException;
 import org.onap.dcae.inventory.exceptions.DatabusControllerClientException;
 import io.swagger.api.*;
 import io.swagger.model.*;
@@ -51,14 +49,11 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImpl.class);
     private static final int PAGINATION_PAGE_SIZE = 25;
-    private static final String COMPONENT_SOURCE_DCAE_CONTROLLER = "DCAECONTROLLER";
     private static final String COMPONENT_SOURCE_DATA_BUS_CONTROLLER = "DMAAPCONTROLLER";
 
-    private final DCAEControllerClient dcaeControllerClient;
     private final DatabusControllerClient databusControllerClient;
 
-    public DcaeServicesApiServiceImpl(DCAEControllerClient dcaeControllerClient, DatabusControllerClient databusControllerClient) {
-        this.dcaeControllerClient = dcaeControllerClient;
+    public DcaeServicesApiServiceImpl(DatabusControllerClient databusControllerClient) {
         this.databusControllerClient = databusControllerClient;
     }
 
@@ -90,22 +85,7 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
             // TODO: When putting together the components fail. Should this be a 500 case?
             // For now, this is just logged as a warning.
 
-            if (COMPONENT_SOURCE_DCAE_CONTROLLER.equalsIgnoreCase(sco.getComponentSource())) {
-                if (this.dcaeControllerClient != null) {
-                    try {
-                        DCAEControllerClient.ServiceInstance serviceInstance
-                                = this.dcaeControllerClient.getServiceInstance(component.getComponentId());
-                        component.setStatus(serviceInstance.getStatus());
-                        // There's no specific location rather its inferred from the AIC tenant
-                        component.setLocation(this.dcaeControllerClient.getLocation(serviceInstance));
-                        Link componentLink = Link.fromUri(this.dcaeControllerClient.constructResourceURI(sco.getComponentId()))
-                                .rel("component").title(component.getComponentId()).build();
-                        component.setComponentLink(componentLink);
-                    } catch (DCAEControllerClientException e) {
-                        LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()), e);
-                    }
-                }
-            } else if (COMPONENT_SOURCE_DATA_BUS_CONTROLLER.equalsIgnoreCase(sco.getComponentSource())) {
+            if (COMPONENT_SOURCE_DATA_BUS_CONTROLLER.equalsIgnoreCase(sco.getComponentSource())) {
                 if (this.databusControllerClient != null) {
                     try {
                         if (this.databusControllerClient.isExists(sco.getComponentId())) {

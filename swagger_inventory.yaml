@@ -17,7 +17,7 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 swagger: '2.0'
 info:
-  version: "2.1.0"
+  version: "3.0.0"
   title: DCAE Inventory API
   description: |
     DCAE Inventory is a web service that provides the following:
@@ -242,14 +242,6 @@ paths:
           description: "List of `DCAEService` objects"
           schema:
             $ref: "#/definitions/InlineResponse2001"
-        502:
-          description: "Bad response from DCAE controller"
-          schema:
-            $ref: "#/definitions/ApiResponseMessage"
-        504:
-          description: "Failed to connect with DCAE controller"
-          schema:
-            $ref: "#/definitions/ApiResponseMessage"
   /dcae-services-groupby/{propertyName}:
     get:
       summary: ""
@@ -294,16 +286,8 @@ paths:
           description: "Single `DCAEService` object"
           schema:
             $ref: "#/definitions/DCAEService"
-        502:
-          description: "Bad response from DCAE controller"
-          schema:
-            $ref: "#/definitions/ApiResponseMessage"
         404:
           description: "DCAE service not found"
-          schema:
-            $ref: "#/definitions/ApiResponseMessage"
-        504:
-          description: "Failed to connect with DCAE controller"
           schema:
             $ref: "#/definitions/ApiResponseMessage"
     put:
@@ -425,7 +409,6 @@ definitions:
         description: "Specifies the name of the underying source service that is responsible\
           \ for this components"
         enum:
-        - "DCAEController"
         - "DMaaPController"
       shareable:
         type: "integer"

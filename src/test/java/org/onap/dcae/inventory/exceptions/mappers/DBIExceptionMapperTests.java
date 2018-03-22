@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.inventory.exception.mappers;
+package org.onap.dcae.inventory.exceptions.mappers;
 
 import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.onap.dcae.inventory.exceptions.mappers.DBIExceptionMapper;
