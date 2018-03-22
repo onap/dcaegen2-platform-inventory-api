@@ -1,0 +1,4 @@
+host: databus-controller-hostname
+port: 8443
+mechId: some-mech-id
+password: some-mech-password

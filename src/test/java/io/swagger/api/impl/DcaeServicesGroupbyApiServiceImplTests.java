@@ -1,8 +1,8 @@
-/*-
+package io.swagger.api.impl;/*-
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-import io.swagger.api.impl.DcaeServicesGroupbyApiServiceImpl;
+import io.swagger.api.Util;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,7 +70,7 @@ public class DcaeServicesGroupbyApiServiceImplTests {
         DcaeServicesGroupbyApiServiceImpl api = new DcaeServicesGroupbyApiServiceImpl();
 
         String propertyName = "type";
-        UriInfo uriInfo = new Util.FakeUriInfo();
+        UriInfo uriInfo = new io.swagger.api.Util.FakeUriInfo();
 
         Handle mockHandle = mock(Handle.class);
         when(InventoryDAOManager.getInstance().getHandle()).thenReturn(mockHandle);

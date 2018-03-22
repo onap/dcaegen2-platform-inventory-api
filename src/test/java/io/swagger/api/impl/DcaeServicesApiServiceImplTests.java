@@ -1,8 +1,8 @@
-/*-
+package io.swagger.api.impl;/*-
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,12 @@
  */
 
 import io.swagger.api.NotFoundException;
-import io.swagger.api.impl.DcaeServicesApiServiceImpl;
+import io.swagger.api.Util;
 import io.swagger.model.DCAEService;
 import io.swagger.model.DCAEServiceRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.onap.dcae.inventory.clients.DCAEControllerClient;
 import org.onap.dcae.inventory.clients.DatabusControllerClient;
 import org.onap.dcae.inventory.daos.DCAEServiceComponentsDAO;
 import org.onap.dcae.inventory.daos.DCAEServiceTypesDAO;
@@ -94,9 +93,8 @@ public class DcaeServicesApiServiceImplTests {
             fail("Failed to do the reflection trick to test the private method: createDCAEService");
         }
 
-        DCAEControllerClient dcc = mock(DCAEControllerClient.class);
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
-        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dcc, dbcc);
+        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
 
         DCAEServiceRequest serviceRequest = new DCAEServiceRequest();
         serviceRequest.setTypeId("type-id-abc");
@@ -124,9 +122,8 @@ public class DcaeServicesApiServiceImplTests {
         when(mockServicesDAO.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
         when(mockComponentsDAO.getByServiceId(serviceId)).thenReturn(new ArrayList<DCAEServiceComponentObject>());
 
-        DCAEControllerClient dcc = mock(DCAEControllerClient.class);
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
-        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dcc, dbcc);
+        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
         UriInfo uriInfo = new Util.FakeUriInfo();
 
         try {
@@ -153,9 +150,8 @@ public class DcaeServicesApiServiceImplTests {
         doReturn(null).when(mockQuery.bind(anyString(), any(DateTime.class)));
         when(mockQuery.bind(anyString(), anyInt())).thenReturn(null);
 
-        DCAEControllerClient dcc = mock(DCAEControllerClient.class);
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
-        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dcc, dbcc);
+        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
 
         String typeId = "some-type-id";
         String vnfId = "some-vnf-id";
@@ -165,7 +161,7 @@ public class DcaeServicesApiServiceImplTests {
         Boolean shareable = Boolean.TRUE;
         DateTime created = null;
         Integer offset = 0;
-        UriInfo uriInfo = new Util.FakeUriInfo();
+        UriInfo uriInfo = new io.swagger.api.Util.FakeUriInfo();
         SecurityContext securityContext = null;
 
         when(mockQuery.list()).thenReturn(new ArrayList<DCAEServiceObject>());
@@ -185,9 +181,8 @@ public class DcaeServicesApiServiceImplTests {
 
         when(mockTypesDAO.getByTypeIdActiveOnly(serviceRequest.getTypeId())).thenReturn(null);
 
-        DCAEControllerClient dcc = mock(DCAEControllerClient.class);
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
-        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dcc, dbcc);
+        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
         UriInfo uriInfo = new Util.FakeUriInfo();
 
         Response response = api.dcaeServicesServiceIdPut(serviceId, serviceRequest, uriInfo, null);
@@ -203,9 +198,8 @@ public class DcaeServicesApiServiceImplTests {
         DCAEServiceObject serviceObject = new DCAEServiceObject(serviceId, serviceRequest);
         when(mockServicesDAO.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
 
-        DCAEControllerClient dcc = mock(DCAEControllerClient.class);
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
-        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dcc, dbcc);
+        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
         UriInfo uriInfo = new Util.FakeUriInfo();
 
         try {
@@ -224,9 +218,8 @@ public class DcaeServicesApiServiceImplTests {
         String serviceId = "service-id-123";
         when(mockServicesDAO.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(null);
 
-        DCAEControllerClient dcc = mock(DCAEControllerClient.class);
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
-        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dcc, dbcc);
+        DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
         UriInfo uriInfo = new Util.FakeUriInfo();
 
         try {

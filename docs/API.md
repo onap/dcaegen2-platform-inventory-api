@@ -10,7 +10,7 @@ DCAE Inventory is a web service that provides the following:
 
 
 ### Version information
-*Version* : 2.1.0
+*Version* : 3.0.0
 
 
 ### Contact information
@@ -189,8 +189,6 @@ Get a list of `DCAEService` objects.
 |HTTP Code|Description|Schema|
 |---|---|---|
 |**200**|List of `DCAEService` objects|[InlineResponse2001](#inlineresponse2001)|
-|**502**|Bad response from DCAE controller|[ApiResponseMessage](#apiresponsemessage)|
-|**504**|Failed to connect with DCAE controller|[ApiResponseMessage](#apiresponsemessage)|
 
 
 #### Consumes
@@ -258,8 +256,6 @@ Get a `DCAEService` object.
 |---|---|---|
 |**200**|Single `DCAEService` object|[DCAEService](#dcaeservice)|
 |**404**|DCAE service not found|[ApiResponseMessage](#apiresponsemessage)|
-|**502**|Bad response from DCAE controller|[ApiResponseMessage](#apiresponsemessage)|
-|**504**|Failed to connect with DCAE controller|[ApiResponseMessage](#apiresponsemessage)|
 
 
 #### Consumes
@@ -383,7 +379,7 @@ Remove an existing `DCAEService` object.
 |---|---|---|
 |**componentId**  <br>*required*|The id format is unique to the source|string|
 |**componentLink**  <br>*required*|Link to the underlying resource of this component|[Link](#link)|
-|**componentSource**  <br>*required*|Specifies the name of the underying source service that is responsible for this components|enum (DCAEController, DMaaPController)|
+|**componentSource**  <br>*required*|Specifies the name of the underying source service that is responsible for this components|enum (DMaaPController)|
 |**componentType**  <br>*required*||string|
 |**created**  <br>*required*||string(date-time)|
 |**location**  <br>*optional*|Location information of the component|string|
@@ -398,7 +394,7 @@ Remove an existing `DCAEService` object.
 |Name|Description|Schema|
 |---|---|---|
 |**componentId**  <br>*required*|The id format is unique to the source|string|
-|**componentSource**  <br>*required*|Specifies the name of the underying source service that is responsible for this components|enum (DCAEController, DMaaPController)|
+|**componentSource**  <br>*required*|Specifies the name of the underying source service that is responsible for this components|enum (DMaaPController)|
 |**componentType**  <br>*required*||string|
 |**shareable**  <br>*required*|Used to determine if this component can be shared amongst different DCAE services|integer(int32)|
 

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,55 +33,6 @@ import javax.validation.constraints.NotNull;
  * Created by mhwang on 4/11/16.
  */
 public class InventoryConfiguration extends Configuration {
-
-    public static class DCAEControllerConnectionConfiguration {
-        @NotEmpty
-        @JsonProperty
-        private String host;
-
-        @NotNull
-        @JsonProperty
-        private Integer port;
-
-        @NotEmpty
-        @JsonProperty
-        private String basePath;
-
-        @NotEmpty
-        @JsonProperty
-        private String user;
-
-        @NotEmpty
-        @JsonProperty
-        private String password;
-
-        @JsonProperty
-        private Boolean required = true;
-
-        public String getHost() {
-            return this.host;
-        }
-
-        public Integer getPort() {
-            return this.port;
-        }
-
-        public String getBasePath() {
-            return this.basePath;
-        }
-
-        public String getUser() {
-            return this.user;
-        }
-
-        public String getPassword() {
-            return this.password;
-        }
-
-        public Boolean getRequired() {
-            return this.required;
-        }
-    }
 
     public static class DatabusControllerConnectionConfiguration {
         @NotEmpty
@@ -134,10 +85,6 @@ public class InventoryConfiguration extends Configuration {
 
     @NotNull
     @JsonProperty
-    private DCAEControllerConnectionConfiguration dcaeControllerConnection = new DCAEControllerConnectionConfiguration();
-
-    @NotNull
-    @JsonProperty
     private DatabusControllerConnectionConfiguration databusControllerConnection = new DatabusControllerConnectionConfiguration();
 
     @NotNull
@@ -156,10 +103,6 @@ public class InventoryConfiguration extends Configuration {
 
     public DataSourceFactory getDataSourceFactory() {
         return this.database;
-    }
-
-    public DCAEControllerConnectionConfiguration getDcaeControllerConnection() {
-        return this.dcaeControllerConnection;
     }
 
     public DatabusControllerConnectionConfiguration getDatabusControllerConnection() {

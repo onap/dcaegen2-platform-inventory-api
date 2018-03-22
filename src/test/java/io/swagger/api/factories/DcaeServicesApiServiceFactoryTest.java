@@ -2,14 +2,14 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,19 +18,20 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.dcae.inventory.exceptions;
+package io.swagger.api.factories;
+
+import org.junit.Test;
+
+import static junit.framework.TestCase.assertNotNull;
 
 /**
- * Created by mhwang on 5/13/16.
+ * Created by mhwang on 3/22/18.
  */
-public class DCAEControllerClientException extends RuntimeException {
+public class DcaeServicesApiServiceFactoryTest {
 
-    public DCAEControllerClientException(String message) {
-        super(message);
-    }
-
-    public DCAEControllerClientException(Throwable e) {
-        super(e);
+    @Test
+    public void testGetDcaeServicesApi() {
+        assertNotNull(DcaeServicesApiServiceFactory.getDcaeServicesApi());
     }
 
 }
