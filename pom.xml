@@ -84,7 +84,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             is malformed in the internal Maven central. -->
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>4.5.5</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

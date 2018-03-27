@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
+## [3.0.0]
+
+* Remove the dcae controller code (housekeeping)
+* Upgrade org.apache.httpcomponents/httpclient to 4.5.5
+
 ## [2.4.0]
 
 ONAP version: 1.1.0
