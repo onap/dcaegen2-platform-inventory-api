@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
+## [3.0.1]
+
+* Explicitly use 5.3.6.Final for hibernate-validator and 9.4.6 for jetty-util to address security issues
+
 ## [3.0.0]
 
 * Remove the dcae controller code (housekeeping)
