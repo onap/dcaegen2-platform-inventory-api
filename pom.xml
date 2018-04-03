@@ -340,7 +340,8 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                         <expose>8080</expose>
                     </exposes>
                     <imageTags>
-                        <imageTag>${project.version}-${maven.build.timestamp}</imageTag>
+                        <imageTag>${project.version}-SNAPSHOT-${maven.build.timestamp}Z</imageTag>
+                        <imageTag>${project.version}</imageTag>
                         <imageTag>latest</imageTag>
                     </imageTags>
                     <serverId>${onap.nexus.dockerregistry.daily}</serverId>
