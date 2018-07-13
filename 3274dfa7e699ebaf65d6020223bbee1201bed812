@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_a4daa815",
+        "filename": "src/main/java/org/onap/dcae/inventory/InventoryApplication.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-07-13T17:35:48Z",
+      "side": 1,
+      "message": "Is this an accident?  Should the hardcoded IP be here?",
+      "revId": "3274dfa7e699ebaf65d6020223bbee1201bed812",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
