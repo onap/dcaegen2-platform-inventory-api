@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Michael Hwang <mhwang@research.att.com>
+Submitted-by: Michael Hwang <mhwang@research.att.com>
+Submitted-at: Fri, 13 Jul 2018 19:56:48 +0000
+Reviewed-on: https://gerrit.onap.org/r/56403
+Project: dcaegen2/platform/inventory-api
+Branch: refs/heads/master
