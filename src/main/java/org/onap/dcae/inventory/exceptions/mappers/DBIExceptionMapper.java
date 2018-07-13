@@ -42,7 +42,8 @@ import javax.ws.rs.ext.ExceptionMapper;
  */
 public class DBIExceptionMapper<T extends DBIException> implements ExceptionMapper<T> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DBIExceptionMapper.class);
+    //private static final Logger LOG = LoggerFactory.getLogger(DBIExceptionMapper.class);
+	private final static Logger errorLogger = LoggerFactory.getLogger("errorLogger");
 
     /**
      * Upon a DBIException, this handler will attempt to re-initialize the Inventory's database connection
@@ -53,14 +54,16 @@ public class DBIExceptionMapper<T extends DBIException> implements ExceptionMapp
      */
     @Override
     public Response toResponse(T exception) {
-        LOG.error("", exception);
+        //LOG.error("", exception);
+        errorLogger.error("", exception);
         StringBuilder clientMessage = new StringBuilder("There is a database issue.");
 
         try {
             InventoryDAOManager.getInstance().initialize();
             clientMessage.append(" Connection has been successfully reset. Please try again.");
         } catch(Exception e) {
-            LOG.error(String.format("Failed to re-initialize database connection: %s", e));
+            //LOG.error(String.format("Failed to re-initialize database connection: %s", e));
+            errorLogger.error(String.format("Failed to re-initialize database connection: %s", e.getMessage()));
             clientMessage.append(" Connection reset attempt has failed. Please try again soon.");
         }
 

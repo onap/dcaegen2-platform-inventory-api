@@ -47,7 +47,9 @@ import java.util.*;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
 public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImpl.class);
+    //private static final Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImpl.class);
+	private static final Logger metricsLogger = LoggerFactory.getLogger("metricsLogger");
+	private static final Logger debugLogger = LoggerFactory.getLogger("debugLogger");
     private static final int PAGINATION_PAGE_SIZE = 25;
     private static final String COMPONENT_SOURCE_DATA_BUS_CONTROLLER = "DMAAPCONTROLLER";
 
@@ -93,14 +95,17 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
                                     .rel("component").title(component.getComponentId()).build();
                             component.setComponentLink(componentLink);
                         } else {
-                            LOG.warn(String.format("Feed/topic does not exist: %s", sco.getComponentId()));
+                            //LOG.warn(String.format("Feed/topic does not exist: %s", sco.getComponentId()));
+                            debugLogger.warn(String.format("Feed/topic does not exist: %s", sco.getComponentId()));
                         }
                     } catch (DatabusControllerClientException e) {
-                        LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()), e);
+                        //LOG.warn(String.format("%s, %s", e.getMessage(), sco.toString()), e);
+                    	debugLogger.warn(String.format("%s, %s", e.getMessage(), sco.toString()), e);
                     }
                 }
             } else {
-                LOG.warn(String.format("Handling unknown component source: %s", sco.getComponentSource()));
+                //LOG.warn(String.format("Handling unknown component source: %s", sco.getComponentSource()));
+                debugLogger.warn(String.format("Handling unknown component source: %s", sco.getComponentSource()));
             }
 
             serviceComponents.add(component);
@@ -118,11 +123,13 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
         List<DCAEServiceObject> serviceObjects = new ArrayList<>();
         DateTime createdCutoff = created == null ? DateTime.now(DateTimeZone.UTC) : created;
 
-        LOG.info(String.format("Create time upper bound cutoff: %s", createdCutoff.toString()));
+        //LOG.info(String.format("Create time upper bound cutoff: %s", createdCutoff.toString()));
+        metricsLogger.info(String.format("Create time upper bound cutoff: %s", createdCutoff.toString()));
 
         // Offset is zero-based index
         offset = (offset == null) ? 0 : offset;
-        LOG.info(String.format("Query offset: %d", offset));
+        //LOG.info(String.format("Query offset: %d", offset));
+        metricsLogger.info(String.format("Query offset: %d", offset));
 
         try (Handle jdbiHandle = InventoryDAOManager.getInstance().getHandle()) {
             // WATCH! There is the use of "distinct" here.
@@ -302,7 +309,10 @@ public class DcaeServicesApiServiceImpl extends DcaeServicesApiService {
             serviceObjectToSendBack.setModified(modified);
             transactionContext.setServiceObjectToInsert(serviceObjectToSendBack);
         } else {
-            LOG.info(String.format("DCAEServiceObject already exists - updating: %s, %s",
+            //LOG.info(String.format("DCAEServiceObject already exists - updating: %s, %s",
+            //        serviceObjectFromStore.getCreated().toString(),
+            //        serviceObjectFromStore.getModified().toString()));
+            metricsLogger.info(String.format("DCAEServiceObject already exists - updating: %s, %s",
                     serviceObjectFromStore.getCreated().toString(),
                     serviceObjectFromStore.getModified().toString()));
 
