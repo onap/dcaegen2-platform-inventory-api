@@ -19,16 +19,78 @@
   ============LICENSE_END=========================================================
   -->
 
-<configuration>
+<configuration scan="true" scanPeriod="30 seconds">
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </layout>
     </appender>
+    
+	<property name="LOG_DIR" value="/opt/logs" />
+    
+    <appender name="metricsAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/metrics.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/metrics-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<!-- each file should be at most 100MB, keep 2 days worth of history, but at most 200MB -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>2</maxHistory>
+			<totalSizeCap>200MB</totalSizeCap>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS+00:00}|%d{yyyy-MM-dd'T'HH:mm:ss.SSS+00:00}|NULL|UNKNOWN|%thread||inventory||||COMPLETE|0|OK||%-5level||||||||||||||%class{36}:%M:%L: %m%n</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/debug.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/debug-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<!-- each file should be at most 100MB, keep 2 days worth of history, but at most 200MB -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>2</maxHistory>
+			<totalSizeCap>200MB</totalSizeCap>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS+00:00}|NULL|%-5level:%class{36}:%M:%L: %m%n</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/error-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<!-- each file should be at most 100MB, keep 2 days worth of history, but at most 200MB -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>2</maxHistory>
+			<totalSizeCap>200MB</totalSizeCap>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS+00:00}|NULL|%thread|inventory||||ERROR|0|ERROR:|%class{36}:%M:%L: %m%n</pattern>
+		</layout>
+	</appender>
 
-    <logger name="com" level="INFO"/>
+    <logger name="metricsLogger" level="info" additivity="false">
+		<appender-ref ref="metricsAppender" />
+	</logger>
+	
+	<logger name="debugLogger" level="debug" additivity="false">
+		<appender-ref ref="debugAppender" />
+	</logger>
+	
+	<logger name="errorLogger" level="debug" additivity="false">
+		<appender-ref ref="errorAppender" />
+	</logger>
 
-    <root level="debug">
-        <appender-ref ref="STDOUT" />
-    </root>
+	<!--<logger name="com" level="INFO"/> -->
+
+	<root level="info">
+		<!-- <appender-ref ref="STDOUT" /> -->
+		<appender-ref ref="debugAppender" />
+	</root>
+	
 </configuration>

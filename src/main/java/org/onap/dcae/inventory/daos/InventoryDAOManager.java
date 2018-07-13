@@ -60,7 +60,7 @@ public final class InventoryDAOManager {
 
     }
 
-    private static final Logger LOG = LoggerFactory.getLogger(InventoryDAOManager.class);
+    private final static Logger debugLogger = LoggerFactory.getLogger("debugLogger");
     // WATCH! Table creation order matters where mapping tables refer to other tables for foreign keys.
     private static final List<Class> DAO_CLASSES = Arrays.asList(DCAEServiceTypesDAO.class, DCAEServicesDAO.class,
             DCAEServiceComponentsDAO.class, DCAEServicesComponentsMapsDAO.class);
@@ -105,10 +105,10 @@ public final class InventoryDAOManager {
             final InventoryDAO dao = jdbi_local.onDemand(daoClass);
 
             if (dao.checkIfTableExists()) {
-                LOG.info(String.format("Sql table exists: %s", daoClass.getSimpleName()));
+                debugLogger.info(String.format("Sql table exists: %s", daoClass.getSimpleName()));
             } else {
                 dao.createTable();
-                LOG.info(String.format("Sql table created: %s", daoClass.getSimpleName()));
+                debugLogger.info(String.format("Sql table created: %s", daoClass.getSimpleName()));
             }
         }
 
@@ -120,7 +120,7 @@ public final class InventoryDAOManager {
                     viewName);
 
             if (jdbiHandle.createQuery(checkQuery).map(BooleanMapper.FIRST).first()) {
-                LOG.info(String.format("Sql view exists: %s", viewName));
+                debugLogger.info(String.format("Sql view exists: %s", viewName));
             } else {
                 StringBuilder sb = new StringBuilder(String.format("create view %s as ", viewName));
                 sb.append("select s.* from dcae_service_types s ");
@@ -128,7 +128,7 @@ public final class InventoryDAOManager {
                 sb.append("on s.type_name = f.type_name and s.type_version = f.max_version");
 
                 jdbiHandle.execute(sb.toString());
-                LOG.info(String.format("Sql view created: %s", viewName));
+                debugLogger.info(String.format("Sql view created: %s", viewName));
             }
         } catch (Exception e) {
             throw new InventoryDAOManagerSetupException("view does not exist, " + e);

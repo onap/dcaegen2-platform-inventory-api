@@ -47,7 +47,8 @@ import java.util.UUID;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
 public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DcaeServiceTypesApiServiceImpl.class);
+    private static final Logger metricsLogger = LoggerFactory.getLogger("metricsLogger");
+    private static final Logger debugLogger = LoggerFactory.getLogger("debugLogger");
     private static int PAGINATION_PAGE_SIZE = 25;
 
     private DCAEServiceType createDCAEServiceType(DCAEServiceTypeObject serviceTypeObject, UriInfo uriInfo) {
@@ -139,6 +140,8 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
 
             // Sort by created timestamp - always descending.
             sb.append(" order by created desc");
+            
+            metricsLogger.info("Query created as: {}." + sb.toString());
 
             Query<DCAEServiceTypeObject> query = jdbiHandle.createQuery(sb.toString()).map(new DCAEServiceTypeObjectMapper());
 
@@ -208,6 +211,8 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
 
         response.setLinks(navigationLinks);
 
+        debugLogger.debug("Response: {}." + response.toString());
+        
         return Response.ok().entity(response).build();
     }
 
@@ -278,7 +283,7 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
         DCAEServicesDAO servicesDAO = InventoryDAOManager.getInstance().getDCAEServicesDAO();
         Integer count = servicesDAO.countByType(DCAEServiceObject.DCAEServiceStatus.RUNNING, typeId);
 
-        LOG.info(String.format("Checked num DCAE services running: %s, %d", typeId, count));
+        metricsLogger.info(String.format("Checked num DCAE services running: %s, %d", typeId, count));
 
         // Allow the updating of an existing DCAE service type IFF there are no running DCAE services for this type
 

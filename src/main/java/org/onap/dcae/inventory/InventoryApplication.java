@@ -47,6 +47,8 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.util.ContextInitializer;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -62,10 +64,12 @@ import java.util.Locale;
  */
 public class InventoryApplication extends Application<InventoryConfiguration> {
 
-    static final Logger LOG = LoggerFactory.getLogger(InventoryApplication.class);
+    static final Logger metricsLogger = LoggerFactory.getLogger("metricsLogger");
+	static final Logger debugLogger = LoggerFactory.getLogger("debugLogger");
     static boolean shouldRemoteFetchConfig = false;
 
     public static void main(String[] args) throws Exception {
+    	metricsLogger.info("DCAE inventory application main Startup");
         // This is here to try to fix a "high" issue caught by Fortify. Did this **plus** setting locale for each of the
         // string comparisons that use `toUpper` because of this StackOverflow post:
         // http://stackoverflow.com/questions/38308777/fixed-fortify-scan-locale-changes-are-reappearing
@@ -85,6 +89,15 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
             // You are here because you want to use the default way of configuring inventory - YAML file.
             new InventoryApplication().run(args);
         }
+        // revert to using logback.xml:
+        LoggerContext context = (LoggerContext)LoggerFactory.getILoggerFactory();
+    	context.reset();
+    	ContextInitializer initializer = new ContextInitializer(context);
+    	initializer.autoConfig();
+    	
+    	metricsLogger.info("Starting DCAE inventory application...");
+    	debugLogger.debug(String.format("Starting DCAE inventory application... args[0]: %s", args[0]));
+    	
     }
 
     @Override
@@ -103,7 +116,7 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
     public void initialize(Bootstrap<InventoryConfiguration> bootstrap) {
         // This Info object was lifted from the Swagger generated io.swagger.api.Bootstrap file. Although it was not generated
         // correctly.
-        Info info = new Info().title("DCAE Inventory API").version("0.8.0")
+        Info info = new Info().title("DCAE Inventory API").version("0.8.1")
                 .description("DCAE Inventory is a web service that provides the following:\n\n1. Real-time data on all DCAE services and their components\n2. Comprehensive details on available DCAE service types\n")
                 .contact(new Contact().email("dcae@lists.onap.org"));
         // Swagger/servlet/jax-rs magic!
@@ -121,8 +134,8 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
 
     @Override
     public void run(InventoryConfiguration configuration, Environment environment) {
-        LOG.info("Starting DCAE inventory application");
-        LOG.info(String.format("DB driver properties: %s", configuration.getDataSourceFactory().getProperties().toString()));
+        debugLogger.info("Starting DCAE inventory application");
+        debugLogger.info(String.format("DB driver properties: %s", configuration.getDataSourceFactory().getProperties().toString()));
         InventoryDAOManager.getInstance().setup(environment, configuration);
         InventoryDAOManager.getInstance().initialize();
 
@@ -152,10 +165,9 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
             final DatabusControllerClient databusControllerClient = new DatabusControllerClient(clientDatabusController,
                     configuration.getDatabusControllerConnection());
             DcaeServicesApiServiceFactory.setDatabusControllerClient(databusControllerClient);
-
-            LOG.info("Use of databus controller client is required. Turned on.");
+            debugLogger.info("Use of DCAE controller client is required. Turned on.");
         } else {
-            LOG.warn("Use of databus controller client is *not* required. Turned off.");
+            debugLogger.warn("Use of DCAE controller client is *not* required. Turned off.");
         }
 
         environment.jersey().register(NotFoundExceptionMapper.class);
