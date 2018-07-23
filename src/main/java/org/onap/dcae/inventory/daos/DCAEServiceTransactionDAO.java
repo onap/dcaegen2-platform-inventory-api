@@ -36,7 +36,7 @@ import java.util.List;
  *
  * Created by mhwang on 4/21/16.
  */
-public abstract class DCAEServiceTransactionDAO {
+public interface DCAEServiceTransactionDAO {
 
     public static class DCAEServiceTransactionContext {
 
@@ -130,7 +130,7 @@ public abstract class DCAEServiceTransactionDAO {
     public abstract DCAEServiceComponentsDAO getComponentsDAO();
 
     @Transaction
-    public void insert(DCAEServiceTransactionContext context) {
+    public default void insert(DCAEServiceTransactionContext context) {
         if (context.getServiceObjectToInsert() != null) {
             this.getServicesDAO().insert(context.getServiceObjectToInsert());
         }
