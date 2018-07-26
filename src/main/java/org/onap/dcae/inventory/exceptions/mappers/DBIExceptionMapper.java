@@ -42,7 +42,7 @@ import javax.ws.rs.ext.ExceptionMapper;
  */
 public class DBIExceptionMapper<T extends DBIException> implements ExceptionMapper<T> {
 
-	private final static Logger errorLogger = LoggerFactory.getLogger("errorLogger");
+	private static final Logger errorLogger = LoggerFactory.getLogger("errorLogger");
 
     /**
      * Upon a DBIException, this handler will attempt to re-initialize the Inventory's database connection
