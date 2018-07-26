@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da7095c5_706f6393",
+        "filename": "src/main/java/org/onap/dcae/inventory/daos/DCAEServiceTransactionDAO.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-07-26T13:39:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right to me.  I think the expectation for this DAO to be used by jdbi is for this to be a abstract class and not an interface.",
+      "revId": "f2950cd904393b9733256ed401674ee57e1e9770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
