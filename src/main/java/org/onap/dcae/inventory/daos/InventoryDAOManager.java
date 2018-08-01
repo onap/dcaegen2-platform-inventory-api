@@ -60,7 +60,7 @@ public final class InventoryDAOManager {
 
     }
 
-    private final static Logger debugLogger = LoggerFactory.getLogger("debugLogger");
+    private static final Logger debugLogger = LoggerFactory.getLogger("debugLogger");
     // WATCH! Table creation order matters where mapping tables refer to other tables for foreign keys.
     private static final List<Class> DAO_CLASSES = Arrays.asList(DCAEServiceTypesDAO.class, DCAEServicesDAO.class,
             DCAEServiceComponentsDAO.class, DCAEServicesComponentsMapsDAO.class);
