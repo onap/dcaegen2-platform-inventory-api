@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_c680078e",
+        "filename": "src/main/java/org/onap/dcae/inventory/clients/DatabusControllerClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-08-03T14:56:55Z",
+      "side": 1,
+      "message": "This inner block should be two tabs (8 whitespaces).  Thank you.",
+      "revId": "624c65196e6a86ee2e142b5407ba3d1176b621c7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
