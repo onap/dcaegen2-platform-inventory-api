@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_46b6378c",
+        "filename": "src/main/java/org/onap/dcae/inventory/clients/DatabusControllerClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-08-03T14:47:31Z",
+      "side": 1,
+      "message": "Now you don\u0027t have any whitespaces.  Can you tab but please use 4 spaces for tab instead of the \\t?  Thanks.  Apologies for the inconvenience",
+      "revId": "0491a3cb0e24250a2e3918f6d2d8bf3513e62815",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
