@@ -41,7 +41,10 @@ public class DatabusControllerClient {
 
     private final Client client;
     private final InventoryConfiguration.DatabusControllerConnectionConfiguration connectionConfiguration;
-
+public DatabusControllerClient(Client client, InventoryConfiguration.DatabusControllerConnectionConfiguration connectionConfiguration) {
+this.client = client;
+this.connectionConfiguration = connectionConfiguration;
+}
     public URI constructResourceURI(String resourcePath) {
         // Make sure that the resource path has a "/" because the UriBuilder sucks and doesn't do it for us.
         if (resourcePath.charAt(0) != '/') {
@@ -81,11 +84,4 @@ public class DatabusControllerClient {
         throw new DatabusControllerClientException(String.format("Unexpected error from databus controller: %d",
                 response.getStatus()));
     }
-
-    public DatabusControllerClient(Client client,
-                                   InventoryConfiguration.DatabusControllerConnectionConfiguration connectionConfiguration) {
-        this.client = client;
-        this.connectionConfiguration = connectionConfiguration;
-    }
-
 }
