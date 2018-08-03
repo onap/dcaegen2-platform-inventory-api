@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_c62ec7a5",
+        "filename": "src/main/java/org/onap/dcae/inventory/clients/DatabusControllerClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-08-03T15:04:46Z",
+      "side": 1,
+      "message": "For consistency, please line up this closing curly brace with the function definition its associated with.  It should be tabbed once (4 white space).",
+      "revId": "85f103ca18f15e6d98b003facad1efc719df1b0c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
