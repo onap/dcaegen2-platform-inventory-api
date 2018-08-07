@@ -49,6 +49,15 @@ public abstract class DCAEServiceTransactionDAO {
         private List<String> mappingsToInsert;
         private List<String> mappingsToDelete;
 
+        public DCAEServiceTransactionContext(String serviceId, DateTime modified) {
+            this.serviceId = serviceId;
+            this.modified = modified;
+            this.componentObjectsToInsert = new ArrayList<>();
+            this.componentObjectsToUpdate = new ArrayList<>();
+            this.mappingsToInsert = new ArrayList<>();
+            this.mappingsToDelete = new ArrayList<>();
+            }
+
         public String getServiceId() {
             return serviceId;
         }
@@ -108,16 +117,6 @@ public abstract class DCAEServiceTransactionDAO {
             this.mappingsToDelete.add(componentId);
             return this.mappingsToDelete;
         }
-
-        public DCAEServiceTransactionContext(String serviceId, DateTime modified) {
-            this.serviceId = serviceId;
-            this.modified = modified;
-            this.componentObjectsToInsert = new ArrayList<>();
-            this.componentObjectsToUpdate = new ArrayList<>();
-            this.mappingsToInsert = new ArrayList<>();
-            this.mappingsToDelete = new ArrayList<>();
-        }
-
     }
 
     @CreateSqlObject
