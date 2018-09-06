@@ -94,9 +94,15 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
             }
 
             List<String> whereClauses = new ArrayList<>();
-
+            
             if (typeName != null) {
-                whereClauses.add(":typeName = type_name");
+            	if (!typeName.contains("*")) {
+            		whereClauses.add(":typeName = type_name");
+            	}
+            	else {
+            		typeName = typeName.replaceAll("\\*", "%");
+                    whereClauses.add("type_name LIKE :typeName");
+            	}                
             }
 
             if (vnfType != null) {
