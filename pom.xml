@@ -29,7 +29,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
     <groupId>org.onap.dcaegen2.platform</groupId>
     <artifactId>inventory-api</artifactId>
-    <version>3.0.3</version>
+    <version>3.0.4</version>
     <name>dcaegen2-platform-inventory-api</name>
     <!--internal <version>3.0.0</version>-->
 
@@ -109,7 +109,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                  other jetty libraries are on 9.4.2 still -->
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-util</artifactId>
-            <version>9.4.6.v20170531</version>
+            <version>9.4.12.v20180830</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
