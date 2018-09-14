@@ -18,10 +18,19 @@ package io.swagger.api.impl;/*-
  * ============LICENSE_END=========================================================
  */
 
-import io.swagger.api.NotFoundException;
-import io.swagger.api.Util;
-import io.swagger.model.DCAEService;
-import io.swagger.model.DCAEServiceRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,21 +44,13 @@ import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import static org.junit.Assert.fail;
+import io.swagger.api.NotFoundException;
+import io.swagger.api.Util;
+import io.swagger.model.DCAEService;
+import io.swagger.model.DCAEServiceRequest;
 
 /**
  * Created by mhwang on 9/25/17.
@@ -58,26 +59,26 @@ import static org.junit.Assert.fail;
 @RunWith(PowerMockRunner.class)
 public class DcaeServicesApiServiceImplTests {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImplTests.class);
+    private static final Logger log = LoggerFactory.getLogger(DcaeServicesApiServiceImplTests.class);
 
-    private DCAEServiceTypesDAO mockTypesDAO = null;
-    private DCAEServicesDAO mockServicesDAO = null;
-    private DCAEServiceComponentsDAO mockComponentsDAO = null;
+    private DCAEServiceTypesDAO mockTypesDao = null;
+    private DCAEServicesDAO mockServicesDao = null;
+    private DCAEServiceComponentsDAO mockComponentsDao = null;
 
     @Before
     public void setupClass() {
-        mockTypesDAO = mock(DCAEServiceTypesDAO.class);
-        mockServicesDAO = mock(DCAEServicesDAO.class);
-        mockComponentsDAO = mock(DCAEServiceComponentsDAO.class);
+        mockTypesDao = mock(DCAEServiceTypesDAO.class);
+        mockServicesDao = mock(DCAEServicesDAO.class);
+        mockComponentsDao = mock(DCAEServiceComponentsDAO.class);
 
         // PowerMockito does bytecode magic to mock static methods and use final classes
         PowerMockito.mockStatic(InventoryDAOManager.class);
-        InventoryDAOManager mockDAOManager = mock(InventoryDAOManager.class);
+        InventoryDAOManager mockDaoManager = mock(InventoryDAOManager.class);
 
-        when(InventoryDAOManager.getInstance()).thenReturn(mockDAOManager);
-        when(mockDAOManager.getDCAEServicesDAO()).thenReturn(mockServicesDAO);
-        when(mockDAOManager.getDCAEServiceComponentsDAO()).thenReturn(mockComponentsDAO);
-        when(mockDAOManager.getDCAEServiceTypesDAO()).thenReturn(mockTypesDAO);
+        when(InventoryDAOManager.getInstance()).thenReturn(mockDaoManager);
+        when(mockDaoManager.getDCAEServicesDAO()).thenReturn(mockServicesDao);
+        when(mockDaoManager.getDCAEServiceComponentsDAO()).thenReturn(mockComponentsDao);
+        when(mockDaoManager.getDCAEServiceTypesDAO()).thenReturn(mockTypesDao);
     }
 
     @Test
@@ -86,10 +87,10 @@ public class DcaeServicesApiServiceImplTests {
 
         // This block is a trick to make a private method accessible for testing
         try {
-            createDCAEService = DcaeServicesApiServiceImpl.class.getDeclaredMethod("createDCAEService", DCAEServiceObject.class,
-                    Collection.class, UriInfo.class);
+            createDCAEService = DcaeServicesApiServiceImpl.class.getDeclaredMethod("createDCAEService", 
+		    DCAEServiceObject.class, Collection.class, UriInfo.class);
             createDCAEService.setAccessible(true);
-        } catch(NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             fail("Failed to do the reflection trick to test the private method: createDCAEService");
         }
 
@@ -107,7 +108,7 @@ public class DcaeServicesApiServiceImplTests {
         try {
             DCAEService service = (DCAEService) createDCAEService.invoke(api, serviceObject, components, uriInfo);
             assertEquals(service.getServiceId(), serviceObject.getServiceId());
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Failed to execute the hacked createDCAEService method");
         }
     }
@@ -119,8 +120,8 @@ public class DcaeServicesApiServiceImplTests {
         serviceRequest.setTypeId("type-id-abc");
         serviceRequest.setVnfId("vnf-id-def");
         DCAEServiceObject serviceObject = new DCAEServiceObject(serviceId, serviceRequest);
-        when(mockServicesDAO.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
-        when(mockComponentsDAO.getByServiceId(serviceId)).thenReturn(new ArrayList<DCAEServiceComponentObject>());
+        when(mockServicesDao.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
+        when(mockComponentsDao.getByServiceId(serviceId)).thenReturn(new ArrayList<DCAEServiceComponentObject>());
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
@@ -129,15 +130,15 @@ public class DcaeServicesApiServiceImplTests {
         try {
             Response response = api.dcaeServicesServiceIdGet(serviceId, uriInfo, null);
             assertEquals(response.getStatus(), 200);
-        } catch(NotFoundException e) {
+        } catch (NotFoundException e) {
             fail("Service should have been found");
         }
     }
 
     /*
-    Commented this unit test because could not get past Nullpointer in the line trying to mock the explicit "bind" function
-    call. Mockito does not handle mocking overloaded functions well so it goes into the actual method where an member variable
-    called foreman is null.
+    Commented this unit test because could not get past Nullpointer in the line trying to mock the explicit "bind" 
+    function call. Mockito does not handle mocking overloaded functions well so it goes into the actual method where
+    an member variable called foreman is null.
     @Test
     public void testDcaeServicesGet() {
         Handle mockHandle = mock(Handle.class);
@@ -174,17 +175,17 @@ public class DcaeServicesApiServiceImplTests {
 
     @Test
     public void testDcaeServicesServiceIdPutMissingType() {
-        String serviceId = "service-id-123";
         DCAEServiceRequest serviceRequest = new DCAEServiceRequest();
         serviceRequest.setTypeId("type-id-abc");
         serviceRequest.setVnfId("vnf-id-def");
 
-        when(mockTypesDAO.getByTypeIdActiveOnly(serviceRequest.getTypeId())).thenReturn(null);
+        when(mockTypesDao.getByTypeIdActiveOnly(serviceRequest.getTypeId())).thenReturn(null);
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
         UriInfo uriInfo = new Util.FakeUriInfo();
 
+        String serviceId = "service-id-123";
         Response response = api.dcaeServicesServiceIdPut(serviceId, serviceRequest, uriInfo, null);
         assertEquals(response.getStatus(), 422);
     }
@@ -196,7 +197,7 @@ public class DcaeServicesApiServiceImplTests {
         serviceRequest.setTypeId("type-id-abc");
         serviceRequest.setVnfId("vnf-id-def");
         DCAEServiceObject serviceObject = new DCAEServiceObject(serviceId, serviceRequest);
-        when(mockServicesDAO.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
+        when(mockServicesDao.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
@@ -205,10 +206,10 @@ public class DcaeServicesApiServiceImplTests {
         try {
             Response response = api.dcaeServicesServiceIdDelete(serviceId, null);
             assertEquals(response.getStatus(), 200);
-        } catch(NotFoundException e) {
+        } catch (NotFoundException e) {
             fail("Should have NOT thrown a NotFoundException");
-        } catch(Exception e) {
-            LOG.error("Unexpected exception", e);
+        } catch (Exception e) {
+            log.error("Unexpected exception", e);
             fail("Unexpected exception");
         }
     }
@@ -216,7 +217,7 @@ public class DcaeServicesApiServiceImplTests {
     @Test
     public void testDcaeServicesServiceIdDeleteMissingService() {
         String serviceId = "service-id-123";
-        when(mockServicesDAO.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(null);
+        when(mockServicesDao.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(null);
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
@@ -225,10 +226,10 @@ public class DcaeServicesApiServiceImplTests {
         try {
             api.dcaeServicesServiceIdDelete(serviceId, null);
             fail("Should have thrown a NotFoundException");
-        } catch(NotFoundException e) {
-            LOG.info("NotFoundException successfully thrown");
-        } catch(Exception e) {
-            LOG.error("Unexpected exception", e);
+        } catch (NotFoundException e) {
+            log.info("NotFoundException successfully thrown");
+        } catch (Exception e) {
+            log.error("Unexpected exception", e);
             fail("Unexpected exception");
         }
     }

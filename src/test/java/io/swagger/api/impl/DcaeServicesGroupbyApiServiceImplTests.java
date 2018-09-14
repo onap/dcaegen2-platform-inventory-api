@@ -18,7 +18,13 @@ package io.swagger.api.impl;/*-
  * ============LICENSE_END=========================================================
  */
 
-import io.swagger.api.Util;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,13 +33,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import io.swagger.api.Util;
 
 /**
  * Created by mhwang on 9/27/17.
@@ -46,9 +46,9 @@ public class DcaeServicesGroupbyApiServiceImplTests {
     public void setupClass() {
         // PowerMockito does bytecode magic to mock static methods and use final classes
         PowerMockito.mockStatic(InventoryDAOManager.class);
-        InventoryDAOManager mockDAOManager = mock(InventoryDAOManager.class);
+        InventoryDAOManager mockDaoManager = mock(InventoryDAOManager.class);
 
-        when(InventoryDAOManager.getInstance()).thenReturn(mockDAOManager);
+        when(InventoryDAOManager.getInstance()).thenReturn(mockDaoManager);
     }
 
     @Test
@@ -62,9 +62,9 @@ public class DcaeServicesGroupbyApiServiceImplTests {
     }
 
     /*
-    Commented this unit test because could not get past Nullpointer in the line trying to mock the explicit "bind" function
-    call. Mockito does not handle mocking overloaded functions well so it goes into the actual method where an member variable
-    called foreman is null.
+    Commented this unit test because could not get past Nullpointer in the line trying to mock the explicit "bind" 
+    function call. Mockito does not handle mocking overloaded functions well so it goes into the actual method where
+    an member variable called foreman is null.
     @Test
     public void testNoResults() {
         DcaeServicesGroupbyApiServiceImpl api = new DcaeServicesGroupbyApiServiceImpl();

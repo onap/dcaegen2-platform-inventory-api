@@ -20,12 +20,15 @@
 
 package org.onap.dcae.inventory.exceptions.mappers;
 
-import org.onap.dcae.inventory.daos.InventoryDAOManager;
-import org.onap.dcae.inventory.exceptions.mappers.DBIExceptionMapper;
-import io.swagger.api.ApiResponseMessage;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import javax.ws.rs.core.Response;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -33,10 +36,7 @@ import org.skife.jdbi.v2.exceptions.UnableToCreateStatementException;
 import org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException;
 import org.skife.jdbi.v2.exceptions.UnableToObtainConnectionException;
 
-import javax.ws.rs.core.Response;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import io.swagger.api.ApiResponseMessage;
 
 /**
  * Created by mhwang on 3/8/17.
@@ -49,14 +49,15 @@ public class DBIExceptionMapperTests {
     public void testReinitializeSuccess() {
         // PowerMockito does bytecode magic to mock static methods and use final classes
         PowerMockito.mockStatic(InventoryDAOManager.class);
-        InventoryDAOManager mockDAOManager = mock(InventoryDAOManager.class);
-        when(InventoryDAOManager.getInstance()).thenReturn(mockDAOManager);
+        InventoryDAOManager mockDaoManager = mock(InventoryDAOManager.class);
+        when(InventoryDAOManager.getInstance()).thenReturn(mockDaoManager);
 
         RuntimeException fakeException = new RuntimeException("Spoofing database failure");
 
         // Test UnableToObtainConnectionExceptionMapper
 
-        DBIExceptionMapper.UnableToObtainConnectionExceptionMapper mapperOne = new DBIExceptionMapper.UnableToObtainConnectionExceptionMapper();
+        DBIExceptionMapper.UnableToObtainConnectionExceptionMapper mapperOne =
+	    new DBIExceptionMapper.UnableToObtainConnectionExceptionMapper();
         Response responseOne = mapperOne.toResponse(new UnableToObtainConnectionException(fakeException));
         assert responseOne.getStatus() == 502;
         String messageOne = ((ApiResponseMessage) responseOne.getEntity()).getMessage();
@@ -64,7 +65,8 @@ public class DBIExceptionMapperTests {
 
         // Test UnableToCreateStatementExceptionMapper
 
-        DBIExceptionMapper.UnableToCreateStatementExceptionMapper mapperTwo = new DBIExceptionMapper.UnableToCreateStatementExceptionMapper();
+        DBIExceptionMapper.UnableToCreateStatementExceptionMapper mapperTwo =
+	    new DBIExceptionMapper.UnableToCreateStatementExceptionMapper();
         Response responseTwo = mapperTwo.toResponse(new UnableToCreateStatementException(fakeException));
         assert responseTwo.getStatus() == 502;
         String messageTwo = ((ApiResponseMessage) responseTwo.getEntity()).getMessage();
@@ -72,7 +74,8 @@ public class DBIExceptionMapperTests {
 
         // Test UnableToExecuteStatementExceptionMapper
 
-        DBIExceptionMapper.UnableToExecuteStatementExceptionMapper mapperThree = new DBIExceptionMapper.UnableToExecuteStatementExceptionMapper();
+        DBIExceptionMapper.UnableToExecuteStatementExceptionMapper mapperThree =
+	    new DBIExceptionMapper.UnableToExecuteStatementExceptionMapper();
         Response responseThree = mapperThree.toResponse(new UnableToExecuteStatementException(fakeException));
         assert responseThree.getStatus() == 502;
         String messageThree = ((ApiResponseMessage) responseThree.getEntity()).getMessage();
@@ -83,15 +86,16 @@ public class DBIExceptionMapperTests {
     public void testReinitializeFailed() {
         // PowerMockito does bytecode magic to mock static methods and use final classes
         PowerMockito.mockStatic(InventoryDAOManager.class);
-        InventoryDAOManager mockDAOManager = mock(InventoryDAOManager.class);
-        when(InventoryDAOManager.getInstance()).thenReturn(mockDAOManager);
-        Mockito.doThrow(new RuntimeException("Spoof initialization failure")).when(mockDAOManager).initialize();
+        InventoryDAOManager mockDaoManager = mock(InventoryDAOManager.class);
+        when(InventoryDAOManager.getInstance()).thenReturn(mockDaoManager);
+        Mockito.doThrow(new RuntimeException("Spoof initialization failure")).when(mockDaoManager).initialize();
 
         RuntimeException fakeException = new RuntimeException("Spoofing database failure");
 
         // Test UnableToObtainConnectionExceptionMapper
 
-        DBIExceptionMapper.UnableToObtainConnectionExceptionMapper mapperOne = new DBIExceptionMapper.UnableToObtainConnectionExceptionMapper();
+        DBIExceptionMapper.UnableToObtainConnectionExceptionMapper mapperOne =
+	    new DBIExceptionMapper.UnableToObtainConnectionExceptionMapper();
         Response responseOne = mapperOne.toResponse(new UnableToObtainConnectionException(fakeException));
         assert responseOne.getStatus() == 502;
         String messageOne = ((ApiResponseMessage) responseOne.getEntity()).getMessage();
@@ -99,7 +103,8 @@ public class DBIExceptionMapperTests {
 
         // Test UnableToCreateStatementExceptionMapper
 
-        DBIExceptionMapper.UnableToCreateStatementExceptionMapper mapperTwo = new DBIExceptionMapper.UnableToCreateStatementExceptionMapper();
+        DBIExceptionMapper.UnableToCreateStatementExceptionMapper mapperTwo =
+	    new DBIExceptionMapper.UnableToCreateStatementExceptionMapper();
         Response responseTwo = mapperTwo.toResponse(new UnableToCreateStatementException(fakeException));
         assert responseTwo.getStatus() == 502;
         String messageTwo = ((ApiResponseMessage) responseTwo.getEntity()).getMessage();
@@ -107,7 +112,8 @@ public class DBIExceptionMapperTests {
 
         // Test UnableToExecuteStatementExceptionMapper
 
-        DBIExceptionMapper.UnableToExecuteStatementExceptionMapper mapperThree = new DBIExceptionMapper.UnableToExecuteStatementExceptionMapper();
+        DBIExceptionMapper.UnableToExecuteStatementExceptionMapper mapperThree =
+	    new DBIExceptionMapper.UnableToExecuteStatementExceptionMapper();
         Response responseThree = mapperThree.toResponse(new UnableToExecuteStatementException(fakeException));
         assert responseThree.getStatus() == 502;
         String messageThree = ((ApiResponseMessage) responseThree.getEntity()).getMessage();

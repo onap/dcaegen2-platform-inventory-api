@@ -20,11 +20,11 @@
 
 package io.swagger.api;
 
-import org.junit.Test;
+import static org.junit.Assert.fail;
 
 import javax.servlet.ServletException;
 
-import static org.junit.Assert.fail;
+import org.junit.Test;
 
 /**
  * Created by mhwang on 3/22/18.
@@ -35,7 +35,7 @@ public class BootstrapTest {
     public void testNoServletConfig() {
         try {
             (new Bootstrap()).init(null);
-        } catch(ServletException e) {
+        } catch (ServletException e) {
             fail("This might be a valid failure. Should investigate.");
         }
     }

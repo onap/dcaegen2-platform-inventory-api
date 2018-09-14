@@ -20,12 +20,13 @@
 
 package org.onap.dcae.inventory.dbthings.models;
 
-import io.swagger.model.DCAEServiceComponentRequest;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+
+import org.junit.Test;
+
+import io.swagger.model.DCAEServiceComponentRequest;
 
 /**
  * Created by mhwang on 9/27/17.

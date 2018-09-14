@@ -20,19 +20,23 @@
 
 package io.swagger.api.impl;
 
-import com.codahale.metrics.MetricRegistry;
-import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.jackson.Jackson;
-import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.setup.Environment;
-import io.swagger.api.Util;
-import io.swagger.model.DCAEServiceRequest;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.UriInfo;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.onap.dcae.inventory.clients.DatabusControllerClient;
-import org.onap.dcae.inventory.daos.*;
+import org.onap.dcae.inventory.daos.DCAEServiceComponentsDAO;
+import org.onap.dcae.inventory.daos.DCAEServicesComponentsMapsDAO;
+import org.onap.dcae.inventory.daos.DCAEServicesDAO;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -41,14 +45,14 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.core.UriInfo;
+import com.codahale.metrics.MetricRegistry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.jackson.Jackson;
+import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.setup.Environment;
+import io.swagger.api.Util;
+import io.swagger.model.DCAEServiceRequest;
 
 /**
  * Created by mhwang on 9/25/17.
@@ -62,16 +66,16 @@ import static org.mockito.Mockito.when;
 @RunWith(PowerMockRunner.class)
 public class DcaeServicesApiServiceImplH2Tests {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DcaeServicesApiServiceImplH2Tests.class);
+    private static final Logger log = LoggerFactory.getLogger(DcaeServicesApiServiceImplH2Tests.class);
 
-    private DCAEServicesDAO mockServicesDAO = null;
-    private DCAEServiceComponentsDAO mockComponentsDAO = null;
-    private DCAEServicesComponentsMapsDAO mockComponentsMapsDAO = null;
+    private DCAEServicesDAO mockServicesDao = null;
+    private DCAEServiceComponentsDAO mockComponentsDao = null;
+    private DCAEServicesComponentsMapsDAO mockComponentsMapsDao = null;
 
     // https://stackoverflow.com/questions/35825383/how-to-test-jdbi-daos-with-h2-in-memory-database
-    // Caused by: java.lang.ClassNotFoundException: Unable to load class: org.h2.Driver from ClassLoader:sun.misc.Launcher$AppClassLoader@18b4aac2;ClassLoader:sun.misc.Launcher$AppClassLoader@18b4aac2
-    protected DataSourceFactory getDataSourceFactory()
-    {
+    // Caused by: java.lang.ClassNotFoundException: Unable to load class: org.h2.Driver from
+    // ClassLoader:sun.misc.Launcher$AppClassLoader@18b4aac2;ClassLoader:sun.misc.Launcher$AppClassLoader@18b4aac2
+    protected DataSourceFactory getDataSourceFactory() {
         DataSourceFactory dataSourceFactory = new DataSourceFactory();
         dataSourceFactory.setDriverClass( "org.h2.Driver" );
         dataSourceFactory.setUrl( "jdbc:h2:mem:testDb" );
@@ -85,23 +89,23 @@ public class DcaeServicesApiServiceImplH2Tests {
     public void setUp() {
         Environment env = new Environment( "test-env", Jackson.newObjectMapper(), null, new MetricRegistry(), null );
         DBI dbi = new DBIFactory().build( env, getDataSourceFactory(), "test" );
-        mockServicesDAO = dbi.onDemand(DCAEServicesDAO.class);
-        mockComponentsDAO = dbi.onDemand(DCAEServiceComponentsDAO.class);
-        mockComponentsMapsDAO = dbi.onDemand(DCAEServicesComponentsMapsDAO.class);
+        mockServicesDao = dbi.onDemand(DCAEServicesDAO.class);
+        mockComponentsDao = dbi.onDemand(DCAEServiceComponentsDAO.class);
+        mockComponentsMapsDao = dbi.onDemand(DCAEServicesComponentsMapsDAO.class);
 
         // PowerMockito does bytecode magic to mock static methods and use final classes
         PowerMockito.mockStatic(InventoryDAOManager.class);
-        InventoryDAOManager mockDAOManager = mock(InventoryDAOManager.class);
+        InventoryDAOManager mockDaoManager = mock(InventoryDAOManager.class);
 
-        when(InventoryDAOManager.getInstance()).thenReturn(mockDAOManager);
-        when(mockDAOManager.getHandle()).thenReturn(dbi.open());
+        when(InventoryDAOManager.getInstance()).thenReturn(mockDaoManager);
+        when(mockDaoManager.getHandle()).thenReturn(dbi.open());
     }
 
     @Test
-    public void testDcaeServicesGet () {
-        mockServicesDAO.createTable();
-        mockComponentsDAO.createTable();
-        mockComponentsMapsDAO.createTable();
+    public void testDcaeServicesGet() {
+        mockServicesDao.createTable();
+        mockComponentsDao.createTable();
+        mockComponentsMapsDao.createTable();
 
         DCAEServiceRequest request = new DCAEServiceRequest();
         request.setTypeId("some-type-id");
@@ -110,7 +114,7 @@ public class DcaeServicesApiServiceImplH2Tests {
         request.setVnfLocation("some-vnf-location");
         request.setDeploymentRef("some-deployment-ref");
         DCAEServiceObject so = new DCAEServiceObject("some-service-id", request);
-        mockServicesDAO.insert(so);
+        mockServicesDao.insert(so);
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);

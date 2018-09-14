@@ -20,32 +20,36 @@
 
 package org.onap.dcae.inventory;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+
+import javax.validation.Validator;
+
+import org.junit.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.dropwizard.configuration.YamlConfigurationFactory;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jersey.validation.Validators;
-import org.junit.Test;
-
-import javax.validation.Validator;
-import java.io.File;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Created by mhwang on 3/22/18.
  */
 public class InventoryConfigurationTest {
 
-    final private ObjectMapper objectMapper = Jackson.newObjectMapper();
-    final private Validator validator = Validators.newValidator();
-    final private YamlConfigurationFactory<InventoryConfiguration> factory
+    private final ObjectMapper objectMapper = Jackson.newObjectMapper();
+    private final Validator validator = Validators.newValidator();
+    private final YamlConfigurationFactory<InventoryConfiguration> factory
             = new YamlConfigurationFactory<>(InventoryConfiguration.class, validator, objectMapper, "dw");
 
     @Test
     public void testInventoryConfigurationLoad() {
         try {
-            final File yaml = new File(Thread.currentThread().getContextClassLoader().getResource("config-inventory.yaml").getPath());
+            final File yaml = new File(Thread.currentThread().getContextClassLoader().
+				       getResource("config-inventory.yaml").getPath());
             InventoryConfiguration configuration = factory.build(yaml);
 
             assertEquals(configuration.getDatabusControllerConnection().getHost(), "databus-controller-hostname");
@@ -53,7 +57,7 @@ public class InventoryConfigurationTest {
             assertEquals(configuration.getDatabusControllerConnection().getRequired(), true);
 
             assertEquals(configuration.getDataSourceFactory().getUrl(), "jdbc:postgresql://127.0.0.1:5432/dcae_inv");
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Failed to load config-inventory");
         }
     }

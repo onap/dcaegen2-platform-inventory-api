@@ -20,12 +20,13 @@
 
 package org.onap.dcae.inventory.providers;
 
-import io.swagger.api.NotFoundException;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.core.Response;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+import io.swagger.api.NotFoundException;
 
 /**
  * Created by mhwang on 10/2/17.

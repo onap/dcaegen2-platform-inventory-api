@@ -20,19 +20,19 @@
 
 package org.onap.dcae.inventory.dbthings.mappers;
 
-import junit.framework.TestCase;
-import org.junit.Test;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import org.junit.Test;
+
+import junit.framework.TestCase;
 
 /**
  * Created by mhwang on 10/2/17.
@@ -102,7 +102,7 @@ public class DCAEServiceTypeObjectMapperTests {
                 }
             });
             TestCase.assertNotNull(mapper.map(0, resultSet, null));
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Unexpected exception");
         }
     }

@@ -18,12 +18,13 @@ package io.swagger.api;/*-
  * ============LICENSE_END=========================================================
  */
 
+import java.net.URI;
+import java.util.List;
+
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
-import java.util.List;
 
 /**
  * Created by mhwang on 9/25/17.
@@ -38,7 +39,7 @@ public class Util {
         }
 
         @Override
-        public String getPath(boolean b) {
+        public String getPath(boolean bunused) {
             return null;
         }
 
@@ -48,7 +49,7 @@ public class Util {
         }
 
         @Override
-        public List<PathSegment> getPathSegments(boolean b) {
+        public List<PathSegment> getPathSegments(boolean bunused) {
             return null;
         }
 
@@ -88,7 +89,7 @@ public class Util {
         }
 
         @Override
-        public MultivaluedMap<String, String> getPathParameters(boolean b) {
+        public MultivaluedMap<String, String> getPathParameters(boolean bunused) {
             return null;
         }
 
@@ -98,7 +99,7 @@ public class Util {
         }
 
         @Override
-        public MultivaluedMap<String, String> getQueryParameters(boolean b) {
+        public MultivaluedMap<String, String> getQueryParameters(boolean bunused) {
             return null;
         }
 
@@ -108,7 +109,7 @@ public class Util {
         }
 
         @Override
-        public List<String> getMatchedURIs(boolean b) {
+        public List<String> getMatchedURIs(boolean bunused) {
             return null;
         }
 

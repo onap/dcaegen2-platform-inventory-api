@@ -20,17 +20,17 @@
 
 package org.onap.dcae.inventory.dbthings.daos;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.onap.dcae.inventory.daos.DCAEServiceComponentsDAO;
 import org.onap.dcae.inventory.daos.DCAEServiceTransactionDAO;
 import org.onap.dcae.inventory.daos.DCAEServicesComponentsMapsDAO;
 import org.onap.dcae.inventory.daos.DCAEServicesDAO;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by mhwang on 10/2/17.
@@ -55,29 +55,29 @@ public class DCAEServiceTransactionDAOTests {
         DCAEServiceTransactionDAO.DCAEServiceTransactionContext context
                 = new DCAEServiceTransactionDAO.DCAEServiceTransactionContext(serviceId, modifiedTime);
 
-        DCAEServicesDAO servicesDAO = mock(DCAEServicesDAO.class);
-        DCAEServicesComponentsMapsDAO componentsMapsDAO = mock(DCAEServicesComponentsMapsDAO.class);
-        DCAEServiceComponentsDAO componentsDAO = mock(DCAEServiceComponentsDAO.class);
+        DCAEServicesDAO servicesDao = mock(DCAEServicesDAO.class);
+        DCAEServicesComponentsMapsDAO componentsMapsDao = mock(DCAEServicesComponentsMapsDAO.class);
+        DCAEServiceComponentsDAO componentsDao = mock(DCAEServiceComponentsDAO.class);
 
-        DCAEServiceTransactionDAO transactionDAO = new DCAEServiceTransactionDAO() {
+        DCAEServiceTransactionDAO transactionDao = new DCAEServiceTransactionDAO() {
 
             public DCAEServicesDAO getServicesDAO() {
-                return servicesDAO;
+                return servicesDao;
             }
 
             public DCAEServicesComponentsMapsDAO getServicesComponentsMappingDAO() {
-                return componentsMapsDAO;
+                return componentsMapsDao;
             }
 
             public DCAEServiceComponentsDAO getComponentsDAO() {
-                return componentsDAO;
+                return componentsDao;
             }
         };
 
         try {
-            transactionDAO.insert(context);
+            transactionDao.insert(context);
             assertTrue(true);
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Unexpected error");
         }
 

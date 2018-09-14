@@ -18,35 +18,36 @@ package io.swagger.api.impl;/*-
  * ============LICENSE_END=========================================================
  */
 
-import org.onap.dcae.inventory.daos.DCAEServiceTypesDAO;
-import org.onap.dcae.inventory.daos.DCAEServicesDAO;
-import org.onap.dcae.inventory.daos.InventoryDAOManager;
-import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
-import org.onap.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
-import io.swagger.model.DCAEServiceType;
-import io.swagger.model.DCAEServiceTypeRequest;
-import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.UUID;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-
+import org.joda.time.DateTime;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.onap.dcae.inventory.daos.DCAEServiceTypesDAO;
+import org.onap.dcae.inventory.daos.DCAEServicesDAO;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
+import org.onap.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.UUID;
+import io.swagger.model.DCAEServiceType;
+import io.swagger.model.DCAEServiceTypeRequest;
 
 
 /**
@@ -56,35 +57,36 @@ import java.util.UUID;
 @RunWith(PowerMockRunner.class)
 public class DcaeServiceTypesApiServiceImplTests {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DcaeServiceTypesApiServiceImplTests.class);
+    private static final Logger log = LoggerFactory.getLogger(DcaeServiceTypesApiServiceImplTests.class);
 
-    private final static String URL_PATH = "http://testing-is-good.com";
+    private static final String URL_PATH = "http://testing-is-good.com";
 
     private DcaeServiceTypesApiServiceImpl api = null;
     private UriInfo uriInfo = null;
-    private DCAEServiceTypesDAO mockTypesDAO = null;
-    private DCAEServicesDAO mockServicesDAO = null;
+    private DCAEServiceTypesDAO mockTypesDao = null;
+    private DCAEServicesDAO mockServicesDao = null;
 
     @Before
     public void setupClass() {
         api = new DcaeServiceTypesApiServiceImpl();
 
         uriInfo = mock(UriInfo.class);
-        mockTypesDAO = mock(DCAEServiceTypesDAO.class);
-        mockServicesDAO = mock(DCAEServicesDAO.class);
+        mockTypesDao = mock(DCAEServiceTypesDAO.class);
+        mockServicesDao = mock(DCAEServicesDAO.class);
 
         // PowerMockito does bytecode magic to mock static methods and use final classes
         PowerMockito.mockStatic(InventoryDAOManager.class);
-        InventoryDAOManager mockDAOManager = mock(InventoryDAOManager.class);
+        InventoryDAOManager mockDaoManager = mock(InventoryDAOManager.class);
 
-        when(InventoryDAOManager.getInstance()).thenReturn(mockDAOManager);
-        when(mockDAOManager.getDCAEServiceTypesDAO()).thenReturn(mockTypesDAO);
-        when(mockDAOManager.getDCAEServicesDAO()).thenReturn(mockServicesDAO);
+        when(InventoryDAOManager.getInstance()).thenReturn(mockDaoManager);
+        when(mockDaoManager.getDCAEServiceTypesDAO()).thenReturn(mockTypesDao);
+        when(mockDaoManager.getDCAEServicesDAO()).thenReturn(mockServicesDao);
 
         when(uriInfo.getBaseUriBuilder()).thenReturn(UriBuilder.fromPath(URL_PATH));
     }
 
-    private static boolean matchTypeVsTypeObject(DCAEServiceType serviceType, DCAEServiceTypeObject serviceTypeObject, String prefixPath) {
+    private static boolean matchTypeVsTypeObject(DCAEServiceType serviceType, DCAEServiceTypeObject serviceTypeObject,
+						 String prefixPath) {
         return Objects.equals(serviceType.getTypeId(), serviceTypeObject.getTypeId())
                 && Objects.equals(serviceType.getTypeName(), serviceTypeObject.getTypeName())
                 && Objects.equals(serviceType.getTypeVersion(), serviceTypeObject.getTypeVersion())
@@ -125,7 +127,7 @@ public class DcaeServiceTypesApiServiceImplTests {
 
         for (DCAEServiceTypeObject fixture : new DCAEServiceTypeObject[] {minimalFixture, fullFixture}) {
             String someTypeId = fixture.getTypeId();
-            when(mockTypesDAO.getByTypeId(someTypeId)).thenReturn(fixture);
+            when(mockTypesDao.getByTypeId(someTypeId)).thenReturn(fixture);
 
             try {
                 Response response = api.dcaeServiceTypesTypeIdGet(someTypeId, uriInfo, null);
@@ -140,18 +142,19 @@ public class DcaeServiceTypesApiServiceImplTests {
     @Test
     public void testGetNotFound() {
         String someTypeId = "abc:1";
-        when(mockTypesDAO.getByTypeId(someTypeId)).thenReturn(null);
+        when(mockTypesDao.getByTypeId(someTypeId)).thenReturn(null);
 
         try {
             Response response = api.dcaeServiceTypesTypeIdGet(someTypeId, uriInfo, null);
             assertEquals("GET - 404 test case failed", 404, response.getStatus());
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Unexpected exception: get 404", e);
         }
     }
 
     // TODO: Update this to check type id again. Must mock dao calls deeper.
-    private static boolean matchTypeVsTypeRequest(DCAEServiceType serviceType, DCAEServiceTypeRequest serviceTypeRequest, String prefixPath) {
+    private static boolean matchTypeVsTypeRequest(DCAEServiceType serviceType,
+						  DCAEServiceTypeRequest serviceTypeRequest, String prefixPath) {
         return Objects.equals(serviceType.getTypeName(), serviceTypeRequest.getTypeName())
                 && Objects.equals(serviceType.getTypeVersion(), serviceTypeRequest.getTypeVersion())
                 && Objects.equals(serviceType.getOwner(), serviceTypeRequest.getOwner())
@@ -208,8 +211,8 @@ public class DcaeServiceTypesApiServiceImplTests {
 
         DCAEServiceTypeObject fakeExistingType = new DCAEServiceTypeObject();
         fakeExistingType.setTypeId(expectedTypeIdUUID.toString());
-        when(mockTypesDAO.getByRequestFromNotASDC(minimalFixture)).thenReturn(fakeExistingType);
-        when(mockServicesDAO.countByType(DCAEServiceObject.DCAEServiceStatus.RUNNING, fakeExistingType.getTypeId())).thenReturn(10);
+        when(mockTypesDao.getByRequestFromNotASDC(minimalFixture)).thenReturn(fakeExistingType);
+        when(mockServicesDao.countByType(DCAEServiceObject.DCAEServiceStatus.RUNNING, fakeExistingType.getTypeId())).thenReturn(10);
 
         try {
             Response response = api.dcaeServiceTypesTypeIdPost(minimalFixture, uriInfo, null);

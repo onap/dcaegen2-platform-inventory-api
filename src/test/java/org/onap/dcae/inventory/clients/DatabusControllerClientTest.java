@@ -20,22 +20,12 @@
 
 package org.onap.dcae.inventory.clients;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dropwizard.configuration.ConfigurationException;
-import io.dropwizard.configuration.YamlConfigurationFactory;
-import io.dropwizard.jackson.Jackson;
-import io.dropwizard.jersey.validation.Validators;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.dcae.inventory.InventoryConfiguration;
-import org.onap.dcae.inventory.exceptions.DatabusControllerClientException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
-import javax.validation.Validator;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -44,21 +34,35 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import javax.validation.Validator;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.onap.dcae.inventory.InventoryConfiguration;
+import org.onap.dcae.inventory.exceptions.DatabusControllerClientException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.dropwizard.configuration.ConfigurationException;
+import io.dropwizard.configuration.YamlConfigurationFactory;
+import io.dropwizard.jackson.Jackson;
+import io.dropwizard.jersey.validation.Validators;
 
 /**
  * Created by mhwang on 3/22/18.
  */
 public class DatabusControllerClientTest {
 
-    final private ObjectMapper objectMapper = Jackson.newObjectMapper();
-    final private Validator validator = Validators.newValidator();
-    final private YamlConfigurationFactory<InventoryConfiguration.DatabusControllerConnectionConfiguration> factory
-            = new YamlConfigurationFactory<>(InventoryConfiguration.DatabusControllerConnectionConfiguration.class, validator, objectMapper, "dw");
+    private final ObjectMapper objectMapper = Jackson.newObjectMapper();
+    private final Validator validator = Validators.newValidator();
+    private final YamlConfigurationFactory<InventoryConfiguration.DatabusControllerConnectionConfiguration> factory
+            = new YamlConfigurationFactory<>(InventoryConfiguration.DatabusControllerConnectionConfiguration.class, 
+					     validator, objectMapper, "dw");
 
     private InventoryConfiguration.DatabusControllerConnectionConfiguration configuration = null;
 
@@ -84,7 +88,7 @@ public class DatabusControllerClientTest {
             URI uri = new URI("https://databus-controller-hostname:8443/some-component-id");
             when(mockClient.target(uri)).thenReturn(mockWebTarget);
             //when(mockClient.target(new URI(any()))).thenReturn(mockWebTarget);
-        } catch(URISyntaxException e) {
+        } catch (URISyntaxException e) {
             fail("URI syntax error");
         }
 
@@ -107,7 +111,7 @@ public class DatabusControllerClientTest {
 
         try {
             assertEquals(client.isExists("some-component-id"), false);
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Unexpected exception");
         }
     }
@@ -121,9 +125,9 @@ public class DatabusControllerClientTest {
         try {
             client.isExists("some-component-id");
             fail("This was supposed to be a fail case. Exception not thrown.");
-        } catch(DatabusControllerClientException e) {
+        } catch (DatabusControllerClientException e) {
             // Expected exception
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Unexpected exception");
         }
     }

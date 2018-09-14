@@ -20,14 +20,14 @@
 
 package org.onap.dcae.inventory.dbthings.mappers;
 
-import org.junit.Test;
-
-import java.sql.ResultSet;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.sql.ResultSet;
+
+import org.junit.Test;
 
 /**
  * Created by mhwang on 10/2/17.
@@ -42,7 +42,7 @@ public class DCAEServiceObjectMapperTests {
         try {
             when(resultSet.getString("status")).thenReturn("RUNNING");
             assertNotNull(mapper.map(0, resultSet, null));
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Unexpected exception");
         }
     }

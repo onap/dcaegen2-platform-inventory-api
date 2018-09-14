@@ -20,17 +20,19 @@
 
 package org.onap.dcae.inventory.daos;
 
-import org.onap.dcae.inventory.InventoryConfiguration;
-import io.dropwizard.setup.Environment;
-import org.junit.Test;
 import static org.mockito.Mockito.mock;
+
+import org.junit.Test;
+import org.onap.dcae.inventory.InventoryConfiguration;
+
+import io.dropwizard.setup.Environment;
 
 /**
  * Created by mhwang on 3/8/17.
  */
 public class InventoryDAOManagerTests {
 
-    @Test(expected=InventoryDAOManager.InventoryDAOManagerSetupException.class)
+    @Test(expected = InventoryDAOManager.InventoryDAOManagerSetupException.class)
     public void testInitializeStrictness() {
         InventoryDAOManager daoManager = InventoryDAOManager.getInstance();
         Environment environment = mock(Environment.class);

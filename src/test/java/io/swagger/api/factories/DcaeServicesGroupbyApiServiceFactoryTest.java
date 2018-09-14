@@ -20,9 +20,9 @@
 
 package io.swagger.api.factories;
 
-import org.junit.Test;
-
 import static junit.framework.TestCase.assertNotNull;
+
+import org.junit.Test;
 
 /**
  * Created by mhwang on 3/22/18.

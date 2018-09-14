@@ -20,32 +20,32 @@
 
 package org.onap.dcae.inventory.daos;
 
-import com.codahale.metrics.MetricRegistry;
-import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.jackson.Jackson;
-import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.setup.Environment;
-import io.swagger.model.DCAEServiceRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.skife.jdbi.v2.DBI;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import com.codahale.metrics.MetricRegistry;
+
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.jackson.Jackson;
+import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.setup.Environment;
+import io.swagger.model.DCAEServiceRequest;
 
 /**
  * Created by mhwang on 3/25/18.
  */
 public class DCAEServicesDAOTest {
 
-    private DCAEServicesDAO fooDAO;
+    private DCAEServicesDAO fooDao;
 
     // Learned about the H2 approach from here:
     // https://stackoverflow.com/questions/35825383/how-to-test-jdbi-daos-with-h2-in-memory-database
-    protected DataSourceFactory getDataSourceFactory()
-    {
+    protected DataSourceFactory getDataSourceFactory() {
         DataSourceFactory dataSourceFactory = new DataSourceFactory();
         dataSourceFactory.setDriverClass( "org.h2.Driver" );
         dataSourceFactory.setUrl( "jdbc:h2:mem:testDb" );
@@ -59,13 +59,13 @@ public class DCAEServicesDAOTest {
     public void setUp() {
         Environment env = new Environment( "test-env", Jackson.newObjectMapper(), null, new MetricRegistry(), null );
         DBI dbi = new DBIFactory().build( env, getDataSourceFactory(), "test" );
-        fooDAO = dbi.onDemand(DCAEServicesDAO.class);
+        fooDao = dbi.onDemand(DCAEServicesDAO.class);
     }
 
     @Test
     public void testSaveAndGet() {
         try {
-            fooDAO.createTable();
+            fooDao.createTable();
             DCAEServiceRequest request = new DCAEServiceRequest();
             request.setTypeId("some-type-id");
             request.setVnfId("some-vnf-id");
@@ -73,11 +73,11 @@ public class DCAEServicesDAOTest {
             request.setVnfLocation("some-vnf-location");
             request.setDeploymentRef("some-deployment-ref");
             DCAEServiceObject so = new DCAEServiceObject("some-service-id", request);
-            fooDAO.insert(so);
+            fooDao.insert(so);
 
-            DCAEServiceObject target = fooDAO.getByServiceId("some-service-id");
+            DCAEServiceObject target = fooDao.getByServiceId("some-service-id");
             assertEquals(target.getServiceId(), so.getServiceId());
-        } catch(Exception e) {
+        } catch (Exception e) {
             fail("Failure at some point in this compound test.");
         }
     }

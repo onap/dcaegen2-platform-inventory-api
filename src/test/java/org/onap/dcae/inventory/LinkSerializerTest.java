@@ -20,18 +20,19 @@
 
 package org.onap.dcae.inventory;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import org.junit.Test;
-
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.UriBuilder;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
+import javax.ws.rs.core.Link;
+import javax.ws.rs.core.UriBuilder;
+
+import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonGenerator;
 
 /**
  * Created by mhwang on 3/25/18.
