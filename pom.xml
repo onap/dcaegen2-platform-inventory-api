@@ -78,8 +78,26 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-util</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-http</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-server</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-server</artifactId>
+	    <version>9.4.12.v20180830</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-http</artifactId>
+	    <version>9.4.12.v20180830</version>
+	</dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-jdbi</artifactId>
@@ -98,15 +116,11 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             <version>4.5.5</version>
         </dependency>
         <dependency>
-            <!-- To address security issue - CVE-2017-7536 -->
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.3.6.Final</version>
         </dependency>
         <dependency>
-            <!-- To address security issue - CVE-2017-9735
-                 REVIEW: Only updated jetty-util which may introduce runtime issues because
-                 other jetty libraries are on 9.4.2 still -->
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-util</artifactId>
             <version>9.4.12.v20180830</version>
