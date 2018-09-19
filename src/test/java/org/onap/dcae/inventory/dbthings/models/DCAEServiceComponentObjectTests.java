@@ -23,6 +23,7 @@ package org.onap.dcae.inventory.dbthings.models;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -67,6 +68,18 @@ public class DCAEServiceComponentObjectTests {
         assertEquals(objectUpdated.getComponentSource(), requestSecond.getComponentSource());
         assertEquals(objectUpdated.getShareable(), requestSecond.getShareable());
         assertNotSame(objectUpdated.getModified(), objectFirst.getModified());
+    }
+
+    @Test
+    public void testToString() {
+        DCAEServiceComponentRequest request = (new DCAEServiceComponentRequest()).componentId("some-component-id")
+                .componentType("scary-component-type");
+        request.setComponentSource("controller");
+        request.setShareable(0);
+
+        DCAEServiceComponentObject object = new DCAEServiceComponentObject(request);
+        String stringObject = object.toString();
+        assertTrue(stringObject.contains("componentId"));
     }
 
 }

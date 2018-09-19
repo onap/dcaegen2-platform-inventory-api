@@ -102,6 +102,10 @@ public class DCAEServiceTypeObjectMapperTests {
                 }
             });
             TestCase.assertNotNull(mapper.map(0, resultSet, null));
+
+            when(resultSet.getArray("service_ids")).thenReturn(null);
+            when(resultSet.getArray("service_locations")).thenReturn(null);
+            TestCase.assertNotNull(mapper.map(0, resultSet, null));
         } catch (Exception e) {
             fail("Unexpected exception");
         }
