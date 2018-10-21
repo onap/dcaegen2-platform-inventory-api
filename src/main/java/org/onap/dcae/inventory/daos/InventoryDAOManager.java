@@ -101,6 +101,8 @@ public final class InventoryDAOManager {
         final DBI jdbi_local = factory.build(this.environment, this.configuration.getDataSourceFactory(), "dcae-database");
         jdbi_local.registerArgumentFactory(new StringListArgument());
 
+        boolean recreateDcaeServiceTypesView = false;
+        
         for (Class<? extends InventoryDAO> daoClass : DAO_CLASSES) {
             final InventoryDAO dao = jdbi_local.onDemand(daoClass);
 
@@ -110,6 +112,23 @@ public final class InventoryDAOManager {
                 dao.createTable();
                 debugLogger.info(String.format("Sql table created: %s", daoClass.getSimpleName()));
             }
+            // dcae_service_types DB table has been enhanced to include 2 new columns which need to be added if they don't already exist
+            if ( daoClass.getSimpleName().equals("DCAEServiceTypesDAO") ) {
+				if (dao.checkIfApplicationColumnExists()) {
+					debugLogger.info(String.format("ApplicationColumn exists: %s", daoClass.getSimpleName()));
+				} else {
+					dao.updateTableToAddApplicationCol();
+					debugLogger.info(String.format("ApplicationColumn created: %s", daoClass.getSimpleName()+".updateTableToAddApplicationCol()" ));
+					recreateDcaeServiceTypesView = true;
+				}
+				if (dao.checkIfComponentColumnExists()) {
+					debugLogger.info(String.format("ComponentColumn exists: %s", daoClass.getSimpleName()));
+				} else {
+					dao.updateTableToAddComponentCol();;
+					debugLogger.info(String.format("ComponentColumn created: %s", daoClass.getSimpleName()+".updateTableToAddComponentCol()"));
+					recreateDcaeServiceTypesView = true;
+				} 
+			}
         }
 
         // CREATE VIEWS
@@ -119,7 +138,16 @@ public final class InventoryDAOManager {
             String checkQuery = String.format("select exists (select * from information_schema.tables where table_name = '%s')",
                     viewName);
 
-            if (jdbiHandle.createQuery(checkQuery).map(BooleanMapper.FIRST).first()) {
+            boolean viewExists = jdbiHandle.createQuery(checkQuery).map(BooleanMapper.FIRST).first();
+            
+            // if the view exists and the 2 new dcae_service_types DB table columns: application and component need to be added
+            // we need to re-create the view by deleting it first
+            if (viewExists && recreateDcaeServiceTypesView) {
+            	debugLogger.info(String.format("Need to delete existing Sql view: %s", viewName));
+            	jdbiHandle.execute(String.format("drop view %s ", viewName));
+            }
+            
+            if (viewExists) {
                 debugLogger.info(String.format("Sql view exists: %s", viewName));
             } else {
                 StringBuilder sb = new StringBuilder(String.format("create view %s as ", viewName));

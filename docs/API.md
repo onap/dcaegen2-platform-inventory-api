@@ -75,6 +75,9 @@ Get a list of `DCAEServiceType` objects.
 |**Query**|**serviceLocation**  <br>*optional*|Filter by associated service location. Instances with service location null or empty is always returned.|string||
 |**Query**|**typeName**  <br>*optional*|Filter by service type name|string||
 |**Query**|**vnfType**  <br>*optional*|Filter by associated vnf type. No wildcards, matches are explicit. This field is treated case insensitive.|string||
+|**Query**|**owner**  <br>*optional*|Filter by owner name|string||
+|**Query**|**application**  <br>*optional*|Filter by application name|string||
+|**Query**|**component**  <br>*optional*|Filter by component name|string||
 
 
 #### Responses
@@ -443,6 +446,8 @@ Remove an existing `DCAEService` object.
 |**created**  <br>*required*|Created timestamp for this DCAE service type in epoch time|string(date-time)|
 |**deactivated**  <br>*optional*|Deactivated timestamp for this DCAE service type in epoch time|string(date-time)|
 |**owner**  <br>*required*||string|
+|**application**  <br>*optional*||string|
+|**component**  <br>*optional*||string|
 |**selfLink**  <br>*required*|Link to self where the Link.title is typeName|[Link](#link)|
 |**serviceIds**  <br>*optional*|List of service ids that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service id.|< string > array|
 |**serviceLocations**  <br>*optional*|List of service locations that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service location.|< string > array|
@@ -462,6 +467,8 @@ Remove an existing `DCAEService` object.
 |**asdcServiceURL**  <br>*optional*|URL to the ASDC service model|string|
 |**blueprintTemplate**  <br>*required*|String representation of a Cloudify blueprint with unbound variables|string|
 |**owner**  <br>*required*||string|
+|**application**  <br>*optional*||string|
+|**component**  <br>*optional*||string|
 |**serviceIds**  <br>*optional*|List of service ids that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service id.|< string > array|
 |**serviceLocations**  <br>*optional*|List of service locations that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service location.|< string > array|
 |**typeName**  <br>*required*|Descriptive name for this DCAE service type|string|

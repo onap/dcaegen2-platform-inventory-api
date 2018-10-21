@@ -25,5 +25,9 @@ package org.onap.dcae.inventory.daos;
  */
 public interface InventoryDAO {
     Boolean checkIfTableExists();
+    Boolean checkIfApplicationColumnExists();
+    Boolean checkIfComponentColumnExists();
     void createTable();
+	void updateTableToAddApplicationCol();
+	void updateTableToAddComponentCol();
 }
