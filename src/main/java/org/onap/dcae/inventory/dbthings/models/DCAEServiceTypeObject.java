@@ -36,6 +36,8 @@ public class DCAEServiceTypeObject {
     private Integer typeVersion = null;
     private String blueprintTemplate = null;
     private String owner = null;
+    private String application = null;
+    private String component = null;
     private List<String> vnfTypes = null;
     private List<String> serviceIds = null;
     private List<String> serviceLocations = null;
@@ -82,6 +84,22 @@ public class DCAEServiceTypeObject {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+    
+    public String getApplication() {
+        return application;
+    }
+
+    public void setApplication(String application) {
+        this.application = application;
+    }
+    
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
     }
 
     public List<String> getVnfTypes() {

@@ -43,6 +43,8 @@ public class DCAEServiceTypeObjectMapper implements ResultSetMapper<DCAEServiceT
         object.setTypeName(resultSet.getString("type_name"));
         object.setTypeVersion(resultSet.getInt("type_version"));
         object.setOwner(resultSet.getString("owner"));
+        object.setApplication(resultSet.getString("application"));
+        object.setComponent(resultSet.getString("component"));
         String[] vnfTypes = (String[]) resultSet.getArray("vnf_types").getArray();
         object.setVnfTypes(Arrays.asList(vnfTypes));
 
