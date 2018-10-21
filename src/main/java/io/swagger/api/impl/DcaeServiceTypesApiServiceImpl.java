@@ -58,6 +58,8 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
         serviceType.setTypeName(serviceTypeObject.getTypeName());
         serviceType.setTypeVersion(serviceTypeObject.getTypeVersion());
         serviceType.setOwner(serviceTypeObject.getOwner());
+        serviceType.setApplication(serviceTypeObject.getApplication());
+        serviceType.setComponent(serviceTypeObject.getComponent());
         serviceType.setVnfTypes(serviceTypeObject.getVnfTypes());
         serviceType.setServiceIds(serviceTypeObject.getServiceIds());
         serviceType.setServiceLocations(serviceTypeObject.getServiceLocations());
@@ -76,7 +78,9 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
     @Override
     public Response dcaeServiceTypesGet(String typeName, Boolean onlyLatest, Boolean onlyActive, String vnfType,
                                         String serviceId, String serviceLocation, String asdcServiceId,
-                                        String asdcResourceId, Integer offset, UriInfo uriInfo, SecurityContext securityContext)
+                                        String asdcResourceId, Integer offset,
+                                        UriInfo uriInfo, SecurityContext securityContext,
+                                        String application, String component, String owner)
             throws NotFoundException {
         List<DCAEServiceTypeObject> serviceTypeObjects = new ArrayList<>();
 
@@ -100,7 +104,7 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
                     whereClauses.add(":typeName = type_name");
                 }
                 else {
-           	        typeName = typeName.replaceAll("\\*", "%");
+                    typeName = typeName.replaceAll("\\*", "%");
                     whereClauses.add("type_name LIKE :typeName");
                 }                
             }
@@ -116,14 +120,14 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
             if (serviceLocation != null) {
                 whereClauses.add("(:serviceLocation = any(service_locations) or service_locations = \'{}\' or service_locations is null)");
             }
-
+            
             if (asdcServiceId != null) {
                 if (asdcServiceId.equalsIgnoreCase("NONE")) {
                     whereClauses.add("asdc_service_id is null");
                 } else {
                     whereClauses.add(":asdcServiceId = asdc_service_id");
                 }
-            }
+            }                       
 
             if (asdcResourceId != null) {
                 if (asdcResourceId.equalsIgnoreCase("NONE")) {
@@ -131,6 +135,18 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
                 } else {
                     whereClauses.add(":asdcResourceId = asdc_resource_id");
                 }
+            }
+            
+            if (owner != null) {
+                whereClauses.add(":owner = owner");
+            }
+            
+            if (application != null) {
+                whereClauses.add(":application = application");
+            }
+
+            if (component != null) {
+                whereClauses.add(":component = component");
             }
 
             whereClauses.add("created < :createdCutoff");
@@ -174,6 +190,18 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
             if (asdcResourceId != null && !"NONE".equalsIgnoreCase(asdcResourceId)) {
                 query.bind("asdcResourceId", asdcResourceId);
             }
+            
+            if (application != null) {
+                query.bind("application", application);
+            }
+            
+            if (component != null) {
+                query.bind("component", component);
+            }
+            
+            if (owner != null) {
+                query.bind("owner", owner);
+            }
 
             query.bind("createdCutoff", createdCutoff);
 
@@ -205,14 +233,14 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
 
         if (offsetPrev >= 0) {
             navigationLinks.setPreviousLink(DcaeServiceTypesApi.buildLinkForGet(uriInfo, "prev", typeName, onlyLatest,
-                    onlyActive, vnfType, serviceId, serviceLocation, asdcServiceId, asdcResourceId, offsetPrev));
+                    onlyActive, vnfType, serviceId, serviceLocation, asdcServiceId, asdcResourceId, offsetPrev, application, component, owner));
         }
 
         Integer offsetNext = offset + PAGINATION_PAGE_SIZE;
 
         if (offsetNext < totalCount) {
             navigationLinks.setNextLink(DcaeServiceTypesApi.buildLinkForGet(uriInfo, "next", typeName, onlyLatest,
-                    onlyActive, vnfType, serviceId, serviceLocation, asdcServiceId, asdcResourceId, offsetNext));
+                    onlyActive, vnfType, serviceId, serviceLocation, asdcServiceId, asdcResourceId, offsetNext, application, component, owner));
         }
 
         response.setLinks(navigationLinks);
@@ -251,6 +279,8 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
         serviceTypeObject.setTypeName(request.getTypeName());
         serviceTypeObject.setTypeVersion(request.getTypeVersion());
         serviceTypeObject.setOwner(request.getOwner());
+        serviceTypeObject.setApplication(request.getApplication());
+        serviceTypeObject.setComponent(request.getComponent());
         serviceTypeObject.setBlueprintTemplate(request.getBlueprintTemplate());
         serviceTypeObject.setVnfTypes(request.getVnfTypes());
         serviceTypeObject.setServiceIds(request.getServiceIds());

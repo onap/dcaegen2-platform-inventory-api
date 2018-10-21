@@ -45,7 +45,7 @@ public class DcaeServiceTypesApi {
 
     public static Link buildLinkForGet(UriInfo uriInfo, String rel, String typeName, Boolean onlyLatest, Boolean onlyActive,
                                        String vnfType, String serviceId, String serviceLocation, String asdcServiceId,
-                                       String asdcResourceId, Integer offset) {
+                                       String asdcResourceId, Integer offset, String application, String component, String owner) {
         UriBuilder ub = uriInfo.getBaseUriBuilder().path(DcaeServiceTypesApi.class)
                 .path(DcaeServiceTypesApi.class, "dcaeServiceTypesGet");
 
@@ -76,6 +76,15 @@ public class DcaeServiceTypesApi {
         if (offset != null) {
             ub.queryParam("offset", offset);
         }
+        if (application != null) {
+            ub.queryParam("application", application);
+        }
+        if (component != null) {
+            ub.queryParam("component", component);
+        }
+        if (owner != null) {
+            ub.queryParam("owner", owner);
+        }
 
         Link.Builder lb = Link.fromUri(ub.build());
         lb.rel(rel);
@@ -90,7 +99,7 @@ public class DcaeServiceTypesApi {
     @io.swagger.annotations.ApiResponses(value = {
             @io.swagger.annotations.ApiResponse(code = 200, message = "List of `DCAEServiceType` objects", response = InlineResponse200.class)})
     public Response dcaeServiceTypesGet(
-            @ApiParam(value = "Filter by service type name") @QueryParam("typeName") String typeName,
+            @ApiParam(value = "Filter by service type name. Wildcards matches with asterick(s) allowed.") @QueryParam("typeName") String typeName,
             @ApiParam(value = "If set to true, query returns just the latest versions of DCAE service types. If set to false, then all versions are returned. Default is true")
                 @DefaultValue("true") @QueryParam("onlyLatest") Boolean onlyLatest,
             @ApiParam(value = "If set to true, query returns only *active* DCAE service types. If set to false, then all DCAE service types are returned. Default is true")
@@ -106,10 +115,14 @@ public class DcaeServiceTypesApi {
             @ApiParam(value = "Filter by associated asdc design resource id. Setting this to `NONE` will return instances that have asdc resource id set to null")
                 @QueryParam("asdcResourceId") String asdcResourceId,
             @ApiParam(value = "Query resultset offset used for pagination (zero-based)") @QueryParam("offset") Integer offset,
-            @Context SecurityContext securityContext)
+            @Context SecurityContext securityContext,
+            @ApiParam(value = "Filter by associated application.") @QueryParam("application") String application,    
+            @ApiParam(value = "Filter by associated component or sub-application module.") @QueryParam("component") String component,    
+            @ApiParam(value = "Filter by associated owner.") @QueryParam("owner") String owner
+              )
             throws NotFoundException {
         return delegate.dcaeServiceTypesGet(typeName, onlyLatest, onlyActive, vnfType, serviceId, serviceLocation,
-                asdcServiceId, asdcResourceId, offset, uriInfo, securityContext);
+                asdcServiceId, asdcResourceId, offset, uriInfo, securityContext, application, component, owner);
     }
 
     public static Link buildLinkForGet(UriInfo uriInfo, String rel, String typeId) {

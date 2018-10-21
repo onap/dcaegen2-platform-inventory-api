@@ -42,6 +42,14 @@ public interface DCAEServiceTypesDAO extends InventoryDAO {
     @SqlQuery("select exists (select * from information_schema.tables where table_name = \'dcae_service_types\')")
     @Override
     Boolean checkIfTableExists();
+    
+    @SqlQuery("select exists (select * from information_schema.columns where table_name = \'dcae_service_types\' and column_name=\'application\')")
+    @Override
+    Boolean checkIfApplicationColumnExists();
+    
+    @SqlQuery("select exists (select * from information_schema.columns where table_name = \'dcae_service_types\' and column_name=\'component\')")
+    @Override
+    Boolean checkIfComponentColumnExists();
 
     /**
      * Note that service_ids and service_locations are nullable fields. This might not be the right decision but because
@@ -50,20 +58,28 @@ public interface DCAEServiceTypesDAO extends InventoryDAO {
     @SqlUpdate("create table dcae_service_types (type_id varchar not null, type_version integer not null, " +
             "type_name varchar not null, owner varchar not null, blueprint_template text not null, " +
             "vnf_types varchar[] not null, service_ids varchar[], service_locations varchar[], " +
-            "asdc_service_id varchar, asdc_resource_id varchar, " +
+            "asdc_service_id varchar, asdc_resource_id varchar, application varchar, component varchar, " +
             "created timestamp not null, deactivated timestamp, constraint pk_type_created primary key (type_id))")
     @Override
     void createTable();
+    
+    @SqlUpdate("alter table dcae_service_types add column application varchar")
+    @Override
+    void updateTableToAddApplicationCol();
+    
+    @SqlUpdate("alter table dcae_service_types add column component varchar")
+    @Override
+    void updateTableToAddComponentCol();
 
     // REVIEW: asdcServiceId and asdcResourceId is implicitly part of the unique key and thus shouldn't be updated.
-    @SqlUpdate("insert into dcae_service_types(type_id, type_version, type_name, owner, blueprint_template, vnf_types, " +
+    @SqlUpdate("insert into dcae_service_types(type_id, type_version, type_name, owner, application, component, blueprint_template, vnf_types, " +
             "service_ids, service_locations, asdc_service_id, asdc_resource_id, created, deactivated) " +
-            "values (:typeId, :typeVersion, :typeName, :owner, :blueprintTemplate, :vnfTypes, :serviceIds, " +
+            "values (:typeId, :typeVersion, :typeName, :owner, :application, :component, :blueprintTemplate, :vnfTypes, :serviceIds, " +
             ":serviceLocations, :asdcServiceId, :asdcResourceId, :created, null)")
     void insert(@BindBean DCAEServiceTypeObject serviceObject);
 
     @SqlUpdate("update dcae_service_types set " +
-            "owner = :owner, blueprint_template = :blueprintTemplate, vnf_types = :vnfTypes, " +
+            "owner = :owner, application = :application, component = :component, blueprint_template = :blueprintTemplate, vnf_types = :vnfTypes, " +
             "service_ids = :serviceIds, service_locations = :serviceLocations, created = :created, " +
             "deactivated = null where type_id = :typeId")
     void update(@BindBean DCAEServiceTypeObject serviceObject);

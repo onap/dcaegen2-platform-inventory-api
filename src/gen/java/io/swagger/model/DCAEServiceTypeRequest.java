@@ -53,6 +53,8 @@ public class DCAEServiceTypeRequest {
     private String asdcServiceId = null;
     private String asdcResourceId = null;
     private String asdcServiceURL = null;
+    private String application = null;
+    private String component = null;
 
 
     /**
@@ -71,6 +73,26 @@ public class DCAEServiceTypeRequest {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+    
+    @ApiModelProperty(required = false, value = "Application associated or that added this DCAE service type.")
+    @JsonProperty("application")
+    public String getApplication() {
+        return application;
+    }
+
+    public void setApplication(String application) {
+        this.application = application;
+    }
+    
+    @ApiModelProperty(required = false, value = "Component or sub-application module associated or that added this DCAE service type.")
+    @JsonProperty("component")
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
     }
 
 
@@ -192,13 +214,15 @@ public class DCAEServiceTypeRequest {
         }
         DCAEServiceTypeRequest dCAEServiceTypeRequest = (DCAEServiceTypeRequest) o;
         return Objects.equals(owner, dCAEServiceTypeRequest.owner) &&
+                Objects.equals(application, dCAEServiceTypeRequest.application) &&
+                Objects.equals(component, dCAEServiceTypeRequest.component) &&
                 Objects.equals(vnfTypes, dCAEServiceTypeRequest.vnfTypes) &&
                 Objects.equals(blueprintTemplate, dCAEServiceTypeRequest.blueprintTemplate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(owner, vnfTypes, blueprintTemplate);
+        return Objects.hash(owner, application, component, vnfTypes, blueprintTemplate);
     }
 
     @Override
@@ -207,6 +231,8 @@ public class DCAEServiceTypeRequest {
         sb.append("class DCAEServiceTypeRequest {\n");
 
         sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+        sb.append("    application: ").append(toIndentedString(application)).append("\n");
+        sb.append("    component: ").append(toIndentedString(component)).append("\n");
         sb.append("    vnfTypes: ").append(toIndentedString(vnfTypes)).append("\n");
         sb.append("    blueprintTemplate: ").append(toIndentedString(blueprintTemplate)).append("\n");
         sb.append("}");

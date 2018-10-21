@@ -31,7 +31,8 @@ public abstract class DcaeServiceTypesApiService {
       public abstract Response dcaeServiceTypesGet(String typeName, Boolean onlyLatest, Boolean onlyActive,
                                                    String vnfType, String serviceId, String serviceLocation,
                                                    String asdcServiceId, String asdcResourceId,
-                                                   Integer offset, UriInfo uriInfo, SecurityContext securityContext)
+                                                   Integer offset, UriInfo uriInfo, SecurityContext securityContext, 
+                                                   String application, String component, String owner)
       throws NotFoundException;
       public abstract Response dcaeServiceTypesTypeIdGet(String typeId, UriInfo uriInfo, SecurityContext securityContext)
       throws NotFoundException;
