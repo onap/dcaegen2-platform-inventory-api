@@ -26,6 +26,8 @@ As of version 0.12.0.
  asdc_resource_id   | character varying           | not null
  created            | timestamp without time zone | not null
  is_active          | boolean                     | not null
+ application        | character varying           | 
+ component          | character varying           | 
 Indexes:
     "pk_type_created" PRIMARY KEY, btree (type_id, created)
 ```

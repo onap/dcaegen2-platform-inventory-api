@@ -17,7 +17,7 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 swagger: '2.0'
 info:
-  version: "3.0.0"
+  version: "3.1.0"
   title: DCAE Inventory API
   description: |
     DCAE Inventory is a web service that provides the following:
@@ -99,6 +99,21 @@ paths:
         required: false
         type: "integer"
         format: "int32"
+      - name: "owner"
+        in: "query"
+        description: "Filter by owner name"
+        required: false
+        type: "string"  
+      - name: "application"
+        in: "query"
+        description: "Filter by application name"
+        required: false
+        type: "string"
+      - name: "component"
+        in: "query"
+        description: "Filter by component name"
+        required: false
+        type: "string"    
       responses:
         200:
           description: "List of `DCAEServiceType` objects"
@@ -352,6 +367,10 @@ definitions:
     properties:
       owner:
         type: "string"
+      application:
+        type: "string"
+      component:
+        type: "string"    
       typeName:
         type: "string"
         description: "Descriptive name for this DCAE service type"
@@ -625,6 +644,10 @@ definitions:
     properties:
       owner:
         type: "string"
+      application:
+        type: "string"
+      component:
+        type: "string"    
       typeName:
         type: "string"
         description: "Descriptive name for this DCAE service type"
