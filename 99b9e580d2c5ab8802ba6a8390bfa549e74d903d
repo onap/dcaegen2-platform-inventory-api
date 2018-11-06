@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_e7765806",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-06T20:03:22Z",
+      "side": 1,
+      "message": "change to 3.1.0 (3.0.x will be used on Casablanca branch bug fixes)",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "99b9e580d2c5ab8802ba6a8390bfa549e74d903d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
