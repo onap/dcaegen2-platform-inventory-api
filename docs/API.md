@@ -26,7 +26,7 @@ DCAE Inventory is a web service that provides the following:
 ### POST /dcae-service-types
 
 #### Description
-Inserts a new `DCAEServiceType` or updates an existing instance. Updates are only allowed iff there are no running DCAE services of the requested type,
+Inserts a new `DCAEServiceType` or updates an existing instance. Updates are only allowed if there are no running DCAE services of the requested type,
 
 
 #### Parameters
@@ -382,7 +382,7 @@ Remove an existing `DCAEService` object.
 |---|---|---|
 |**componentId**  <br>*required*|The id format is unique to the source|string|
 |**componentLink**  <br>*required*|Link to the underlying resource of this component|[Link](#link)|
-|**componentSource**  <br>*required*|Specifies the name of the underying source service that is responsible for this components|enum (DMaaPController)|
+|**componentSource**  <br>*required*|Specifies the name of the underlying source service that is responsible for this components|enum (DMaaPController)|
 |**componentType**  <br>*required*||string|
 |**created**  <br>*required*||string(date-time)|
 |**location**  <br>*optional*|Location information of the component|string|
@@ -397,7 +397,7 @@ Remove an existing `DCAEService` object.
 |Name|Description|Schema|
 |---|---|---|
 |**componentId**  <br>*required*|The id format is unique to the source|string|
-|**componentSource**  <br>*required*|Specifies the name of the underying source service that is responsible for this components|enum (DMaaPController)|
+|**componentSource**  <br>*required*|Specifies the name of the underlying source service that is responsible for this components|enum (DMaaPController)|
 |**componentType**  <br>*required*||string|
 |**shareable**  <br>*required*|Used to determine if this component can be shared amongst different DCAE services|integer(int32)|
 
@@ -449,8 +449,8 @@ Remove an existing `DCAEService` object.
 |**application**  <br>*optional*||string|
 |**component**  <br>*optional*||string|
 |**selfLink**  <br>*required*|Link to self where the Link.title is typeName|[Link](#link)|
-|**serviceIds**  <br>*optional*|List of service ids that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service id.|< string > array|
-|**serviceLocations**  <br>*optional*|List of service locations that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service location.|< string > array|
+|**serviceIds**  <br>*optional*|List of service ids that are used to associate with DCAE service type. DCAE service types with this property as null or empty means them apply for every service id.|< string > array|
+|**serviceLocations**  <br>*optional*|List of service locations that are used to associate with DCAE service type. DCAE service types with this property as null or empty means them apply for every service location.|< string > array|
 |**typeId**  <br>*required*|Unique identifier for this DCAE service type|string|
 |**typeName**  <br>*required*|Descriptive name for this DCAE service type|string|
 |**typeVersion**  <br>*required*|Version number for this DCAE service type|integer(int32)|
@@ -469,8 +469,8 @@ Remove an existing `DCAEService` object.
 |**owner**  <br>*required*||string|
 |**application**  <br>*optional*||string|
 |**component**  <br>*optional*||string|
-|**serviceIds**  <br>*optional*|List of service ids that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service id.|< string > array|
-|**serviceLocations**  <br>*optional*|List of service locations that are used to associate with DCAE service type. DCAE service types with this propery as null or empty means them apply for every service location.|< string > array|
+|**serviceIds**  <br>*optional*|List of service ids that are used to associate with DCAE service type. DCAE service types with this property as null or empty means them apply for every service id.|< string > array|
+|**serviceLocations**  <br>*optional*|List of service locations that are used to associate with DCAE service type. DCAE service types with this property as null or empty means them apply for every service location.|< string > array|
 |**typeName**  <br>*required*|Descriptive name for this DCAE service type|string|
 |**typeVersion**  <br>*required*|Version number for this DCAE service type|integer(int32)|
 |**vnfTypes**  <br>*optional*||< string > array|
