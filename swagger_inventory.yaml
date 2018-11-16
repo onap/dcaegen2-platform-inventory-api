@@ -17,7 +17,7 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 swagger: '2.0'
 info:
-  version: "3.1.0"
+  version: "3.1.1"
   title: DCAE Inventory API
   description: |
     DCAE Inventory is a web service that provides the following:
