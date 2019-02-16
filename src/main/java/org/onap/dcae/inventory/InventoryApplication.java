@@ -37,6 +37,8 @@ import io.dropwizard.setup.Environment;
 import io.swagger.api.DcaeServiceTypesApi;
 import io.swagger.api.DcaeServicesApi;
 import io.swagger.api.DcaeServicesGroupbyApi;
+import io.swagger.api.HealthCheckApi;
+import io.swagger.api.ServiceHealthCheckApi;
 import io.swagger.api.factories.DcaeServicesApiServiceFactory;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
@@ -178,6 +180,8 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
         environment.jersey().register(new DcaeServicesApi());
         environment.jersey().register(new DcaeServiceTypesApi());
         environment.jersey().register(new DcaeServicesGroupbyApi());
+        environment.jersey().register(new HealthCheckApi());
+        environment.jersey().register(new ServiceHealthCheckApi());
 
         // https://github.com/swagger-api/swagger-core/wiki/Swagger-Core-Jersey-2.X-Project-Setup-1.5
         environment.jersey().register(new ApiListingResource());
