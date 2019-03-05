@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2073982d_4187fa75",
+        "filename": "src/gen/java/io/swagger/api/ServiceHealthCheckApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2019-03-05T15:24:05Z",
+      "side": 1,
+      "message": "Rather than copy-and-paste, could we \"extend DcaeServiceTypesApi\" or use composition with DcaeServiceTypesApi where DcaeServiceTypesApi would be a member variable?  This would allow us to re-use code as much as possible.",
+      "revId": "193cfaeee18a73bcf588e64ae04721c06fb6d216",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b85a32c_03ec7cab",
+        "filename": "swagger_inventory.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2019-03-05T15:24:05Z",
+      "side": 1,
+      "message": "Could you add detail that this is a health check for external dependencies for inventory?",
+      "revId": "193cfaeee18a73bcf588e64ae04721c06fb6d216",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
