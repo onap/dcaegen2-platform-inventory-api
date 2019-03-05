@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9fa902b9_65c187f7",
+        "filename": "src/gen/java/io/swagger/api/ServiceHealthCheckApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2019-03-05T16:44:52Z",
+      "side": 1,
+      "message": "Right it\u0027s not exact copy and paste. Ok, will keep as is for now then.",
+      "parentUuid": "fc27fe2c_2d1357fc",
+      "revId": "193cfaeee18a73bcf588e64ae04721c06fb6d216",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b85a32c_03ec7cab",
         "filename": "swagger_inventory.yaml",
         "patchSetId": 1
