@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "32f5d26c_b4de23ad",
+        "filename": "src/gen/java/io/swagger/api/ServiceHealthCheckApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2019-03-05T15:51:37Z",
+      "side": 1,
+      "message": "If its not an exact copy-and-paste then its ok.  I am just advocating for as much sensible code reuse as possible.",
+      "parentUuid": "fc27fe2c_2d1357fc",
+      "revId": "193cfaeee18a73bcf588e64ae04721c06fb6d216",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b85a32c_03ec7cab",
         "filename": "swagger_inventory.yaml",
         "patchSetId": 1
