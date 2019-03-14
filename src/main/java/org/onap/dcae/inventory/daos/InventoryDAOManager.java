@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ public final class InventoryDAOManager {
                 debugLogger.info(String.format("Sql table created: %s", daoClass.getSimpleName()));
             }
             // dcae_service_types DB table has been enhanced to include 2 new columns which need to be added if they don't already exist
-            if ( daoClass.getSimpleName().equals("DCAEServiceTypesDAO") ) {
+            if (daoClass.isInstance(DCAEServiceTypesDAO.class)) {
             if (dao.checkIfApplicationColumnExists()) {
                debugLogger.info(String.format("ApplicationColumn exists: %s", daoClass.getSimpleName()));
             } else {

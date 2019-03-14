@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018-2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 package org.onap.dcae.inventory;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -55,6 +56,12 @@ public class InventoryConfigurationTest {
             assertEquals(configuration.getDatabusControllerConnection().getHost(), "databus-controller-hostname");
             assertEquals((long) configuration.getDatabusControllerConnection().getPort(), 8443);
             assertEquals(configuration.getDatabusControllerConnection().getRequired(), true);
+            assertEquals(configuration.getDatabusControllerConnection().getMechId(), "some-mech-id");
+            assertEquals(configuration.getDatabusControllerConnection().getPassword(), "some-password");
+
+            configuration.setDefaultName("foo-config");
+            assertEquals(configuration.getDefaultName(), "foo-config");
+            assertNotNull(configuration.getJerseyClientConfiguration());
 
             assertEquals(configuration.getDataSourceFactory().getUrl(), "jdbc:postgresql://127.0.0.1:5432/dcae_inv");
         } catch (Exception e) {

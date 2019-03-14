@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,27 +70,41 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
 	static final Logger debugLogger = LoggerFactory.getLogger("debugLogger");
     static boolean shouldRemoteFetchConfig = false;
 
+    /**
+     * Parses user's args and makes adjustments if necessary
+     *
+     * NOTE: This function adjusts global state of InventoryApplication - shouldRemoteFetchConfig
+     *
+     * @param userArgs
+     * @return Adjusted user's args or just the user's args untouched either way a String[]
+     */
+    public static String[] processArgs(String[] userArgs) {
+        if (userArgs.length < 2 && "server".equals(userArgs[0])) {
+            // When the start command is just "server", this will trigger inventory to look for its configuration
+            // from Consul's KV store.  The url is hardcoded here which should be used as the "path" variable into
+            // the UrlConfigurationSourceProvider.
+            String[] customArgs = new String[userArgs.length+1];
+            System.arraycopy(userArgs, 0, customArgs, 0, userArgs.length);
+            customArgs[userArgs.length] = "http://consul:8500/v1/kv/inventory?raw=true";
+            shouldRemoteFetchConfig = true;
+
+            return customArgs;
+        } else {
+            // You are here because you want to use the default way of configuring inventory - YAML file.
+            return userArgs;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
-    	metricsLogger.info("DCAE inventory application main Startup");
+        metricsLogger.info("DCAE inventory application main Startup");
         // This is here to try to fix a "high" issue caught by Fortify. Did this **plus** setting locale for each of the
         // string comparisons that use `toUpper` because of this StackOverflow post:
         // http://stackoverflow.com/questions/38308777/fixed-fortify-scan-locale-changes-are-reappearing
         Locale.setDefault(Locale.ENGLISH);
 
-        if (args.length < 2 && "server".equals(args[0])) {
-            // When the start command is just "server", this will trigger inventory to look for its configuration
-            // from Consul's KV store.  The url is hardcoded here which should be used as the "path" variable into
-            // the UrlConfigurationSourceProvider.
-            String[] customArgs = new String[args.length+1];
-            System.arraycopy(args, 0, customArgs, 0, args.length);
-            customArgs[args.length] = "http://consul:8500/v1/kv/inventory?raw=true";
-            shouldRemoteFetchConfig = true;
+        final String[] processedArgs = processArgs(args);
+        new InventoryApplication().run(processedArgs);
 
-            new InventoryApplication().run(customArgs);
-        } else {
-            // You are here because you want to use the default way of configuring inventory - YAML file.
-            new InventoryApplication().run(args);
-        }
         // revert to using logback.xml:
         LoggerContext context = (LoggerContext)LoggerFactory.getILoggerFactory();
     	context.reset();
