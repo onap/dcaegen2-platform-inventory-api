@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5348587_7da414b6",
+        "filename": "src/test/java/org/onap/dcae/inventory/InventoryApplicationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2019-03-15T18:42:35Z",
+      "side": 1,
+      "message": "I think we should use double quotes around each value; so it should be:\nuserArgs \u003d new String[] {\"server\", \"some-yaml.yaml\"};",
+      "range": {
+        "startLine": 62,
+        "startChar": 55,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "4545ce1221e81f15f73cbadaedd1ccfb3ba42c41",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9bad18a1_42ba4948",
+        "filename": "src/test/java/org/onap/dcae/inventory/InventoryApplicationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2019-03-15T18:42:35Z",
+      "side": 1,
+      "message": "same as comment above; should be:\nuserArgs \u003d new String[] {\"foo\", \"bar\"};",
+      "range": {
+        "startLine": 68,
+        "startChar": 41,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "4545ce1221e81f15f73cbadaedd1ccfb3ba42c41",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
