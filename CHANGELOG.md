@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
+## [Dev]
+
+* Add non-root user in Docker image so that the inventory service can be run in non-privileged mode for security reasons
+
 ## [3.0.1]
 
 * Explicitly use 5.3.6.Final for hibernate-validator and 9.4.6 for jetty-util to address security issues
