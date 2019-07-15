@@ -343,6 +343,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                 <configuration>
                     <imageName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}</imageName>
                     <baseImage>openjdk:8-jre</baseImage>
+                    <user>inventory</user>
+                    <runs>
+                        <run>adduser --system --group inventory</run>
+                    </runs>
                     <entryPoint>["java", "-jar", "/opt/${project.build.finalName}.jar", "server"]</entryPoint>
                     <resources>
                         <resource>
