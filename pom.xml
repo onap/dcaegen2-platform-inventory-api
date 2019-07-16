@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 ================================================================================
-Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+Copyright (c) 2017-2019 AT&T Intellectual Property. All rights reserved.
 ================================================================================
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -342,10 +342,11 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                 <version>1.0.0</version>
                 <configuration>
                     <imageName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}</imageName>
-                    <baseImage>openjdk:8-jre</baseImage>
+                    <baseImage>openjdk:8-jre-alpine</baseImage>
                     <user>inventory</user>
                     <runs>
-                        <run>adduser --system --group inventory</run>
+                        <run>addgroup -S inventory</run>
+                        <run>adduser -S -G inventory inventory</run>
                     </runs>
                     <entryPoint>["java", "-jar", "/opt/${project.build.finalName}.jar", "server"]</entryPoint>
                     <resources>

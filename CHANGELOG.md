@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
-## [Dev]
+## []
 
-* Add non-root user in Docker image so that the inventory service can be run in non-privileged mode for security reasons
+* Add non-root user in Docker image so that the inventory service can be run in non-privileged mode for security reasons DCAEGEN2-1554
+* Change base image to alpine based DCAEGEN2-1565
 
 ## [3.0.1]
 
