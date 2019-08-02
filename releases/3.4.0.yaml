@@ -1,0 +1,4 @@
+distribution_type: 'maven'
+version: '3.4.0'
+project: 'dcaegen2-platform-inventory-api'
+log_dir: 'dcaegen2-platform-inventory-api-maven-stage-master/24/'
