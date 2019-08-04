@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15b72f74_fb9a125d",
+        "filename": "releases/3.4.0.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3213
+      },
+      "writtenOn": "2019-08-04T16:05:17Z",
+      "side": 1,
+      "message": "This is wrong. There is no staging-repo.txt.gz\nhere: https://logs.onap.org/production/vex-yul-ecomp-jenkins-1/dcaegen2-platform-inventory-api-maven-docker-stage-master/25/",
+      "range": {
+        "startLine": 4,
+        "startChar": 10,
+        "endLine": 4,
+        "endChar": 72
+      },
+      "revId": "7af99e45f3d166ae1069d652858374ac70187e9a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
