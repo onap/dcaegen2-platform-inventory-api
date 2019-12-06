@@ -40,11 +40,11 @@ import java.util.List;
  *
  * Created by mhwang on 4/19/16.
  */
-public final class InventoryDAOManager {
+public final class InventoryDAOManager implements InventoryDataAccessManager {
 
     private static InventoryDAOManager instance;
 
-    public static InventoryDAOManager getInstance() {
+    public static synchronized InventoryDAOManager getInstance() {
         if (instance == null) {
             instance = new InventoryDAOManager();
         }
@@ -177,10 +177,12 @@ public final class InventoryDAOManager {
         return jdbi.onDemand(klass);
     }
 
+    @Override
     public DCAEServicesDAO getDCAEServicesDAO() {
         return (DCAEServicesDAO) this.getDAO(DCAEServicesDAO.class);
     }
 
+    @Override
     public DCAEServiceComponentsDAO getDCAEServiceComponentsDAO() {
         return (DCAEServiceComponentsDAO) this.getDAO(DCAEServiceComponentsDAO.class);
     }
@@ -189,10 +191,12 @@ public final class InventoryDAOManager {
         return (DCAEServicesComponentsMapsDAO) this.getDAO(DCAEServicesComponentsMapsDAO.class);
     }
 
+    @Override
     public DCAEServiceTransactionDAO getDCAEServiceTransactionDAO() {
         return jdbi.onDemand(DCAEServiceTransactionDAO.class);
     }
 
+    @Override
     public DCAEServiceTypesDAO getDCAEServiceTypesDAO() {
         return (DCAEServiceTypesDAO) this.getDAO(DCAEServiceTypesDAO.class);
     }
@@ -202,6 +206,7 @@ public final class InventoryDAOManager {
      *
      * @return
      */
+    @Override
     public Handle getHandle() {
         return this.jdbi.open();
     }
