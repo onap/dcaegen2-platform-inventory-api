@@ -21,12 +21,15 @@
 package io.swagger.api.factories;
 
 import io.swagger.api.DcaeServicesGroupbyApiService;
-import io.swagger.api.impl.DcaeServicesGroupbyApiServiceImpl;
+import io.swagger.api.impl.DcaeServicesGroupByApiServiceImpl;
+import org.onap.dcae.inventory.daos.InventoryDAOManager;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-04-18T20:16:22.119Z")
 public final class DcaeServicesGroupbyApiServiceFactory {
 
-   private static final DcaeServicesGroupbyApiService service = new DcaeServicesGroupbyApiServiceImpl();
+   private static final DcaeServicesGroupbyApiService service = new DcaeServicesGroupByApiServiceImpl(
+           new DcaeServicesGroupByApiServiceImpl.RunningDcaeServicesProvider(InventoryDAOManager.getInstance()),
+           new DcaeServicesGroupByApiServiceImpl.DcaeServicesLinkResolver());
 
    //Utility classes, which are a collection of static members, are not meant to be instantiated.
    private DcaeServicesGroupbyApiServiceFactory(){
