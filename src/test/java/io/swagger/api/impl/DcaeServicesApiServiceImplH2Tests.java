@@ -28,6 +28,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.jetty.http.HttpStatus;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +52,7 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
-import io.swagger.api.Util;
+import io.swagger.api.FakeUriInfoTestDataFactory;
 import io.swagger.model.DCAEServiceRequest;
 
 /**
@@ -126,11 +127,11 @@ public class DcaeServicesApiServiceImplH2Tests {
         Boolean shareable = Boolean.TRUE;
         DateTime created = null;
         Integer offset = 0;
-        UriInfo uriInfo = new Util.FakeUriInfo();
+        UriInfo uriInfo = FakeUriInfoTestDataFactory.givenFakeUriInfo();
         SecurityContext securityContext = null;
         Response response = api.dcaeServicesGet(typeId, vnfId, vnfType, vnfLocation, componentType, shareable, created,
                 offset, uriInfo, securityContext);
-        assertEquals(response.getStatus(), 200);
+        assertEquals(HttpStatus.OK_200, response.getStatus());
     }
 
 }

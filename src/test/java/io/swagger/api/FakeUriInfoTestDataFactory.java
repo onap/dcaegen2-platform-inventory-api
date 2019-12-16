@@ -29,9 +29,13 @@ import javax.ws.rs.core.UriInfo;
 /**
  * Created by mhwang on 9/25/17.
  */
-public class Util {
+public class FakeUriInfoTestDataFactory {
 
-    public static class FakeUriInfo implements UriInfo {
+    public static UriInfo givenFakeUriInfo(){
+        return new FakeUriInfo();
+    }
+
+    private static class FakeUriInfo implements UriInfo {
 
         @Override
         public String getPath() {

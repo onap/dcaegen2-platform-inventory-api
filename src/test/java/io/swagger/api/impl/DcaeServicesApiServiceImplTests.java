@@ -31,6 +31,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +49,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.swagger.api.NotFoundException;
-import io.swagger.api.Util;
+import io.swagger.api.FakeUriInfoTestDataFactory;
 import io.swagger.model.DCAEService;
 import io.swagger.model.DCAEServiceRequest;
 
@@ -102,8 +103,8 @@ public class DcaeServicesApiServiceImplTests {
         serviceRequest.setVnfId("vnf-id-def");
         String serviceId = "service-id-123";
         DCAEServiceObject serviceObject = new DCAEServiceObject(serviceId, serviceRequest);
-        List<DCAEServiceComponentObject> components = new ArrayList<DCAEServiceComponentObject>();
-        UriInfo uriInfo = new Util.FakeUriInfo();
+        List<DCAEServiceComponentObject> components = new ArrayList<>();
+        UriInfo uriInfo = FakeUriInfoTestDataFactory.givenFakeUriInfo();
 
         try {
             DCAEService service = (DCAEService) createDCAEService.invoke(api, serviceObject, components, uriInfo);
@@ -121,15 +122,15 @@ public class DcaeServicesApiServiceImplTests {
         serviceRequest.setVnfId("vnf-id-def");
         DCAEServiceObject serviceObject = new DCAEServiceObject(serviceId, serviceRequest);
         when(mockServicesDao.getByServiceId(DCAEServiceObject.DCAEServiceStatus.RUNNING, serviceId)).thenReturn(serviceObject);
-        when(mockComponentsDao.getByServiceId(serviceId)).thenReturn(new ArrayList<DCAEServiceComponentObject>());
+        when(mockComponentsDao.getByServiceId(serviceId)).thenReturn(new ArrayList<>());
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
-        UriInfo uriInfo = new Util.FakeUriInfo();
+        UriInfo uriInfo = FakeUriInfoTestDataFactory.givenFakeUriInfo();
 
         try {
             Response response = api.dcaeServicesServiceIdGet(serviceId, uriInfo, null);
-            assertEquals(response.getStatus(), 200);
+            assertEquals(HttpStatus.OK_200, response.getStatus());
         } catch (NotFoundException e) {
             fail("Service should have been found");
         }
@@ -183,11 +184,11 @@ public class DcaeServicesApiServiceImplTests {
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
-        UriInfo uriInfo = new Util.FakeUriInfo();
+        UriInfo uriInfo = FakeUriInfoTestDataFactory.givenFakeUriInfo();
 
         String serviceId = "service-id-123";
         Response response = api.dcaeServicesServiceIdPut(serviceId, serviceRequest, uriInfo, null);
-        assertEquals(response.getStatus(), 422);
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY_422, response.getStatus());
     }
 
     @Test
@@ -201,11 +202,10 @@ public class DcaeServicesApiServiceImplTests {
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
-        UriInfo uriInfo = new Util.FakeUriInfo();
 
         try {
             Response response = api.dcaeServicesServiceIdDelete(serviceId, null);
-            assertEquals(response.getStatus(), 200);
+            assertEquals(HttpStatus.OK_200, response.getStatus());
         } catch (NotFoundException e) {
             fail("Should have NOT thrown a NotFoundException");
         } catch (Exception e) {
@@ -221,7 +221,6 @@ public class DcaeServicesApiServiceImplTests {
 
         DatabusControllerClient dbcc = mock(DatabusControllerClient.class);
         DcaeServicesApiServiceImpl api = new DcaeServicesApiServiceImpl(dbcc);
-        UriInfo uriInfo = new Util.FakeUriInfo();
 
         try {
             api.dcaeServicesServiceIdDelete(serviceId, null);

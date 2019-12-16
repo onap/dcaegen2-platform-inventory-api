@@ -27,6 +27,7 @@ import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import io.swagger.model.DCAEServiceGroupByResults;
 import io.swagger.model.DCAEServiceGroupByResultsPropertyValues;
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
@@ -149,12 +150,16 @@ public class DcaeServicesGroupByApiServiceImpl extends DcaeServicesGroupbyApiSer
 
             String queryString = createQuery(columnName);
             try (Handle jdbiHandle = inventoryDataAccessManager.getHandle()) {
-
-                // NOTE: This is hardcoded because service status is only used internally.
-                return jdbiHandle.createQuery(queryString)
-                        .bind(SERVICE_STATUS_PLACE_HOLDER, DCAEServiceObject.DCAEServiceStatus.RUNNING)
-                        .list();
+                return executeQuery(queryString, jdbiHandle);
             }
+        }
+
+        List<Map<String, Object>> executeQuery(String queryString, Handle jdbiHandle) {
+            // NOTE: This is hardcoded because service status is only used internally.
+            final Query<Map<String, Object>> query = jdbiHandle.createQuery(queryString);
+            final Query<Map<String, Object>> bind = query
+                    .bind(SERVICE_STATUS_PLACE_HOLDER, DCAEServiceObject.DCAEServiceStatus.RUNNING);
+            return bind.list();
         }
 
         static String createQuery(String columnName) {
