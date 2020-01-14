@@ -3,6 +3,7 @@ package io.swagger.api.impl;/*-
  * dcae-inventory
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2020 Nokia Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,9 +122,9 @@ public class DcaeServiceTypesApiServiceImplTests {
         fullFixture.setCreated(DateTime.parse("2016-10-28T00:00"));
         fullFixture.setAsdcServiceId("4bb4e740-3920-442d-9ed3-89f15bdbff8a");
         fullFixture.setAsdcResourceId("3ea9dfae-a00d-4da8-8c87-02a34de8fc02");
-        fullFixture.setVnfTypes(Arrays.asList(new String[] { "vnf-marble", "vnf-granite" }));
-        fullFixture.setServiceIds(Arrays.asList(new String[] { "service-alpha", "service-bravo" }));
-        fullFixture.setServiceLocations(Arrays.asList(new String[] { "New York", "Washington" }));
+        fullFixture.setVnfTypes(Arrays.asList("vnf-marble", "vnf-granite"));
+        fullFixture.setServiceIds(Arrays.asList("service-alpha", "service-bravo"));
+        fullFixture.setServiceLocations(Arrays.asList("New York", "Washington"));
 
         for (DCAEServiceTypeObject fixture : new DCAEServiceTypeObject[] {minimalFixture, fullFixture}) {
             String someTypeId = fixture.getTypeId();
@@ -184,9 +185,9 @@ public class DcaeServiceTypesApiServiceImplTests {
         fullFixture.setBlueprintTemplate("{ blueprint template goes here }");
         fullFixture.setAsdcServiceId("4bb4e740-3920-442d-9ed3-89f15bdbff8a");
         fullFixture.setAsdcResourceId("3ea9dfae-a00d-4da8-8c87-02a34de8fc02");
-        fullFixture.setVnfTypes(Arrays.asList(new String[] { "vnf-marble", "vnf-granite" }));
-        fullFixture.setServiceIds(Arrays.asList(new String[] { "service-alpha", "service-bravo" }));
-        fullFixture.setServiceLocations(Arrays.asList(new String[] { "New York", "Washington" }));
+        fullFixture.setVnfTypes(Arrays.asList("vnf-marble", "vnf-granite"));
+        fullFixture.setServiceIds(Arrays.asList("service-alpha", "service-bravo"));
+        fullFixture.setServiceLocations(Arrays.asList("New York", "Washington"));
 
         for (DCAEServiceTypeRequest fixture : new DCAEServiceTypeRequest[] {minimalFixture, fullFixture}) {
             try {
@@ -220,6 +221,30 @@ public class DcaeServiceTypesApiServiceImplTests {
         } catch (Exception e) {
             throw new RuntimeException("Unexpected exception: post new 200", e);
         }
+    }
+
+    @Test
+    public void shouldReturnOriginalTypeName(){
+        // given
+        String typeName = "abc";
+
+        // when
+        final String actual = DcaeServiceTypesApiServiceImpl.resolveTypeName(typeName);
+
+        // then
+        assertEquals("abc", actual);
+    }
+
+    @Test
+    public void shouldTransformAsteriskToPercentCharacterInTypeName(){
+        // given
+        String typeName = "abc*d";
+
+        // when
+        final String actual = DcaeServiceTypesApiServiceImpl.resolveTypeName(typeName);
+
+        // then
+        assertEquals("abc%d", actual);
     }
 
 }
