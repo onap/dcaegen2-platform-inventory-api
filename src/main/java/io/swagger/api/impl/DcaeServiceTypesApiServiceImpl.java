@@ -88,84 +88,15 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
         DateTime createdCutoff = DateTime.now(DateTimeZone.UTC);
 
         try (Handle jdbiHandle = InventoryDAOManager.getInstance().getHandle()) {
-            StringBuilder sb = new StringBuilder("select * from ");
+            final String queryStatement = DcaeServiceTypesQueryStatement.create(typeName, onlyLatest, onlyActive,
+                    vnfType, owner, serviceLocation, asdcServiceId, asdcResourceId, serviceId, application, component);
 
-            if (onlyLatest) {
-                // Use the view which filters types that are of only the latest versions
-                sb.append("dcae_service_types_latest");
-            } else {
-                sb.append("dcae_service_types");
-            }
+            metricsLogger.info("Query created as: {}." + queryStatement);
 
-            List<String> whereClauses = new ArrayList<>();
-            
-            if (typeName != null) {
-                if (!typeName.contains("*")) {
-                    whereClauses.add(":typeName = type_name");
-                }
-                else {
-                    typeName = typeName.replaceAll("\\*", "%");
-                    whereClauses.add("type_name LIKE :typeName");
-                }                
-            }
+            Query<DCAEServiceTypeObject> query = jdbiHandle.createQuery(queryStatement).map(new DCAEServiceTypeObjectMapper());
 
-            if (vnfType != null) {
-                whereClauses.add("lower(:vnfType) = any(lower(vnf_types\\:\\:text)\\:\\:text[])");
-            }
 
-            if (serviceId != null) {
-                whereClauses.add("(:serviceId = any(service_ids) or service_ids = \'{}\' or service_ids is null)");
-            }
-
-            if (serviceLocation != null) {
-                whereClauses.add("(:serviceLocation = any(service_locations) or service_locations = \'{}\' or service_locations is null)");
-            }
-            
-            if (asdcServiceId != null) {
-                if (asdcServiceId.equalsIgnoreCase("NONE")) {
-                    whereClauses.add("asdc_service_id is null");
-                } else {
-                    whereClauses.add(":asdcServiceId = asdc_service_id");
-                }
-            }                       
-
-            if (asdcResourceId != null) {
-                if (asdcResourceId.equalsIgnoreCase("NONE")) {
-                    whereClauses.add("asdc_resource_id is null");
-                } else {
-                    whereClauses.add(":asdcResourceId = asdc_resource_id");
-                }
-            }
-            
-            if (owner != null) {
-                whereClauses.add(":owner = owner");
-            }
-            
-            if (application != null) {
-                whereClauses.add(":application = application");
-            }
-
-            if (component != null) {
-                whereClauses.add(":component = component");
-            }
-
-            whereClauses.add("created < :createdCutoff");
-
-            if (onlyActive) {
-                whereClauses.add("deactivated is null");
-            }
-
-            if (!whereClauses.isEmpty()) {
-                sb.append(" where ");
-                sb.append(String.join(" and ", whereClauses));
-            }
-
-            // Sort by created timestamp - always descending.
-            sb.append(" order by created desc");
-            
-            metricsLogger.info("Query created as: {}." + sb.toString());
-
-            Query<DCAEServiceTypeObject> query = jdbiHandle.createQuery(sb.toString()).map(new DCAEServiceTypeObjectMapper());
+            typeName = resolveTypeName(typeName);
 
             if (typeName != null) {
                 query.bind("typeName", typeName);
@@ -190,15 +121,15 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
             if (asdcResourceId != null && !"NONE".equalsIgnoreCase(asdcResourceId)) {
                 query.bind("asdcResourceId", asdcResourceId);
             }
-            
+
             if (application != null) {
                 query.bind("application", application);
             }
-            
+
             if (component != null) {
                 query.bind("component", component);
             }
-            
+
             if (owner != null) {
                 query.bind("owner", owner);
             }
@@ -246,7 +177,7 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
         response.setLinks(navigationLinks);
 
         debugLogger.debug("Response: {}." + response.toString());
-        
+
         return Response.ok().entity(response).build();
     }
 
@@ -261,6 +192,13 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
         }
 
         return Response.ok().entity(createDCAEServiceType(serviceTypeObject, uriInfo)).build();
+    }
+
+    static String resolveTypeName(String typeName){
+        if (typeName.contains("*")) {
+            return typeName.replaceAll("\\*", "%");
+        }
+        return typeName;
     }
 
     /**
