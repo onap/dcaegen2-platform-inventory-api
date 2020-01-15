@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4462ccbf_cbf82a23",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-01-15T06:19:05Z",
+      "side": 1,
+      "message": "thx, I missed out that :/",
+      "parentUuid": "f27efbf3_64bccf42",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 119
+      },
+      "revId": "1e1cabd4bc7e9556161c4ba589d580bbfd834f73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c766d5d2_99390bca",
         "filename": "src/main/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImpl.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-14T22:25:34Z",
       "side": 1,
       "message": "In case incoming query/GET doesn\u0027t have typeName as a parameter, i.e. when doing just GET /dcae-service-types, typeName will be null and resolveTypeName() will throw NullPointerException; suggest moving this line to under \n\"if (typeName !\u003d null) {\" so that if block would look like:\n\nif (typeName !\u003d null) {\n    typeName \u003d resolveTypeName(typeName);\n    query.bind(\"typeName\", typeName);                \n}",
+      "range": {
+        "startLine": 99,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "1e1cabd4bc7e9556161c4ba589d580bbfd834f73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2be100fe_ca39f909",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-01-15T06:19:05Z",
+      "side": 1,
+      "message": "ok, you are right. Thanks :)",
+      "parentUuid": "c766d5d2_99390bca",
       "range": {
         "startLine": 99,
         "startChar": 12,
