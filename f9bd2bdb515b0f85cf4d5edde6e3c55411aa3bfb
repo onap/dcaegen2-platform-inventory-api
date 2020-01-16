@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14cf45b3_41f7157d",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-01-16T15:16:18Z",
+      "side": 1,
+      "message": "missing license update",
+      "range": {
+        "startLine": 5,
+        "startChar": 3,
+        "endLine": 5,
+        "endChar": 70
+      },
+      "revId": "f9bd2bdb515b0f85cf4d5edde6e3c55411aa3bfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6415386f_5a3845ca",
+        "filename": "src/test/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImplTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-01-16T15:16:18Z",
+      "side": 1,
+      "message": "missing license update. separate line for Nokia to be added for 2020",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 74
+      },
+      "revId": "f9bd2bdb515b0f85cf4d5edde6e3c55411aa3bfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
