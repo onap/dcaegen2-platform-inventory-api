@@ -59,13 +59,7 @@ public class InventoryApplicationTest {
         String userArgs[] = {"server"};
         assertEquals(InventoryApplication.processArgs(userArgs).length, 2);
 
-        userArgs = new String[] {"server some-yaml.yaml"};
-        assertArrayEquals(InventoryApplication.processArgs(userArgs), userArgs);
-
-        userArgs = new String[] {"foo"};
-        assertArrayEquals(InventoryApplication.processArgs(userArgs), userArgs);
-
-        userArgs = new String[] {"foo bar"};
+        userArgs = new String[] {"server", "some-junit-yaml.yaml"};
         assertArrayEquals(InventoryApplication.processArgs(userArgs), userArgs);
     }
 
