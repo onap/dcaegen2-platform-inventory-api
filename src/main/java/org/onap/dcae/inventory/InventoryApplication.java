@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  * dcae-inventory
  * ================================================================================
- * Copyright (C) 2017-2019 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2017-2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,14 +51,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.util.ContextInitializer;
-
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import javax.validation.Validator;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.Link;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.EnumSet;
 import java.util.Locale;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 
 /**
@@ -68,7 +77,9 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
 
     static final Logger metricsLogger = LoggerFactory.getLogger("metricsLogger");
 	static final Logger debugLogger = LoggerFactory.getLogger("debugLogger");
+	private static final Logger errorLogger = LoggerFactory.getLogger("errorLogger");
     static boolean shouldRemoteFetchConfig = false;
+    static final String configFile = "/opt/config_active.json";
 
     /**
      * Parses user's args and makes adjustments if necessary
@@ -91,6 +102,12 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
             return customArgs;
         } else {
             // You are here because you want to use the default way of configuring inventory - YAML file.
+        	// The config file yaml file however has the path to the file that has the cert jks password in the keyStorePassword filed
+        	// Update config file's keyStorePassword to have actual password instead of path to the password file
+        	debugLogger.debug(String.format("Default configuration file received: %s", userArgs[1]));
+        	createConfigFileFromDefault(userArgs[1]);
+        	userArgs[1] = configFile;
+        	debugLogger.debug(String.format("Active config file that will be used: %s", userArgs[1]));
             return userArgs;
         }
     }
@@ -201,5 +218,50 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
         environment.jersey().register(new ApiListingResource());
         environment.jersey().register(new SwaggerSerializers());
     }
+    
+    
+    private static void createConfigFileFromDefault (String defaultConfigFile) {
+    	
+    	try {
+			JSONObject dzConfig = new JSONObject ( new JSONTokener ( new FileInputStream ( new File ( defaultConfigFile ) ) ) );    
+			JSONObject server = dzConfig.getJSONObject("server");
+			JSONArray applicationConnectors = server.getJSONArray("applicationConnectors");
+			String jksPasswdFile = applicationConnectors.getJSONObject(0).getString("keyStorePassword");
+			if ( jksPasswdFile != null ) {
+				applicationConnectors.getJSONObject(0).put("keyStorePassword", getFileContents(jksPasswdFile));
+			}
+			else {
+				errorLogger.error(String.format("Exiting due to null value for JKS password file: %s", jksPasswdFile));
+				System.exit(1);
+			}			
+			FileWriter fileWriter = new FileWriter(configFile);
+			fileWriter.write(dzConfig.toString());
+			fileWriter.flush();
+			fileWriter.close();		
+	    } catch (JSONException | FileNotFoundException e) {
+	    	errorLogger.error(String.format("JSONException | FileNotFoundException while processing default config file: %s; execption: %s", 
+	    			defaultConfigFile, e));
+			System.exit(1);
+		} catch ( Exception e ) {
+			errorLogger.error(String.format("Exception while processing default config file: %s; execption: %s", 
+					defaultConfigFile, e));
+			System.exit(1);
+		}
+    }
+    
+    public static String getFileContents (String filename) {
+		File f = new File(filename);
+		try {
+			byte[] bytes = Files.readAllBytes(f.toPath());
+			return new String(bytes,"UTF-8").trim();
+		} catch (FileNotFoundException e) {
+			errorLogger.error(String.format("FileNotFoundException for filename: %s; execption: %s", filename, e));
+			System.exit(1);
+		} catch (IOException e) {
+			errorLogger.error(String.format("IOException for filename: %s; execption: %s", filename, e));	
+			System.exit(1);
+		}
+		return null;
+	}
 
 }
