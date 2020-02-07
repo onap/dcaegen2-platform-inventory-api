@@ -24,7 +24,6 @@ package io.swagger.api.impl;
 import org.onap.dcae.inventory.daos.DCAEServiceTypesDAO;
 import org.onap.dcae.inventory.daos.DCAEServicesDAO;
 import org.onap.dcae.inventory.daos.InventoryDAOManager;
-import org.onap.dcae.inventory.dbthings.mappers.DCAEServiceTypeObjectMapper;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceTypeObject;
 import io.swagger.api.*;
@@ -33,8 +32,6 @@ import io.swagger.model.*;
 import io.swagger.api.NotFoundException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,60 +80,20 @@ public class DcaeServiceTypesApiServiceImpl extends DcaeServiceTypesApiService {
                                         UriInfo uriInfo, SecurityContext securityContext,
                                         String application, String component, String owner)
             throws NotFoundException {
-        List<DCAEServiceTypeObject> serviceTypeObjects = new ArrayList<>();
 
-        // TODO: Make this variable also a URL parameter.
-        DateTime createdCutoff = DateTime.now(DateTimeZone.UTC);
+        DcaeServiceTypeObjectRepository dcaeServiceTypeObjectRepository = new DcaeServiceTypeObjectRepository(
+                InventoryDAOManager.getInstance()
+        );
 
-        try (Handle jdbiHandle = InventoryDAOManager.getInstance().getHandle()) {
-            final String queryStatement = DcaeServiceTypesQueryStatement.create(typeName, onlyLatest, onlyActive,
-                    vnfType, serviceId, serviceLocation, asdcServiceId, asdcResourceId, owner, application, component);
-
-            metricsLogger.info("Query created as: {}." + queryStatement);
-
-            Query<DCAEServiceTypeObject> query = jdbiHandle.createQuery(queryStatement).map(new DCAEServiceTypeObjectMapper());
-
-            if (typeName != null) {
-                typeName = resolveTypeName(typeName);
-                query.bind("typeName", typeName);
-            }
-
-            if (vnfType != null) {
-                query.bind("vnfType", vnfType);
-            }
-
-            if (serviceId != null) {
-                query.bind("serviceId", serviceId);
-            }
-
-            if (serviceLocation != null) {
-                query.bind("serviceLocation", serviceLocation);
-            }
-
-            if (asdcServiceId != null && !"NONE".equalsIgnoreCase(asdcServiceId)) {
-                query.bind("asdcServiceId", asdcServiceId);
-            }
-
-            if (asdcResourceId != null && !"NONE".equalsIgnoreCase(asdcResourceId)) {
-                query.bind("asdcResourceId", asdcResourceId);
-            }
-
-            if (application != null) {
-                query.bind("application", application);
-            }
-
-            if (component != null) {
-                query.bind("component", component);
-            }
-
-            if (owner != null) {
-                query.bind("owner", owner);
-            }
-
-            query.bind("createdCutoff", createdCutoff);
-
-            serviceTypeObjects = query.list();
+        if (typeName != null){
+            typeName = resolveTypeName(typeName);
         }
+
+        List<DCAEServiceTypeObject> serviceTypeObjects = dcaeServiceTypeObjectRepository.fetch(
+                typeName,  onlyLatest, onlyActive, vnfType,
+                serviceId, serviceLocation, asdcServiceId,
+                asdcResourceId, application, component, owner
+        );
 
         offset = (offset == null) ? 0 : offset;
 
