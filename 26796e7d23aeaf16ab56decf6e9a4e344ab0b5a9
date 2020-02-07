@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "573c5b0a_125b3ac3",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2020-02-07T16:32:50Z",
+      "side": 1,
+      "message": "Calling resolveTypeName(typeName) here before DcaeServiceTypesQueryStatement.create() will cause typeName wild card match using * to fail. \nFor example when a query against \"/dcae-service-types?typeName\u003dsomepartialtypename*\" will not match/work.\nI suggest moving this if (typeName !\u003d null) block with resolveTypeName() method to DcaeServiceTypeObjectRepository class right before line: \nifNotNullBind(typeName, it -\u003e query.bind(\"typeName\", it));\n\nSo updated DcaeServiceTypeObjectRepository would look like (1st and last lines are existing/unchanged):\n\nQuery\u003cDCAEServiceTypeObject\u003e query \u003d getQuery(jdbiHandle, queryStatement);\n            \nif (typeName !\u003d null){\n   typeName \u003d resolveTypeName(typeName);\n}\n\nifNotNullBind(typeName, it -\u003e query.bind(\"typeName\", it));\n\n\nWill also need to update: DcaeServiceTypesApiServiceImplTests.java to replace:\n\nDcaeServiceTypesApiServiceImpl.resolveTypeName\n\nwith:\n\nDcaeServiceTypeObjectRepository.resolveTypeName",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "26796e7d23aeaf16ab56decf6e9a4e344ab0b5a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
