@@ -46,6 +46,9 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         <snapshots.path>content/repositories/snapshots/</snapshots.path>
         <releases.path>content/repositories/releases/</releases.path>
         <site.path>content/sites/site/org/onap/dcae/dcae-inventory/${project.artifactId}/${project.version}/</site.path>
+        <sonar.coverage.jacoco.xmlReportPaths>
+	  ${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
+	</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <pluginRepositories>
