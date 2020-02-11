@@ -22,6 +22,30 @@
       "revId": "26796e7d23aeaf16ab56decf6e9a4e344ab0b5a9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc633274_9e8a947e",
+        "filename": "src/main/java/io/swagger/api/impl/DcaeServiceTypesApiServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-02-11T07:43:44Z",
+      "side": 1,
+      "message": "but typeName is used in line 122 and 172. When I move this section to DcaeServiceTypeObjectRepository then it will break the logic.\n\nHow this could break functionality? I resolving type name before fetching data from repository only when type name is not null. resolveTypeName changes * to % character. Original behavior of dcaeServiceTypesGet was not changed.\n\n    static String resolveTypeName(String typeName){\n        if (typeName.contains(\"*\")) {\n            return typeName.replaceAll(\"\\\\*\", \"%\");\n        }\n        return typeName;\n    }",
+      "parentUuid": "573c5b0a_125b3ac3",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "26796e7d23aeaf16ab56decf6e9a4e344ab0b5a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
