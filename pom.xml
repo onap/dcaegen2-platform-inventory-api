@@ -29,7 +29,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
     <groupId>org.onap.dcaegen2.platform</groupId>
     <artifactId>inventory-api</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.4.1</version>
     <name>dcaegen2-platform-inventory-api</name>
     <!--internal <version>3.0.0</version>-->
 
