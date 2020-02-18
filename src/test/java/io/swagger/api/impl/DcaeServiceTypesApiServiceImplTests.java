@@ -222,29 +222,4 @@ public class DcaeServiceTypesApiServiceImplTests {
             throw new RuntimeException("Unexpected exception: post new 200", e);
         }
     }
-
-    @Test
-    public void shouldReturnOriginalTypeName(){
-        // given
-        String typeName = "abc";
-
-        // when
-        final String actual = DcaeServiceTypesApiServiceImpl.resolveTypeName(typeName);
-
-        // then
-        assertEquals("abc", actual);
-    }
-
-    @Test
-    public void shouldTransformAsteriskToPercentCharacterInTypeName(){
-        // given
-        String typeName = "abc*d";
-
-        // when
-        final String actual = DcaeServiceTypesApiServiceImpl.resolveTypeName(typeName);
-
-        // then
-        assertEquals("abc%d", actual);
-    }
-
 }
