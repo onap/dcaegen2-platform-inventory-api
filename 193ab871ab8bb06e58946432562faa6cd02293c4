@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Shadi Haidar <sh1986@att.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Tue, 18 Feb 2020 19:09:59 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/inventory-api/+/101370
+Project: dcaegen2/platform/inventory-api
+Branch: refs/heads/master
