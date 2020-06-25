@@ -3,13 +3,14 @@
  * dcae-inventory
  * ================================================================================
  * Copyright (C) 2017-2020 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -104,8 +105,8 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
             // You are here because you want to use the default way of configuring inventory - YAML file.
         	// The config file yaml file however has the path to the file that has the cert jks password in the keyStorePassword filed
         	// Update config file's keyStorePassword to have actual password instead of path to the password file
-        	// for junit purposes, it's not possible to do the above with keyStorePassword so return userArgs as we used to do before 
-            if ( "some-junit-yaml.yaml".equals(userArgs[1]) ) { 
+        	// for junit purposes, it's not possible to do the above with keyStorePassword so return userArgs as we used to do before
+            if ( "some-junit-yaml.yaml".equals(userArgs[1]) ) {
             	return userArgs;
             }
         	debugLogger.debug(String.format("Default configuration file received: %s", userArgs[1]));
@@ -131,10 +132,10 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
     	context.reset();
     	ContextInitializer initializer = new ContextInitializer(context);
     	initializer.autoConfig();
-    	
+
     	metricsLogger.info("Starting DCAE inventory application...");
     	debugLogger.debug(String.format("Starting DCAE inventory application... args[0]: %s", args[0]));
-    	
+
     }
 
     @Override
@@ -222,37 +223,42 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
         environment.jersey().register(new ApiListingResource());
         environment.jersey().register(new SwaggerSerializers());
     }
-    
-    
+
+
     private static void createConfigFileFromDefault (String defaultConfigFile) {
-    	
+
     	try {
-			JSONObject dzConfig = new JSONObject ( new JSONTokener ( new FileInputStream ( new File ( defaultConfigFile ) ) ) );    
+			JSONObject dzConfig = new JSONObject ( new JSONTokener ( new FileInputStream ( new File ( defaultConfigFile ) ) ) );
 			JSONObject server = dzConfig.getJSONObject("server");
 			JSONArray applicationConnectors = server.getJSONArray("applicationConnectors");
-			String jksPasswdFile = applicationConnectors.getJSONObject(0).getString("keyStorePassword");
-			if ( jksPasswdFile != null ) {
-				applicationConnectors.getJSONObject(0).put("keyStorePassword", getFileContents(jksPasswdFile));
-			}
-			else {
-				errorLogger.error(String.format("Exiting due to null value for JKS password file: %s", jksPasswdFile));
-				System.exit(1);
-			}			
+			if(isProductionModeActivated()) {
+                String jksPasswdFile = applicationConnectors.getJSONObject(0).getString("keyStorePassword");
+                if (jksPasswdFile != null) {
+                    applicationConnectors.getJSONObject(0).put("keyStorePassword", getFileContents(jksPasswdFile));
+                } else {
+                    errorLogger.error(String.format("Exiting due to null value for JKS password file: %s", jksPasswdFile));
+                    System.exit(1);
+                }
+            }
 			FileWriter fileWriter = new FileWriter(configFile);
 			fileWriter.write(dzConfig.toString());
 			fileWriter.flush();
-			fileWriter.close();		
+			fileWriter.close();
 	    } catch (JSONException | FileNotFoundException e) {
-	    	errorLogger.error(String.format("JSONException | FileNotFoundException while processing default config file: %s; execption: %s", 
+	    	errorLogger.error(String.format("JSONException | FileNotFoundException while processing default config file: %s; execption: %s",
 	    			defaultConfigFile, e));
 			System.exit(1);
 		} catch ( Exception e ) {
-			errorLogger.error(String.format("Exception while processing default config file: %s; execption: %s", 
+			errorLogger.error(String.format("Exception while processing default config file: %s; execption: %s",
 					defaultConfigFile, e));
 			System.exit(1);
 		}
     }
-    
+
+    private static boolean isProductionModeActivated() {
+        return System.getProperty("devMode","false").equals("false");
+    }
+
     public static String getFileContents (String filename) {
 		File f = new File(filename);
 		try {
@@ -262,7 +268,7 @@ public class InventoryApplication extends Application<InventoryConfiguration> {
 			errorLogger.error(String.format("FileNotFoundException for filename: %s; execption: %s", filename, e));
 			System.exit(1);
 		} catch (IOException e) {
-			errorLogger.error(String.format("IOException for filename: %s; execption: %s", filename, e));	
+			errorLogger.error(String.format("IOException for filename: %s; execption: %s", filename, e));
 			System.exit(1);
 		}
 		return null;

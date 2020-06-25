@@ -3,6 +3,7 @@
  * dcae-inventory
  * ================================================================================
  * Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +28,11 @@ import io.dropwizard.jetty.setup.ServletEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.manipulation.Filter;
 import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -41,8 +41,6 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -51,6 +49,7 @@ import static org.mockito.Mockito.when;
  * Created by mhwang on 3/14/19.
  */
 @PrepareForTest({InventoryDAOManager.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 @RunWith(PowerMockRunner.class)
 public class InventoryApplicationTest {
 

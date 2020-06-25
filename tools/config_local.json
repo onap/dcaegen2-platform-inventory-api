@@ -1,0 +1,76 @@
+{
+  "database": {
+    "driverClass": "org.postgresql.Driver",
+    "user": "dcae_inv",
+    "password": "onapdemodb",
+    "url": "jdbc:postgresql://10.183.35.177:32185/dcae_inventory",
+    "properties": {
+      "charSet": "UTF-8"
+    },
+    "maxWaitForConnection": "1s",
+    "validationQuery": "/* MyService Health Check */ SELECT 1",
+    "minSize": 10,
+    "maxSize": 20,
+    "initialSize": 10,
+    "checkConnectionWhileIdle": false,
+    "evictionInterval": "10s",
+    "minIdleTime": "1 minute"
+  },
+  "databusControllerConnection": {
+    "host": "databus-controller-hostname",
+    "port": 8443,
+    "mechId": null,
+    "password": null,
+    "required": false
+  },
+  "httpClient": {
+    "minThreads": 1,
+    "maxThreads": 128,
+    "gzipEnabled": false,
+    "gzipEnabledForRequests": false,
+    "timeout": "5000milliseconds",
+    "connectionTimeout": "5000milliseconds"
+  },
+  "server": {
+    "applicationConnectors": [
+      {
+        "type": "http",
+        "port": 9080
+      }
+    ],
+    "adminConnectors": [
+      {
+        "type": "http",
+        "port": 9081
+      }
+    ],
+    "requestLog": {
+      "appenders": [
+        {
+          "type": "file",
+          "currentLogFilename": "logs/request.log",
+          "threshold": "ALL",
+          "archive": true,
+          "archivedLogFilenamePattern": "logs/request.%i.log.gz",
+          "archivedFileCount": 2,
+          "maxFileSize": "10MB"
+        }
+      ]
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "appenders": [
+      {
+        "type": "file",
+        "archive": true,
+        "timeZone": "UTC",
+        "currentLogFilename": "logs/audit.log",
+        "archivedLogFilenamePattern": "logs/audit-%i.log.gz",
+        "archivedFileCount": 2,
+        "maxFileSize": "100MB",
+        "logFormat": "%d{yyyy-MM-dd'T'HH:mm:ss.SSS+00:00}|%d{yyyy-MM-dd'T'HH:mm:ss.SSS+00:00}|NULL|UNKNOWN|%thread||inventory||COMPLETE|0|OK||INFO|||||||||||||%-5level:%c: %m%n"
+      }
+    ]
+  }
+}

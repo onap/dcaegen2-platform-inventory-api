@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
+## [3.5.0]
+
+* Upgrade java from 8 to 11
+
 ## [3.4.0]
 
 * Add non-root user in Docker image so that the inventory service can be run in non-privileged mode for security reasons DCAEGEN2-1554
