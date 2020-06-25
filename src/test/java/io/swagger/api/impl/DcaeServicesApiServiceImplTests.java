@@ -3,6 +3,7 @@ package io.swagger.api.impl;/*-
  * dcae-inventory
  * ================================================================================
  * Copyright (C) 2017-2018 AT&T Intellectual Property. All rights reserved.
+ * Copyright (c) 2020 Nokia. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +44,7 @@ import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceComponentObject;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
@@ -57,6 +59,7 @@ import io.swagger.model.DCAEServiceRequest;
  * Created by mhwang on 9/25/17.
  */
 @PrepareForTest({InventoryDAOManager.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 @RunWith(PowerMockRunner.class)
 public class DcaeServicesApiServiceImplTests {
 
@@ -88,7 +91,7 @@ public class DcaeServicesApiServiceImplTests {
 
         // This block is a trick to make a private method accessible for testing
         try {
-            createDCAEService = DcaeServicesApiServiceImpl.class.getDeclaredMethod("createDCAEService", 
+            createDCAEService = DcaeServicesApiServiceImpl.class.getDeclaredMethod("createDCAEService",
 		    DCAEServiceObject.class, Collection.class, UriInfo.class);
             createDCAEService.setAccessible(true);
         } catch (NoSuchMethodException e) {
@@ -137,7 +140,7 @@ public class DcaeServicesApiServiceImplTests {
     }
 
     /*
-    Commented this unit test because could not get past Nullpointer in the line trying to mock the explicit "bind" 
+    Commented this unit test because could not get past Nullpointer in the line trying to mock the explicit "bind"
     function call. Mockito does not handle mocking overloaded functions well so it goes into the actual method where
     an member variable called foreman is null.
     @Test
