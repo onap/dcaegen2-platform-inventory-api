@@ -40,6 +40,7 @@ import org.onap.dcae.inventory.daos.DCAEServicesDAO;
 import org.onap.dcae.inventory.daos.InventoryDAOManager;
 import org.onap.dcae.inventory.dbthings.models.DCAEServiceObject;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.skife.jdbi.v2.DBI;
@@ -64,6 +65,7 @@ import io.swagger.model.DCAEServiceRequest;
  * test here was not included in the original class because of conflicting setup operations.
  */
 @PrepareForTest({InventoryDAOManager.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 @RunWith(PowerMockRunner.class)
 public class DcaeServicesApiServiceImplH2Tests {
 
