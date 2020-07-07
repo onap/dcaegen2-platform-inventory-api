@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '3.5.0'
+project: 'dcaegen2/platform/inventory-api'
+log_dir: 'dcaegen2-platform-inventory-api-maven-docker-stage-master/364'
+ref: 193ab871ab8bb06e58946432562faa6cd02293c4
+containers:
+    - name: 'org.onap.dcaegen2.platform.inventory-api'
+      version: '3.5.0-20200706T111228ZZ'
