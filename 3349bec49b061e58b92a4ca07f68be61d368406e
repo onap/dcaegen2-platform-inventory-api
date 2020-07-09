@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfd3e34f_a7acee28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-07-09T12:52:28Z",
+      "side": 1,
+      "message": "release 3.5.0 Inventory container",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "3349bec49b061e58b92a4ca07f68be61d368406e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a5c758_213e67cd",
+        "filename": "releases/3.5.0-container.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-07-09T12:52:28Z",
+      "side": 1,
+      "message": "This is pointing to wrong commit; should be dfc831bbb63ca3f42dc78135bfcca66b07cd5db2",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 45
+      },
+      "revId": "3349bec49b061e58b92a4ca07f68be61d368406e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
