@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9eed1035_70703f4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-09T13:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfd3e34f_a7acee28",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "3349bec49b061e58b92a4ca07f68be61d368406e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95a5c758_213e67cd",
         "filename": "releases/3.5.0-container.yaml",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3349bec49b061e58b92a4ca07f68be61d368406e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b50900f5_635cbcc6",
+        "filename": "releases/3.5.0-container.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2020-07-09T13:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95a5c758_213e67cd",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 45
+      },
+      "revId": "3349bec49b061e58b92a4ca07f68be61d368406e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
