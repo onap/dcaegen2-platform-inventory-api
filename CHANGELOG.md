@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
+## [3.5.1]
+
+* Add dependency to javax.activation.activation library
+* Fix application access to log files 
+
 ## [3.5.0]
 
 * Upgrade java from 8 to 11

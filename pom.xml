@@ -30,7 +30,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
     <groupId>org.onap.dcaegen2.platform</groupId>
     <artifactId>inventory-api</artifactId>
-    <version>3.5.0-SNAPSHOT</version>
+    <version>3.5.1-SNAPSHOT</version>
     <name>dcaegen2-platform-inventory-api</name>
     <!--internal <version>3.0.0</version>-->
 
@@ -49,6 +49,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         <releases.path>content/repositories/releases/</releases.path>
         <site.path>content/sites/site/org/onap/dcae/dcae-inventory/${project.artifactId}/${project.version}/</site.path>
         <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <activation.version>1.1.1</activation.version>
     </properties>
 
     <pluginRepositories>
@@ -214,6 +215,11 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             <version>2.3.0</version>
         </dependency>
         <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>${activation.version}</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
@@ -362,7 +368,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                     <dependency>
                         <groupId>javax.activation</groupId>
                         <artifactId>activation</artifactId>
-                        <version>1.1.1</version>
+                        <version>${activation.version}</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -372,6 +378,9 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                     <runs>
                         <run>useradd -r -U inventory</run>
                         <run>mkdir -p /opt/logs</run>
+                        <run>touch /opt/logs/metrics.log</run>
+                        <run>touch /opt/logs/debug.log</run>
+                        <run>touch /opt/logs/error.log</run>
                         <run>chown -R inventory:inventory /opt</run>
                     </runs>
                     <entryPoint>["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-jar", "/opt/${project.build.finalName}.jar", "server"]</entryPoint>
