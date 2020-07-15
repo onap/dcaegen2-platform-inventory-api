@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Damian Nowak <damian.nowak@nokia.com>
+Code-Review+1: Bartosz Gardziejewski <bartosz.gardziejewski@nokia.com>
+Code-Review+1: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Code-Review+1: Shadi Haidar <sh1986@att.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Wed, 15 Jul 2020 20:40:47 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/inventory-api/+/110184
+Project: dcaegen2/platform/inventory-api
+Branch: refs/heads/master
