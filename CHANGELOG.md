@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The version in the brackets represents the version of DCAE inventory and not the ONAP DCAE version.
 
+## [3.5.2]
+* Upgrade libraries:
+    - jetty-util
+    - dropwizard
+    - hibernate
+    - postgresql
+
 ## [3.5.1]
 
 * Add dependency to javax.activation.activation library
