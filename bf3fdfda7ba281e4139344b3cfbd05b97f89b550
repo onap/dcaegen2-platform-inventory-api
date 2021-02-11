@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "386402e6_09673dd2",
+        "filename": "Makefile",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-02-11T09:53:01Z",
+      "side": 1,
+      "message": "kubectl",
+      "range": {
+        "startLine": 13,
+        "startChar": 59,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "bf3fdfda7ba281e4139344b3cfbd05b97f89b550",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3098ee60_ef4482e5",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-02-11T09:53:01Z",
+      "side": 1,
+      "message": "Does it need separate its own version?",
+      "range": {
+        "startLine": 93,
+        "startChar": 21,
+        "endLine": 93,
+        "endChar": 27
+      },
+      "revId": "bf3fdfda7ba281e4139344b3cfbd05b97f89b550",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
