@@ -19,7 +19,8 @@ limitations under the License.
 
 ECOMP is a trademark and service mark of AT&T Intellectual Property.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -35,7 +36,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
     <!--internal <version>3.0.0</version>-->
 
     <properties>
-        <dropwizard.version>1.3.11</dropwizard.version>
+        <dropwizard.version>1.3.29</dropwizard.version>
         <logback.version>1.2.3</logback.version>
         <swagger-core.version>1.5.8</swagger-core.version>
         <guava.version>28.2-jre</guava.version>
@@ -48,7 +49,8 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         <snapshots.path>content/repositories/snapshots/</snapshots.path>
         <releases.path>content/repositories/releases/</releases.path>
         <site.path>content/sites/site/org/onap/dcae/dcae-inventory/${project.artifactId}/${project.version}/</site.path>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
         <activation.version>1.1.1</activation.version>
     </properties>
 
@@ -70,6 +72,11 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
     <dependencies>
         <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.27.0-GA</version>
+        </dependency>
+        <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>${dropwizard.version}</version>
@@ -78,34 +85,12 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-util</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-http</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-server</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
-   <dependency>
-       <groupId>org.eclipse.jetty</groupId>
-       <artifactId>jetty-server</artifactId>
-       <version>9.4.12.v20180830</version>
-   </dependency>
-   <dependency>
-       <groupId>org.eclipse.jetty</groupId>
-       <artifactId>jetty-http</artifactId>
-       <version>9.4.12.v20180830</version>
-   </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-jdbi</artifactId>
-            <version>${dropwizard.version}</version>
+            <version>1.3.29</version>
         </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
@@ -122,7 +107,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.3.6.Final</version>
+            <version>5.4.3.Final</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -137,7 +122,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
+            <version>42.2.18</version>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
@@ -202,7 +187,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-			<version>${guava.version}</version>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
@@ -226,10 +211,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             <scope>test</scope>
         </dependency>
         <dependency>
-    		<groupId>org.json</groupId>
-    		<artifactId>json</artifactId>
-    		<version>20131018</version>
-		</dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20131018</version>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
@@ -265,7 +250,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             <artifactId>h2</artifactId>
             <version>1.4.197</version>
             <scope>test</scope>
-      </dependency>
+        </dependency>
     </dependencies>
 
     <build>
@@ -349,9 +334,11 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                                 http://stackoverflow.com/questions/27543060/why-does-dropwizard-configuration-is-not-working
                                 Some more context here:
                                 https://github.com/dropwizard/dropwizard/issues/455 -->
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <!-- add Main-Class to manifest file -->
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.onap.dcae.inventory.InventoryApplication</mainClass>
                                 </transformer>
                             </transformers>
@@ -372,7 +359,8 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <imageName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}</imageName>
+                    <imageName>${onap.nexus.dockerregistry.daily}/onap/${project.groupId}.${project.artifactId}
+                    </imageName>
                     <baseImage>openjdk:11-jre-slim</baseImage>
                     <user>inventory</user>
                     <runs>
@@ -383,7 +371,9 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
                         <run>touch /opt/logs/error.log</run>
                         <run>chown -R inventory:inventory /opt</run>
                     </runs>
-                    <entryPoint>["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-jar", "/opt/${project.build.finalName}.jar", "server"]</entryPoint>
+                    <entryPoint>["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-jar",
+                        "/opt/${project.build.finalName}.jar", "server"]
+                    </entryPoint>
                     <resources>
                         <resource>
                             <targetPath>/opt</targetPath>
