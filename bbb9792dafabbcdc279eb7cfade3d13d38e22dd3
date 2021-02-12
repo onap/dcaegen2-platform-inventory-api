@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af4f115_31f1b791",
+        "filename": "Makefile",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-02-12T10:11:19Z",
+      "side": 1,
+      "message": "I think it should not be absolute path",
+      "range": {
+        "startLine": 19,
+        "startChar": 119,
+        "endLine": 19,
+        "endChar": 184
+      },
+      "revId": "bbb9792dafabbcdc279eb7cfade3d13d38e22dd3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
