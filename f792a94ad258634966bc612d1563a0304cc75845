@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cea52fb_3d53eb80",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-02-15T08:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8975ca8a_11946a03",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "f792a94ad258634966bc612d1563a0304cc75845",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6eb30dee_0c378376",
         "filename": "pom.xml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-13T01:00:32Z",
       "side": 1,
       "message": "seccom recommended 6.1.6.Final, I suppose this has dependency on dropwizard. If this involves significant refactoring, can file an exception",
+      "range": {
+        "startLine": 110,
+        "startChar": 21,
+        "endLine": 110,
+        "endChar": 32
+      },
+      "revId": "f792a94ad258634966bc612d1563a0304cc75845",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59a0cd29_9b8e07a1",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-02-15T08:49:02Z",
+      "side": 1,
+      "message": "Yes, it has dependency on dropwizard and it is impossible to bump hibernate version without significant refactoring.",
+      "parentUuid": "6eb30dee_0c378376",
       "range": {
         "startLine": 110,
         "startChar": 21,
